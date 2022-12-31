@@ -10,7 +10,7 @@ const HButton = (props: CustomButtonProps) => {
     <Grid container className='ButtonContainer'>
       <Button {...props} />)
     </Grid>
-
+  )
 }
 
 export default HButton
