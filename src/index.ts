@@ -3,4 +3,5 @@ import 'primereact/resources/primereact.min.css'
 import 'primereact/resources/themes/lara-light-indigo/theme.css'
 import MyCounter from './components/MyCounter'
 
+export { Button } from './components/Button/Button'
 export { MyCounter }
