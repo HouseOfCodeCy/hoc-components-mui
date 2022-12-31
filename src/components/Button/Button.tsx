@@ -7,7 +7,7 @@ export interface CustomButtonProps extends IElementProps, MUIButtonProps {}
 const HButton = (props: CustomButtonProps) => {
   return (
     <Grid container className='ButtonContainer'>
-      <Button {...props} />)
+      <Button {...props} />
     </Grid>
   )
 }
