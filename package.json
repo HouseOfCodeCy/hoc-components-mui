@@ -1,6 +1,6 @@
 {
   "name": "hoc-core-components",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "hoc-core-components",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",

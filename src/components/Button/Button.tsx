@@ -1,9 +1,8 @@
 import { Button, ButtonProps as MUIButtonProps, Grid } from '@mui/material'
 import React from 'react'
-import './Button.css'
-import { ButtonProps } from './Button.types'
+import { IElementProps } from '../../interfaces/common'
 
-export interface CustomButtonProps extends ButtonProps, MUIButtonProps {}
+export interface CustomButtonProps extends IElementProps, MUIButtonProps {}
 
 const HButton = (props: CustomButtonProps) => {
   return (
