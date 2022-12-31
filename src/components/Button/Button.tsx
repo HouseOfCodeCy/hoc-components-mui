@@ -1,12 +1,11 @@
-import { Button as PrimeButton, ButtonProps as PrimeButtonProps } from 'primereact/button'
+import { Button, ButtonProps as MUIButtonProps } from '@mui/material'
 import React from 'react'
 import { ButtonProps } from './Button.types'
-export interface CustomButtonProps extends PrimeButtonProps, ButtonProps {}
 
-export const Button = (props: PrimeButtonProps) => {
-  const CustomButton = () => {
-    return <PrimeButton icon='pi pi-check' iconPos='right' {...props} />
-  }
+export interface CustomButtonProps extends ButtonProps, MUIButtonProps {}
 
-  return <CustomButton />
+const HButton = (props: CustomButtonProps) => {
+  return <Button {...props} />
 }
+
+export default HButton
