@@ -1,0 +1,11 @@
+.mini-card{
+}
+.shopping-cart-footer{
+}
+.cart-button{
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  margin-bottom: 5px;
+}
