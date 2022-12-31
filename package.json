@@ -1,6 +1,6 @@
 {
   "name": "hoc-core-components",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "hoc-core-components",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
@@ -46,8 +46,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.11.2",
-    "primeicons": "^6.0.1",
-    "primereact": "^8.7.3"
+    "@mui/material": "^5.11.2"
   }
 }
