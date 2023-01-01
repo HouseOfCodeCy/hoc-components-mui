@@ -5,9 +5,10 @@ import { IElementProps } from '../../interfaces/common'
 export interface CustomButtonProps extends IElementProps, MUIButtonProps {}
 
 const HButton = (props: CustomButtonProps) => {
+  const { label } = props
   return (
     <Grid container className='ButtonContainer'>
-      <Button {...props} />
+      <Button {...props}>{label}</Button>
     </Grid>
   )
 }
