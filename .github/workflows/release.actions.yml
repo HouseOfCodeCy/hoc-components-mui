@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+name: Main
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  create:
+    tags:
+      - v*
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout repo...
+        uses: actions/checkout@v2
+      # Runs a single command using the runners shell
+      - name: Setup Node worker...
+        uses: actions/setup-node@v1
+        with:
+          node-version: 16.16.0
+      - name: Installing dependencies...
+        run: yarn
+      - name: Run Linting...
+        run: yarn prepublishOnly
+      # - name: Running tests...
+      #   run: npm test
+      - name: Build
+        run: yarn build
+      - name: Automated Version Bump...
+        uses: cmario92/gh-action-bump-version@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          commit-message: "CI: Bumps Version to {{version}}"
+          minor-wording: "add,Adds,new,do,DO,Do"
+          major-wording: "MAJOR,BREAKING"
+          patch-wording: "patch,fixes,fix,fixing"
+          rc-wording: ""
+          default: prerelease
+          preid: "prc"
+          skip-tag: "true"
+      # Publish to NPM Registry
+      - name: Publish to Registry
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
