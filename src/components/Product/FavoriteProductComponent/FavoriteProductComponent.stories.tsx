@@ -17,6 +17,7 @@ export const Primary = Template.bind({})
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   product: {
+    id: '1',
     name: 'Test',
     description: 'AOsdkaoskd',
     price: 29.99,
