@@ -1,0 +1,44 @@
+{
+    "[typescriptreact]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.organizeImports": true
+    },
+    "eslint.validate": [
+        "typescript",
+        "typescriptreact"
+    ],
+    "eslint.probe": [
+        "javascript",
+        "typescript"
+    ],
+    "eslint.format.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "eslint.lintTask.enable": true,
+    "eslint.run": "onType",
+    "editor.formatOnSave": true,
+    "githubIssues.issueCompletionFormatScm": "${issueNumberLabel} - ",
+    "githubIssues.queries": [
+        {
+            "label": "My Open Issues",
+            "query": "state:open repo:HouseOfCodeCy/${repository} assignee:@me"
+        },
+        {
+            "label": "My Open Bugs",
+            "query": "state:open repo:HouseOfCodeCy/${repository} label:@type/defect🐞 assignee:@me"
+        },
+        {
+            "label": "All Open Issues",
+            "query": "state:open repo:HouseOfCodeCy/${repository}"
+        },
+        {
+            "label": "All Open Bugs",
+            "query": "state:open repo:HouseOfCodeCy/${repository} label:@type/defect🐞"
+        }
+    ],
+}

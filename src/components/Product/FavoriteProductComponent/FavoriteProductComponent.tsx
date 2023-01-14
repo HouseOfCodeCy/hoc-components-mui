@@ -1,0 +1,29 @@
+import { IProduct } from '@houseofcodecy/hoc-utils'
+import { Card, CardContent, CardMedia, CardProps, Typography } from '@mui/material'
+import React from 'react'
+import { IElementProps } from '../../../interfaces/common'
+
+interface CustomProps {
+  product: IProduct
+}
+
+export interface CustomProductFavoriteProps extends IElementProps, CardProps, CustomProps {}
+
+const FavoriteProductComponent = (props: CustomProductFavoriteProps) => {
+  const { product } = props
+  return (
+    <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
+      <CardMedia sx={{ flexBasis: ' 5rem' }} image={product?.attributes?.mediaUrl} title={product?.attributes?.name} />
+      <CardContent sx={{ w: 1 }}>
+        <Typography gutterBottom variant='body2' component='div'>
+          {product?.attributes?.name}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
+          {product?.attributes?.product_sub_categories?.data[0].attributes.name}
+        </Typography>
+      </CardContent>
+    </Card>
+  )
+}
+
+export default FavoriteProductComponent

@@ -1,5 +1,5 @@
 import HButton from './components/Button/Button'
-import MyCounter from './components/MyCounter'
+import FavoriteProductComponent from './components/Product/FavoriteProductComponent/FavoriteProductComponent'
 
-export { MyCounter }
+export { FavoriteProductComponent }
 export { HButton }
