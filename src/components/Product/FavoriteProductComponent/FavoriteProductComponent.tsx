@@ -1,10 +1,10 @@
-import { IProductBody } from '@houseofcodecy/hoc-utils'
+import { IProductFlat } from '@houseofcodecy/hoc-utils'
 import { Card, CardContent, CardMedia, CardProps, Typography } from '@mui/material'
 import React from 'react'
 import { IElementProps } from '../../../interfaces/common'
 
 interface CustomProps {
-  product: IProductBody
+  product: IProductFlat
 }
 
 export interface CustomProductFavoriteProps extends IElementProps, CardProps, CustomProps {}

@@ -60,6 +60,6 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@mui/material": "^5.11.2",
-    "@houseofcodecy/hoc-utils": "2.6.0"
+    "@houseofcodecy/hoc-utils": "2.7.0"
   }
 }
