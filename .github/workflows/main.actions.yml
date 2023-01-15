@@ -51,3 +51,11 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN_PACKAGES }}
+      # Trigger Upstream Repos (hoc-components-*)
+      - name: Repository Dispatch
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.UPSTREAM_ACTION }}
+          repository: houseofcodecy/e-commerce-ui
+          event-type: trigger-from-hoc-components
+          client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
