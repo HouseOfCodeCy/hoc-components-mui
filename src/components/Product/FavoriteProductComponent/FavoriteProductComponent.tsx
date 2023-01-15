@@ -19,6 +19,9 @@ const FavoriteProductComponent = (props: CustomProductFavoriteProps) => {
           {product?.name}
         </Typography>
         <Typography variant='body2' color='text.secondary'>
+          {product?.price}
+        </Typography>
+        <Typography variant='body2' color='text.secondary'>
           {product?.product_sub_categories?.data[0].attributes.name}
         </Typography>
       </CardContent>
