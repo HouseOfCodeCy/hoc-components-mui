@@ -21,9 +21,6 @@
     "prepare": "npm run build",
     "prepublishOnly": "npm run prettier && npm run lint"
   },
-  "watch": {
-    "test": "{src}/*.js"
-  },
   "keywords": [],
   "author": "HoC",
   "license": "MIT",
