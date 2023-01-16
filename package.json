@@ -12,12 +12,17 @@
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
     "build": "yarn build:esm && yarn build:cjs",
+    "build-watch": "yarn build:esm --watch && yarn build:cjs --watch",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
+    "link-components": "yarn build && yarn link && cp package.json ./dist",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "prepare": "npm run build",
     "prepublishOnly": "npm run prettier && npm run lint"
+  },
+  "watch": {
+    "test": "{src}/*.js"
   },
   "keywords": [],
   "author": "HoC",
@@ -59,7 +64,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/material": "^5.11.2",
-    "@houseofcodecy/hoc-utils": "2.7.0"
+    "@houseofcodecy/hoc-utils": "2.7.0",
+    "@mui/material": "^5.11.2"
   }
 }

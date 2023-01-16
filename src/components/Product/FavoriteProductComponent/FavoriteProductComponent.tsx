@@ -10,6 +10,7 @@ interface CustomProps {
 export interface CustomProductFavoriteProps extends IElementProps, CardProps, CustomProps {}
 
 const FavoriteProductComponent = (props: CustomProductFavoriteProps) => {
+  // test
   const { product } = props
   return (
     <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
@@ -20,9 +21,6 @@ const FavoriteProductComponent = (props: CustomProductFavoriteProps) => {
         </Typography>
         <Typography variant='body2' color='text.secondary'>
           {product?.price}
-        </Typography>
-        <Typography variant='body2' color='text.secondary'>
-          {product?.product_sub_categories?.data[0].attributes.name}
         </Typography>
       </CardContent>
     </Card>
