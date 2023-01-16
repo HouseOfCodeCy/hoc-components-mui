@@ -15,7 +15,7 @@
     "build-watch": "yarn build:esm --watch && yarn build:cjs --watch",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "link-dev": "yarn build && yarn link && cp package.json ./dist",
+    "link-dev": "yarn build && yarn link && cp package.json ./dist && yarn run build-watch",
     "lint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
     "prepare": "npm run build",
