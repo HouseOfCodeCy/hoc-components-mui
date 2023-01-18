@@ -1,4 +1,4 @@
-import { IProduct, IProductFlat, ProductUtils } from '@houseofcodecy/hoc-utils'
+import { IProduct, IUserFlat, ProductUtils } from '@houseofcodecy/hoc-utils'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -9,10 +9,17 @@ import React from 'react'
 
 interface CustomProps {
   product: IProduct
-  favoriteProducts?: IProductFlat[] | undefined
+  user: IUserFlat | undefined | null
+  addUser: (user: IUserFlat) => void
 }
 
-const ProductItem = ({ product, favoriteProducts }: CustomProps) => {
+const ProductItem = ({ product, user, addUser }: CustomProps) => {
+  const updateUserFavorites = async () => {
+    if (user) {
+      const userResponse: any = await ProductUtils.addProductToFavorites(product, user, addUser)
+    }
+  }
+
   return (
     <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
       <CardMedia
@@ -34,8 +41,8 @@ const ProductItem = ({ product, favoriteProducts }: CustomProps) => {
           <IconButton aria-label='addToCart' size='large'>
             <AddShoppingCartIcon sx={{ color: orange[900] }} />
           </IconButton>
-          <IconButton aria-label='favorite' size='large'>
-            {favoriteProducts && ProductUtils.isProductFavorite(favoriteProducts, product) ? (
+          <IconButton aria-label='favorite' size='large' onClick={() => updateUserFavorites()}>
+            {user && user.favorite_products && ProductUtils.isProductFavorite(user.favorite_products, product) ? (
               <FavoriteIcon sx={{ color: red[600] }} />
             ) : (
               <FavoriteBorderIcon sx={{ color: grey[700] }} />
