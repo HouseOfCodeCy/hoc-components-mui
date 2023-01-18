@@ -16,7 +16,7 @@ interface CustomProps {
 const ProductItem = ({ product, user, addUser }: CustomProps) => {
   const updateUserFavorites = async () => {
     if (user) {
-      const userResponse: any = await ProductUtils.addProductToFavorites(product, user, addUser)
+      await ProductUtils.addProductToFavorites(product, user, addUser)
     }
   }
 
