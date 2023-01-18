@@ -12,7 +12,7 @@ interface CustomProps {
 
 const ProductItem = ({ product }: CustomProps) => {
   return (
-    <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start', maxWidth: 345 }}>
+    <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
       <CardMedia
         component='img'
         sx={{ objectFit: 'contain', minHeight: 160, maxHeight: 160, maxWidth: 140, minWidth: 140 }}
