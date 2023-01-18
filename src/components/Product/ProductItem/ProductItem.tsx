@@ -1,16 +1,18 @@
-import { IProduct } from '@houseofcodecy/hoc-utils'
+import { IProduct, IProductFlat, ProductUtils } from '@houseofcodecy/hoc-utils'
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart'
 import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 import { Box, Card, CardContent, CardMedia, IconButton, Typography } from '@mui/material'
-import { grey, orange } from '@mui/material/colors'
+import { grey, orange, red } from '@mui/material/colors'
 
 import React from 'react'
 
 interface CustomProps {
   product: IProduct
+  favoriteProducts?: IProductFlat[] | undefined
 }
 
-const ProductItem = ({ product }: CustomProps) => {
+const ProductItem = ({ product, favoriteProducts }: CustomProps) => {
   return (
     <Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
       <CardMedia
@@ -33,7 +35,11 @@ const ProductItem = ({ product }: CustomProps) => {
             <AddShoppingCartIcon sx={{ color: orange[900] }} />
           </IconButton>
           <IconButton aria-label='favorite' size='large'>
-            <FavoriteIcon sx={{ color: grey[900] }} />
+            {favoriteProducts && ProductUtils.isProductFavorite(favoriteProducts, product) ? (
+              <FavoriteIcon sx={{ color: red[600] }} />
+            ) : (
+              <FavoriteBorderIcon sx={{ color: grey[700] }} />
+            )}
           </IconButton>
         </Box>
       </Box>
