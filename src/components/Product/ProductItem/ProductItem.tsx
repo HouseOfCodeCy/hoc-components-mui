@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { grey, orange, red } from '@mui/material/colors';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface CustomProps {
 	product: IProduct;
@@ -36,12 +36,26 @@ const ProductItem = ({
 	cart,
 	updateCart,
 }: CustomProps) => {
+	const [isProductFavorite, setIsProductFavorite] = useState(false);
+
+	useEffect(() => {
+		if (user && user.favorite_products)
+			setIsProductFavorite(
+				ProductUtils.isProductFavorite(user.favorite_products, product)
+			);
+	}, []);
+
 	/**
-	 * Add/Remove a product from user favorites
+	 * Add/Remove a product from user favorites from utils
 	 */
 	const updateUserFavorites = async () => {
 		if (user) {
-			await ProductUtils.addProductToFavorites(product, user, addUser);
+			await ProductUtils.addProductToFavorites(
+				product,
+				user,
+				addUser,
+				isProductFavorite
+			);
 		}
 	};
 
@@ -96,9 +110,7 @@ const ProductItem = ({
 						aria-label='favorite'
 						size='large'
 						onClick={() => updateUserFavorites()}>
-						{user &&
-						user.favorite_products &&
-						ProductUtils.isProductFavorite(user.favorite_products, product) ? (
+						{isProductFavorite ? (
 							<FavoriteIcon sx={{ color: red[600] }} />
 						) : (
 							<FavoriteBorderIcon sx={{ color: grey[700] }} />
