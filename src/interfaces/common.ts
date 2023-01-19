@@ -1,4 +1,4 @@
 export interface IElementProps {
-  elementId: string
-  label: string
+	elementId: string;
+	label: string;
 }

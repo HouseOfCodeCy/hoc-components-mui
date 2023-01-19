@@ -1,9 +1,9 @@
-import HButton from './components/Button/Button'
-import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem'
-import ProductItem from './components/Product/ProductItem/ProductItem'
-import ReviewsItem from './components/Product/Reviews/ReviewsItem'
+import HButton from './components/Button/Button';
+import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem';
+import ProductItem from './components/Product/ProductItem/ProductItem';
+import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 
-export { FavoriteProductItem }
-export { HButton }
-export { ReviewsItem }
-export { ProductItem }
+export { FavoriteProductItem };
+export { HButton };
+export { ReviewsItem };
+export { ProductItem };

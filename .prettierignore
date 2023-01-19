@@ -1,0 +1,33 @@
+# Ignore artifacts:
+build
+coverage
+
+# Ignore folders
+.next
+.vercel
+.node_modules
+.vscode
+.github
+public
+.idea
+.env*
+.gitignore
+.yarnrc
+.npmrc
+yarn-error.log
+yarn.lock
+package.json
+
+# Ignore all HTML files:
+*.html
+
+## file extensions
+!*.scss
+.prettierignore
+
+# Additional
+**/.git
+**/.svn
+**/.hg
+**/node_modules
+*.ttf
