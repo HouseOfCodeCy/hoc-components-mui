@@ -43,10 +43,10 @@ const ProductItem = ({
 			setIsProductFavorite(
 				ProductUtils.isProductFavorite(user.favorite_products, product)
 			);
-	}, []);
+	}, [user]);
 
 	/**
-	 * Add/Remove a product from user favorites from utils
+	 * Add/Remove a product from user favorites from hoc-utils
 	 */
 	const updateUserFavorites = async () => {
 		if (user) {
@@ -54,7 +54,7 @@ const ProductItem = ({
 				product,
 				user,
 				addUser,
-				isProductFavorite
+				!isProductFavorite
 			);
 		}
 	};
