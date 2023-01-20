@@ -1,3 +1,4 @@
+import AddressList from './components/Account/Address/AddressList/AddressList';
 import AddressSelection from './components/Account/Address/AddressSelection/AddressSelection';
 import HButton from './components/Button/Button';
 import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem';
@@ -9,3 +10,4 @@ export { HButton };
 export { ReviewsItem };
 export { ProductItem };
 export { AddressSelection };
+export { AddressList };

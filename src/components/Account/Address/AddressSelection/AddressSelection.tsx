@@ -24,6 +24,7 @@ interface Props {
 	isCheckout?: boolean;
 	shippingAddress: IAddress | null;
 	updateShippingAddress: (address: IAddress) => void;
+	actionLabel?: string;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -40,6 +41,7 @@ const AddressSelection = ({
 	isCheckout,
 	shippingAddress,
 	updateShippingAddress,
+	actionLabel = 'Change Address',
 }: Props) => {
 	const [addresses, setAddresses] = useState<IAddress[]>();
 	const [selectedAddress, setSelectedAddress] = useState<IAddress | undefined>(
@@ -111,7 +113,7 @@ const AddressSelection = ({
 						</Grid>
 						<Grid item xs={12}>
 							<small>
-								{!isCheckout ? `Change Address` : `Shipping Address`}
+								{!isCheckout ? `${actionLabel}` : `Shipping Address`}
 							</small>
 						</Grid>
 					</Grid>

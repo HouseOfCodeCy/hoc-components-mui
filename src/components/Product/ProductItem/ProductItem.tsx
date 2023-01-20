@@ -27,6 +27,7 @@ interface CustomProps {
 	addUser: (user: IUserFlat) => void;
 	updateCart: (cart: ICartResponse) => void;
 	cart?: ICartResponse | null;
+	nextRouter: any;
 }
 
 const ProductItem = ({
@@ -35,6 +36,7 @@ const ProductItem = ({
 	addUser,
 	cart,
 	updateCart,
+	nextRouter,
 }: CustomProps) => {
 	const [isProductFavorite, setIsProductFavorite] = useState(false);
 
@@ -87,9 +89,16 @@ const ProductItem = ({
 				}}
 				image={product?.attributes.mediaUrl}
 				title={product?.attributes.name}
+				onClick={() => {
+					nextRouter.push(`/product/${product.id}`);
+				}}
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-				<CardContent sx={{ flex: '1 0 auto' }}>
+				<CardContent
+					sx={{ flex: '1 0 auto' }}
+					onClick={() => {
+						nextRouter.push(`/product/${product.id}`);
+					}}>
 					<Typography
 						component='div'
 						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
@@ -97,6 +106,9 @@ const ProductItem = ({
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
 						€{product?.attributes.price}
+					</Typography>
+					<Typography variant='subtitle2' color='text.secondary'>
+						Availability: {product?.attributes.stock}
 					</Typography>
 				</CardContent>
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
