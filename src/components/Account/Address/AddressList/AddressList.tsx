@@ -24,7 +24,7 @@ const AddressList = ({ addresses }: Props) => {
 					<ListItem sx={{ width: '100%' }} key={address.id}>
 						<ListItemButton>
 							<ListItemIcon sx={{ color: blue[700] }}>
-								<LocationCity />
+								<LocationCity sx={{ fontSize: '34px' }} />
 							</ListItemIcon>
 							<ListItemText
 								primary={address.name}
