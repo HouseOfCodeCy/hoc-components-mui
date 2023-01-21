@@ -86,6 +86,7 @@ const ProductItem = ({
 					maxHeight: 160,
 					maxWidth: 140,
 					minWidth: 140,
+					cursor: 'pointer',
 				}}
 				image={product?.attributes.mediaUrl}
 				title={product?.attributes.name}
@@ -95,7 +96,7 @@ const ProductItem = ({
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<CardContent
-					sx={{ flex: '1 0 auto' }}
+					sx={{ flex: '1 0 auto', cursor: 'pointer' }}
 					onClick={() => {
 						nextRouter.push(`/product/${product.id}`);
 					}}>
