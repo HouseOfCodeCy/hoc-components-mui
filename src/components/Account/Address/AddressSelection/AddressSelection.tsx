@@ -1,4 +1,4 @@
-import { IAddress, IUserFlat } from '@houseofcodecy/hoc-utils';
+import { IAddressFlat, IUserFlat } from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -22,8 +22,8 @@ import React, { useEffect, useState } from 'react';
 interface Props {
 	user: IUserFlat;
 	isCheckout?: boolean;
-	shippingAddress: IAddress | null;
-	updateShippingAddress: (address: IAddress) => void;
+	shippingAddress: IAddressFlat | null;
+	updateShippingAddress: (address: IAddressFlat) => void;
 	actionLabel?: string;
 }
 
@@ -43,10 +43,10 @@ const AddressSelection = ({
 	updateShippingAddress,
 	actionLabel = 'Change Address',
 }: Props) => {
-	const [addresses, setAddresses] = useState<IAddress[]>();
-	const [selectedAddress, setSelectedAddress] = useState<IAddress | undefined>(
-		undefined
-	);
+	const [addresses, setAddresses] = useState<IAddressFlat[]>();
+	const [selectedAddress, setSelectedAddress] = useState<
+		IAddressFlat | undefined
+	>(undefined);
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 
 	const handleClickOpen = () => {

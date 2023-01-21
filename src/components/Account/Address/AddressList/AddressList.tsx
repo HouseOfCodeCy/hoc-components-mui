@@ -1,4 +1,4 @@
-import { AccountUtils, IAddress } from '@houseofcodecy/hoc-utils';
+import { AccountUtils, IAddressFlat } from '@houseofcodecy/hoc-utils';
 import { LocationCity } from '@mui/icons-material';
 import {
 	Chip,
@@ -13,7 +13,7 @@ import { blue } from '@mui/material/colors';
 import React from 'react';
 
 interface Props {
-	addresses: IAddress[];
+	addresses: IAddressFlat[];
 }
 
 const AddressList = ({ addresses }: Props) => {
