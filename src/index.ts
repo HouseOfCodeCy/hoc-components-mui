@@ -7,6 +7,8 @@ import PaymentMethod from './components/Payment/PaymentMethod/PaymentMethod';
 import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem';
 import OrderItem from './components/Product/OrderItem/OrderItem';
 import ProductItem from './components/Product/ProductItem/ProductItem';
+import ReviewComponent from './components/Product/Reviews/ReviewComponent';
+import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 
 export { FavoriteProductItem };
@@ -19,3 +21,5 @@ export { PaymentMethod };
 export { FullScreenDialog };
 export { OrderItem };
 export { CardRow };
+export { ReviewComponent };
+export { ReviewRating };
