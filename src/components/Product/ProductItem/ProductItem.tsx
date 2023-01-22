@@ -62,7 +62,7 @@ const ProductItem = ({
 	};
 
 	const addProductToCard = () => {
-		if (product && user) {
+		if (user) {
 			if (cart) {
 				CartUtils.createCartActionsAndGetCart(cart, product, 1, updateCart);
 			} else {
@@ -73,6 +73,8 @@ const ProductItem = ({
 					updateCart
 				);
 			}
+		} else {
+			nextRouter.push('/login');
 		}
 	};
 
