@@ -1,7 +1,7 @@
 import { CommonUtils, DateTypes, IOrderFlat } from '@houseofcodecy/hoc-utils';
-import { CardGiftcard } from '@mui/icons-material';
+import { ArrowForwardIos, CardGiftcard } from '@mui/icons-material';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
-import { orange } from '@mui/material/colors';
+import { grey, orange } from '@mui/material/colors';
 
 import React from 'react';
 
@@ -12,18 +12,23 @@ interface CustomProps {
 
 const OrderItem = ({ order, nextRouter }: CustomProps) => {
 	return (
-		<Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
+		<Card
+			sx={{
+				w: 1,
+				display: 'flex',
+				justifyContent: 'space-between',
+				cursor: 'pointer',
+			}}
+			onClick={() => {
+				nextRouter.push(`/orders/${order.id}`);
+			}}>
 			<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
 				<IconButton aria-label='addToCart' size='large'>
 					<CardGiftcard sx={{ color: orange[700], fontSize: '52px' }} />
 				</IconButton>
 			</Box>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-				<CardContent
-					sx={{ flex: '1 0 auto', cursor: 'pointer' }}
-					onClick={() => {
-						nextRouter.push(`/orders/${order.id}`);
-					}}>
+				<CardContent sx={{ flex: '1 0 auto' }}>
 					<Typography
 						component='div'
 						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
@@ -39,6 +44,11 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 						Status: {order.order_status.name}
 					</Typography>
 				</CardContent>
+			</Box>
+			<Box sx={{ display: 'flex', justifyContent: 'right' }}>
+				<IconButton aria-label='addToCart' size='large'>
+					<ArrowForwardIos sx={{ color: grey[700], fontSize: '22px' }} />
+				</IconButton>
 			</Box>
 		</Card>
 	);
