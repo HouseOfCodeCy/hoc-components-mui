@@ -20,11 +20,11 @@ const ShoppingCartFooter = ({
 	user,
 	nextRouter,
 }: Props) => {
-	const isCheckout = nextRouter.asPath === '/checkout' ? true : false;
+	const isCheckout = nextRouter.asPath.includes('/checkout') ? true : false;
 	const isCartPath = nextRouter.asPath.includes('/cart') ? true : false;
 
 	return cart &&
-		cart.attributes.cart_items &&
+		cart?.attributes?.cart_items &&
 		user &&
 		showCartOnFooter &&
 		!isCartPath &&
