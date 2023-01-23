@@ -14,7 +14,7 @@ import {
 	Inventory,
 	Logout,
 	Newspaper,
-	Pets,
+	ShoppingBasket,
 	ShoppingCart,
 } from '@mui/icons-material';
 import Menu from '@mui/icons-material/Menu';
@@ -124,7 +124,7 @@ export default function HNavigation({
 			sx={{ width: 250 }}>
 			<List sx={{ width: 1 }}>
 				<ListItem sx={{ justifyContent: 'center', width: '100%' }}>
-					<Pets sx={{ fontSize: 80, color: blue[400] }} />
+					<ShoppingBasket sx={{ fontSize: 80, color: orange[700] }} />
 				</ListItem>
 			</List>
 			<Divider />
@@ -238,7 +238,7 @@ export default function HNavigation({
 	);
 
 	return (
-		<>
+		<Grid container display={'flex'} alignItems={'center'}>
 			<AlertController
 				openAlert={showAlert}
 				handleClose={handleCloseAlert}
@@ -256,12 +256,12 @@ export default function HNavigation({
 					PaperProps={{
 						sx: {
 							backgroundColor: '#ebeaea',
-							borderRadius: '0 15px 15px 0',
+							borderRadius: '0 10px 10px 0',
 						},
 					}}>
 					{renderMenuItems()}
 				</Drawer>
 			</Fragment>
-		</>
+		</Grid>
 	);
 }
