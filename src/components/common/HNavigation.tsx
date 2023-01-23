@@ -122,13 +122,13 @@ export default function HNavigation({
 			onClick={toggleDrawer(false)}
 			onKeyDown={toggleDrawer(false)}
 			sx={{ width: 250 }}>
-			<List sx={{ width: '100%' }}>
+			<List sx={{ width: 1 }}>
 				<ListItem sx={{ justifyContent: 'center', width: '100%' }}>
 					<Pets sx={{ fontSize: 80, color: blue[400] }} />
 				</ListItem>
 			</List>
 			<Divider />
-			<List sx={{ width: '100%' }}>
+			<List sx={{ width: 1 }}>
 				{primaryMenuItems.map((menuItem) => (
 					<ListItem
 						sx={{ width: '100%', visibility: 'false' }}
@@ -146,7 +146,7 @@ export default function HNavigation({
 				))}
 			</List>
 			<Divider />
-			<List sx={{ width: '100%' }}>
+			<List sx={{ width: 1 }}>
 				{secondaryMenuItems.map((menuItem) => (
 					<ListItem
 						key={menuItem.name}
@@ -162,7 +162,7 @@ export default function HNavigation({
 				))}
 			</List>
 			<Divider />
-			<List sx={{ width: '100%' }}>
+			<List sx={{ width: 1 }}>
 				{tertiaryMenuItems.map((menuItem) => (
 					<ListItem
 						key={menuItem.name}
@@ -178,7 +178,7 @@ export default function HNavigation({
 				))}
 			</List>
 			<Divider />
-			<List sx={[{ width: '100%' }]}>
+			<List sx={[{ width: 1 }]}>
 				<ListItem key={'logout-user-info'}>
 					<ListItemText
 						primary={
@@ -216,7 +216,7 @@ export default function HNavigation({
 					)}
 				</ListItem>
 			</List>
-			<List sx={{ width: '100%' }}>
+			<List sx={{ width: 1 }}>
 				<ListItem key={'ecommerce-ui-version'} disablePadding>
 					<ListItemButton>
 						<ListItemText
