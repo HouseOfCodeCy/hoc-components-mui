@@ -1,4 +1,9 @@
-import { CommonUtils, DateTypes, IOrderFlat } from '@houseofcodecy/hoc-utils';
+import {
+	CartUtils,
+	CommonUtils,
+	DateTypes,
+	IOrderFlat,
+} from '@houseofcodecy/hoc-utils';
 import { ArrowForwardIos, CardGiftcard } from '@mui/icons-material';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
 import { grey, orange } from '@mui/material/colors';
@@ -38,7 +43,13 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 						Payment Method: {order.order_payment_method.name.toUpperCase()}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						{order.shipping_method.name}
+						{order?.shipping_method?.name}
+					</Typography>
+					<Typography variant='subtitle2' color='text.secondary'>
+						Order Total: €
+						{order?.cart?.cart_items
+							? CartUtils.calculateTotalPriceFlat(order?.cart?.cart_items)
+							: 'N/A'}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
 						Status: {order.order_status.name}
