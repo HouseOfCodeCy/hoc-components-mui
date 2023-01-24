@@ -30,7 +30,7 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 				),
 			},
 		};
-		const response: any = cart
+		cart
 			? await CartUtils.updateCartActionAndGetCart(
 					tmpQuantity,
 					tmpCartItem,

@@ -4,6 +4,7 @@ import {
 	ICartResponse,
 	IProduct,
 	IUserFlat,
+	ProductInventoryUtils,
 	ProductUtils,
 } from '@houseofcodecy/hoc-utils';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -19,7 +20,7 @@ import {
 } from '@mui/material';
 import { grey, orange, red } from '@mui/material/colors';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface CustomProps {
 	product: IProduct;
@@ -39,6 +40,9 @@ const ProductItem = ({
 	nextRouter,
 }: CustomProps) => {
 	const [isProductFavorite, setIsProductFavorite] = useState(false);
+	const [productStock, setProductStock] = useState(0);
+
+	const dataFetchedRef = useRef(false);
 
 	useEffect(() => {
 		if (user && user.favorite_products)
@@ -46,6 +50,17 @@ const ProductItem = ({
 				ProductUtils.isProductFavorite(user.favorite_products, product)
 			);
 	}, [user]);
+
+	useEffect(() => {
+		async function fetchData() {
+			const productInventory: number =
+				await ProductInventoryUtils.calculateProductInventory(product.id);
+			productInventory ? setProductStock(productInventory) : undefined;
+		}
+		if (dataFetchedRef.current) return;
+		dataFetchedRef.current = true;
+		fetchData();
+	}, []);
 
 	/**
 	 * Add/Remove a product from user favorites from hoc-utils
@@ -111,7 +126,7 @@ const ProductItem = ({
 						€{product?.attributes.price}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						Availability: {product?.attributes.stock}
+						Availability:{productStock}
 					</Typography>
 				</CardContent>
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
@@ -124,7 +139,13 @@ const ProductItem = ({
 					<IconButton
 						aria-label='favorite'
 						size='large'
-						onClick={() => updateUserFavorites()}>
+						onClick={() => {
+							if (user) {
+								updateUserFavorites();
+							} else {
+								nextRouter.push('/login');
+							}
+						}}>
 						{isProductFavorite ? (
 							<FavoriteIcon sx={{ color: red[600] }} />
 						) : (
