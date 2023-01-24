@@ -41,7 +41,8 @@ const ShoppingCartItem = ({
 					</Typography>
 					<Typography variant='h5' color='text.secondary' component='div'>
 						€{cartItem.attributes.product.data.attributes.price}(
-						{cartItem.attributes.quantity}x) = €{cartItem.attributes.price}
+						{cartItem.attributes.product_inventory?.data.attributes.quantity}x)
+						= €{cartItem.attributes.price}
 					</Typography>
 				</CardContent>
 				<QuantityComponent
