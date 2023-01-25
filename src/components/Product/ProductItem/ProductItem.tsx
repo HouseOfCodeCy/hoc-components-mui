@@ -133,8 +133,13 @@ const ProductItem = ({
 					<IconButton
 						aria-label='addToCart'
 						size='large'
-						onClick={() => addProductToCard()}>
-						<AddShoppingCartIcon sx={{ color: orange[900] }} />
+						disabled={productStock <= 0}
+						onClick={() => {
+							addProductToCard();
+						}}>
+						<AddShoppingCartIcon
+							sx={{ color: productStock <= 0 ? grey[400] : orange[900] }}
+						/>
 					</IconButton>
 					<IconButton
 						aria-label='favorite'
