@@ -5,9 +5,9 @@ import {
 	IUserFlat,
 	logoutUser,
 } from '@houseofcodecy/hoc-utils';
+import * as Muicon from '@mui/icons-material';
 import {
 	AccountBox,
-	Category,
 	ContactMail,
 	EmojiPeople,
 	Home,
@@ -70,9 +70,17 @@ export default function HNavigation({
 	];
 	const secondaryMenuItems = [
 		...parentCategories?.map((categoryParent) => {
+			let CategoryIcon = Muicon['Category'];
+			if (
+				categoryParent.attributes.icon &&
+				categoryParent.attributes.icon !== ''
+			) {
+				CategoryIcon =
+					Muicon[categoryParent.attributes.icon as keyof typeof Muicon];
+			}
 			return {
 				name: categoryParent.attributes.name,
-				icon: <Category />,
+				icon: <CategoryIcon />,
 				url: `/categories/${categoryParent.id}`,
 			};
 		}),
@@ -83,7 +91,7 @@ export default function HNavigation({
 			icon: <EmojiPeople />,
 			url: '/#whoweare-section',
 		},
-		{ name: 'Bundles', icon: <Inventory />, url: '/#pawckages-section' },
+		{ name: 'Bundles', icon: <Inventory />, url: '/#bundles' },
 		{
 			name: 'Subscribe',
 			icon: <Newspaper />,

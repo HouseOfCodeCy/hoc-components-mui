@@ -4,9 +4,10 @@ import React from 'react';
 
 interface Props {
 	cartItems?: ICartItemResponse[];
+	showShippingCost?: boolean;
 }
 
-const CartDetails = ({ cartItems }: Props) => {
+const CartDetails = ({ cartItems, showShippingCost = false }: Props) => {
 	return cartItems && cartItems?.length > 0 ? (
 		<Grid
 			container
@@ -17,20 +18,22 @@ const CartDetails = ({ cartItems }: Props) => {
 			<Grid item xs={12} sx={{ textAlign: 'center' }}>
 				<h3>Cart Summary</h3>
 			</Grid>
-			<Grid item xs={12}>
-				<Grid
-					container
-					alignItems={'center'}
-					justifyContent={'space-between'}
-					columnGap={2}>
-					<Grid item xs={5}>
-						Shipping Cost
-					</Grid>
-					<Grid item xs={5}>
-						€0
+			{showShippingCost && (
+				<Grid item xs={12}>
+					<Grid
+						container
+						alignItems={'center'}
+						justifyContent={'space-between'}
+						columnGap={2}>
+						<Grid item xs={5}>
+							Shipping Cost
+						</Grid>
+						<Grid item xs={5}>
+							€0
+						</Grid>
 					</Grid>
 				</Grid>
-			</Grid>
+			)}
 			<Grid item xs={12}>
 				<Grid
 					container
