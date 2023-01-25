@@ -7,20 +7,17 @@ import {
 } from '@houseofcodecy/hoc-utils';
 import * as Muicon from '@mui/icons-material';
 import {
-	AccountBox,
 	ContactMail,
 	EmojiPeople,
-	Home,
 	Inventory,
 	Logout,
 	Newspaper,
 	ShoppingBasket,
-	ShoppingCart,
 } from '@mui/icons-material';
 import Menu from '@mui/icons-material/Menu';
 import { Grid, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import { blue, green, orange, red } from '@mui/material/colors';
+import { blue, green, grey, orange, red } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -29,6 +26,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import React, { Fragment, useState } from 'react';
+import { FaHome, FaShoppingCart, FaUser } from 'react-icons/fa';
 import AlertController from './AlertController';
 
 interface Props {
@@ -54,16 +52,16 @@ export default function HNavigation({
 	const [showAlert, setShowAlert] = useState<boolean>(false);
 
 	const primaryMenuItems = [
-		{ name: 'Home', icon: <Home />, url: '/#welcome-section' },
+		{ name: 'Home', icon: <FaHome size={'26px'} />, url: '/#welcome-section' },
 		{
 			name: 'Your Cart',
-			icon: <ShoppingCart />,
+			icon: <FaShoppingCart size={'26px'} />,
 			url: `/cart/${cart?.id}`,
 			disabled: !isUserLoggedIn() || !cart,
 		},
 		{
 			name: 'Account',
-			icon: <AccountBox />,
+			icon: <FaUser size={'26px'} />,
 			url: '/account',
 			disabled: !isUserLoggedIn(),
 		},
@@ -145,7 +143,7 @@ export default function HNavigation({
 						onClick={() => nextRouter.push(menuItem.url)}
 						disabled={menuItem.disabled}>
 						<ListItemButton>
-							<ListItemIcon sx={{ color: blue[700] }}>
+							<ListItemIcon sx={{ color: grey[700] }}>
 								{menuItem.icon}
 							</ListItemIcon>
 							<ListItemText primary={menuItem.name} />
