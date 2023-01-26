@@ -6,7 +6,7 @@ import QuantityComponent from './QuantityComponent';
 interface Props {
 	cartItem?: ICartItemResponse;
 	cart: ICartResponse | null;
-	updateCart: (cart: ICartResponse) => void;
+	updateCart: (cart: ICartResponse | null) => void;
 	nextRouter: any;
 }
 

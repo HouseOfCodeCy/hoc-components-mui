@@ -5,7 +5,7 @@ import ShoppingCartItem from './ShoppingCartItem';
 interface Props {
 	cartItems: ICartItemResponse[];
 	cart: ICartResponse | null;
-	updateCart: (cart: ICartResponse) => void;
+	updateCart: (cart: ICartResponse | null) => void;
 	nextRouter: any;
 }
 

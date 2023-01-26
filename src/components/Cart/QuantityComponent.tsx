@@ -15,7 +15,7 @@ import React from 'react';
 interface Props {
 	cartItem: ICartItemResponse;
 	cart: ICartResponse | null;
-	updateCart: (cart: ICartResponse) => void;
+	updateCart: (cart: ICartResponse | null) => void;
 }
 
 const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
@@ -38,9 +38,24 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 					updateCart
 			  )
 			: undefined;
-		// if (response.statusText === 'OK') {
-		// 	console.log('Cart Actions Updated');
-		// }
+	};
+
+	const deleteCartItemFromCart = async () => {
+		// if this is the last cart item in the cart
+		if (cart?.attributes.cart_items?.data.length === 1) {
+			await CartUtils.deleteCartItemAndCartAndGetCart(
+				cartItem.id,
+				`${cart.id}`,
+				updateCart
+			);
+		} else {
+			cart &&
+				(await CartUtils.deleteCartItemAndGetCart(
+					cartItem.id,
+					`${cart.id}`,
+					updateCart
+				));
+		}
 	};
 
 	return (
@@ -110,7 +125,7 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 						1
 					}
 					onClick={async () => {
-						// updateCartAndCartItem();
+						deleteCartItemFromCart();
 					}}>
 					<DeleteOutlineRounded sx={{ fontSize: 36 }} color='error' />
 				</IconButton>
