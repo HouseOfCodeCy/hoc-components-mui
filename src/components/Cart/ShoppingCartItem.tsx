@@ -22,7 +22,7 @@ const ShoppingCartItem = ({
 			<CardMedia
 				component='img'
 				sx={{ width: 120, objectFit: 'cover' }}
-				image={cartItem.attributes.product.data.attributes.mediaUrl}
+				image={cartItem.attributes.product.data.attributes.mediaUrls[0]}
 				alt='Live from space album cover'
 				onClick={() =>
 					nextRouter.push(`/product/${cartItem.attributes.product.data.id}`)

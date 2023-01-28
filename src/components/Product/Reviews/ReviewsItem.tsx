@@ -36,7 +36,7 @@ const ReviewsItem = (props: CustomProps) => {
 					maxWidth: 140,
 					minWidth: 140,
 				}}
-				image={review?.product?.mediaUrl}
+				image={review?.product?.mediaUrls[0]}
 				title={review?.product?.name}
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>

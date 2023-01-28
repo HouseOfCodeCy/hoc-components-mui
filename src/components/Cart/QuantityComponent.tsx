@@ -43,15 +43,17 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 	const deleteCartItemFromCart = async () => {
 		// if this is the last cart item in the cart
 		if (cart?.attributes.cart_items?.data.length === 1) {
-			await CartUtils.deleteCartItemAndCartAndGetCart(
+			await CartUtils.deleteCartItemAndProductInventoryAndCartAndGetCart(
 				cartItem.id,
+				`${cartItem.attributes.product_inventory?.data.id}`,
 				`${cart.id}`,
 				updateCart
 			);
 		} else {
 			cart &&
-				(await CartUtils.deleteCartItemAndGetCart(
+				(await CartUtils.deleteCartItemAndProductInventoryAndGetCart(
 					cartItem.id,
+					`${cartItem.attributes.product_inventory?.data.id}`,
 					`${cart.id}`,
 					updateCart
 				));

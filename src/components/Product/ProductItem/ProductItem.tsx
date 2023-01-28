@@ -5,7 +5,7 @@ import {
 	IProduct,
 	IUserFlat,
 	ProductInventoryUtils,
-	ProductUtils,
+	ProductUtils
 } from '@houseofcodecy/hoc-utils';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,7 +16,7 @@ import {
 	CardContent,
 	CardMedia,
 	IconButton,
-	Typography,
+	Typography
 } from '@mui/material';
 import { grey, orange, red } from '@mui/material/colors';
 
@@ -105,7 +105,7 @@ const ProductItem = ({
 					minWidth: 140,
 					cursor: 'pointer',
 				}}
-				image={product?.attributes.mediaUrl}
+				image={product?.attributes.mediaUrls[0]}
 				title={product?.attributes.name}
 				onClick={() => {
 					nextRouter.push(`/product/${product.id}`);

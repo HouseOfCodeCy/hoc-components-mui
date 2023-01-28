@@ -42,7 +42,7 @@ const FavoriteProductItem = (props: CustomProductFavoriteProps) => {
 					maxWidth: 140,
 					minWidth: 140,
 				}}
-				image={product?.mediaUrl}
+				image={product?.mediaUrls[0]}
 				title={product?.name}
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
