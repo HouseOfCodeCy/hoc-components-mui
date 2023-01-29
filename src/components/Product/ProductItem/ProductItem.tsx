@@ -83,9 +83,9 @@ const ProductItem = ({
 			} else {
 				CartUtils.createCartAndCartAction(
 					AccountUtils.tranformUserFlatToUser(user),
-					product,
 					1,
-					updateCart
+					updateCart,
+					product
 				);
 			}
 		} else {
