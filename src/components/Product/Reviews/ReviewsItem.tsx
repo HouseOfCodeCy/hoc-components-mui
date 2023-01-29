@@ -27,18 +27,20 @@ const ReviewsItem = (props: CustomProps) => {
 				justifyContent: 'flex-start',
 				maxWidth: 345,
 			}}>
-			<CardMedia
-				component='img'
-				sx={{
-					objectFit: 'contain',
-					minHeight: 160,
-					maxHeight: 160,
-					maxWidth: 140,
-					minWidth: 140,
-				}}
-				image={review?.product?.mediaUrls[0]}
-				title={review?.product?.name}
-			/>
+			{review?.product?.mediaUrls && (
+				<CardMedia
+					component='img'
+					sx={{
+						objectFit: 'contain',
+						minHeight: 160,
+						maxHeight: 160,
+						maxWidth: 140,
+						minWidth: 140,
+					}}
+					image={review?.product?.mediaUrls[0]}
+					title={review?.product?.name}
+				/>
+			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<CardContent sx={{ flex: '1 0 auto' }}>
 					<Typography

@@ -38,7 +38,12 @@ const TextFieldSelect = ({
 						placeholder={placeholder}>
 						{options.map((option) => (
 							<MenuItem key={option.id} value={option} sx={{ w: 1 }}>
-								{option.attributes[valueProperty]}
+								{`${option.attributes[valueProperty]}`}
+								<strong>
+									{option.attributes.price
+										? ' - €' + option.attributes.price.toFixed(2)
+										: ''}{' '}
+								</strong>
 							</MenuItem>
 						))}
 					</TextField>

@@ -5,7 +5,7 @@ import {
 	IProduct,
 	IUserFlat,
 	ProductInventoryUtils,
-	ProductUtils
+	ProductUtils,
 } from '@houseofcodecy/hoc-utils';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -16,7 +16,7 @@ import {
 	CardContent,
 	CardMedia,
 	IconButton,
-	Typography
+	Typography,
 } from '@mui/material';
 import { grey, orange, red } from '@mui/material/colors';
 
@@ -54,7 +54,7 @@ const ProductItem = ({
 	useEffect(() => {
 		async function fetchData() {
 			const productInventory: number =
-				await ProductInventoryUtils.calculateProductInventory(product.id);
+				await ProductInventoryUtils.calculateProductInventory(product);
 			productInventory ? setProductStock(productInventory) : undefined;
 		}
 		if (dataFetchedRef.current) return;
@@ -79,7 +79,7 @@ const ProductItem = ({
 	const addProductToCard = () => {
 		if (user) {
 			if (cart) {
-				CartUtils.createCartActionsAndGetCart(cart, product, 1, updateCart);
+				CartUtils.createCartActionsAndGetCart(cart, 1, updateCart, product);
 			} else {
 				CartUtils.createCartAndCartAction(
 					AccountUtils.tranformUserFlatToUser(user),
@@ -95,22 +95,24 @@ const ProductItem = ({
 
 	return (
 		<Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
-			<CardMedia
-				component='img'
-				sx={{
-					objectFit: 'contain',
-					minHeight: 160,
-					maxHeight: 160,
-					maxWidth: 140,
-					minWidth: 140,
-					cursor: 'pointer',
-				}}
-				image={product?.attributes.mediaUrls[0]}
-				title={product?.attributes.name}
-				onClick={() => {
-					nextRouter.push(`/product/${product.id}`);
-				}}
-			/>
+			{product?.attributes.mediaUrls && (
+				<CardMedia
+					component='img'
+					sx={{
+						objectFit: 'contain',
+						minHeight: 160,
+						maxHeight: 160,
+						maxWidth: 140,
+						minWidth: 140,
+						cursor: 'pointer',
+					}}
+					image={product?.attributes.mediaUrls[0]}
+					title={product?.attributes.name}
+					onClick={() => {
+						nextRouter.push(`/product/${product.id}`);
+					}}
+				/>
+			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<CardContent
 					sx={{ flex: '1 0 auto', cursor: 'pointer' }}

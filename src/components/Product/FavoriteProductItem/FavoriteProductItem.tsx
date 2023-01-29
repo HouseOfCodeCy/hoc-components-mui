@@ -33,18 +33,20 @@ const FavoriteProductItem = (props: CustomProductFavoriteProps) => {
 				justifyContent: 'flex-start',
 				maxWidth: 345,
 			}}>
-			<CardMedia
-				component='img'
-				sx={{
-					objectFit: 'contain',
-					minHeight: 160,
-					maxHeight: 160,
-					maxWidth: 140,
-					minWidth: 140,
-				}}
-				image={product?.mediaUrls[0]}
-				title={product?.name}
-			/>
+			{product?.mediaUrls && (
+				<CardMedia
+					component='img'
+					sx={{
+						objectFit: 'contain',
+						minHeight: 160,
+						maxHeight: 160,
+						maxWidth: 140,
+						minWidth: 140,
+					}}
+					image={product?.mediaUrls[0]}
+					title={product?.name}
+				/>
+			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
 				<CardContent sx={{ flex: '1 0 auto' }}>
 					<Typography
@@ -58,9 +60,9 @@ const FavoriteProductItem = (props: CustomProductFavoriteProps) => {
 						component='div'>
 						€{product?.price}
 					</Typography>
-					<Typography variant='subtitle2' color='text.secondary'>
+					{/* <Typography variant='subtitle2' color='text.secondary'>
 						Availability: {product?.stock}
-					</Typography>
+					</Typography> */}
 				</CardContent>
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
 					<IconButton aria-label='addToCart' size='large'>

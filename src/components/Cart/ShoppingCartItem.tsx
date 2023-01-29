@@ -19,15 +19,17 @@ const ShoppingCartItem = ({
 	return cartItem ? (
 		<Card
 			sx={{ display: 'flex', flex: '1', boxShadow: '#0000000a 0px 3px 5px' }}>
-			<CardMedia
-				component='img'
-				sx={{ width: 120, objectFit: 'cover' }}
-				image={cartItem.attributes.product.data.attributes.mediaUrls[0]}
-				alt='Live from space album cover'
-				onClick={() =>
-					nextRouter.push(`/product/${cartItem.attributes.product.data.id}`)
-				}
-			/>
+			{cartItem.attributes.product.data.attributes.mediaUrls && (
+				<CardMedia
+					component='img'
+					sx={{ width: 120, objectFit: 'cover' }}
+					image={cartItem.attributes.product.data.attributes.mediaUrls[0]}
+					alt='Live from space album cover'
+					onClick={() =>
+						nextRouter.push(`/product/${cartItem.attributes.product.data.id}`)
+					}
+				/>
+			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
 				<CardContent
 					onClick={() =>
