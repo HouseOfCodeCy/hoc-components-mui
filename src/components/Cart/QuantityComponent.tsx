@@ -20,24 +20,26 @@ interface Props {
 
 const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 	const updateCartAndCartItem = async (tmpQuantity: number) => {
-		const tmpCartItem: ICartItemResponse = {
-			...cartItem,
-			attributes: {
-				...cartItem.attributes,
-				price: ProductUtils.calculatePriceWithQuantity(
-					cartItem.attributes.product.data.attributes.price,
-					tmpQuantity
-				),
-			},
-		};
-		cart
-			? await CartUtils.updateCartActionAndGetCart(
-					tmpQuantity,
-					tmpCartItem,
-					cart,
-					updateCart
-			  )
-			: undefined;
+		if (cartItem.attributes.product) {
+			const tmpCartItem: ICartItemResponse = {
+				...cartItem,
+				attributes: {
+					...cartItem.attributes,
+					price: ProductUtils.calculatePriceWithQuantity(
+						cartItem.attributes.product?.data.attributes.price,
+						tmpQuantity
+					),
+				},
+			};
+			cart
+				? await CartUtils.updateCartActionAndGetCart(
+						tmpQuantity,
+						tmpCartItem,
+						cart,
+						updateCart
+				  )
+				: undefined;
+		}
 	};
 
 	const deleteCartItemFromCart = async () => {
