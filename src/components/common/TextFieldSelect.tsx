@@ -25,50 +25,58 @@ const TextFieldSelect = ({
 	otherSelectedOption,
 }: Props) => {
 	const calculateStockLabel = (option: any) => {
-		const inventoryStock = inventory.find(
-			(stock: any) => stock.id === option.id
-		);
-		if (inventoryStock) {
-			// if I have something selected already
-			if (title === 'Product Colors' && otherSelectedOption) {
-				const otherOptionStock = inventoryStock.sizeInventory.find(
-					(inventory: any) => inventory.id === otherSelectedOption?.id
-				).quantity;
-				return ` - Stock: ${otherOptionStock}`;
+		if (inventory) {
+			const inventoryStock = inventory?.find(
+				(stock: any) => stock.id === option.id
+			);
+			if (inventoryStock) {
+				// if I have something selected already
+				if (title === 'Product Colors' && otherSelectedOption) {
+					const otherOptionStock = inventoryStock.sizeInventory.find(
+						(inventory: any) => inventory.id === otherSelectedOption?.id
+					).quantity;
+					return ` - Stock: ${otherOptionStock}`;
+				}
+				// if I have something selected already
+				else if (title === 'Product Sizes' && otherSelectedOption) {
+					const otherOptionStock = inventoryStock.colorInventory.find(
+						(inventory: any) => inventory.id === otherSelectedOption?.id
+					).quantity;
+					return ` - Stock: ${otherOptionStock}`;
+				}
+				return ` - Stock: ${inventoryStock.total}`;
+			} else {
+				return ``;
 			}
-			// if I have something selected already
-			else if (title === 'Product Sizes' && otherSelectedOption) {
-				const otherOptionStock = inventoryStock.colorInventory.find(
-					(inventory: any) => inventory.id === otherSelectedOption?.id
-				).quantity;
-				return ` - Stock: ${otherOptionStock}`;
-			}
-			return ` - Stock: ${inventoryStock.total}`;
 		} else {
-			return ``;
+			return ` - Out of Stock`;
 		}
 	};
 
 	const checkIfDisabled = (option: any): boolean => {
-		const inventoryStock = inventory.find(
+		const inventoryStock = inventory?.find(
 			(stock: any) => stock.id === option.id
 		);
-		if (inventoryStock.total <= 0) {
-			return true;
-		} else {
-			if (title === 'Product Colors' && otherSelectedOption) {
-				const otherOptionStock = inventoryStock.sizeInventory.find(
-					(inventory: any) => inventory.id === otherSelectedOption.id
-				).quantity;
-				return otherOptionStock >= 1 ? false : true;
-			} else if (title === 'Product Sizes' && otherSelectedOption) {
-				const otherOptionStock = inventoryStock.colorInventory.find(
-					(inventory: any) => inventory.id === otherSelectedOption.id
-				).quantity;
-				return otherOptionStock >= 1 ? false : true;
+		if (inventoryStock) {
+			if (inventoryStock.total <= 0) {
+				return true;
+			} else {
+				if (title === 'Product Colors' && otherSelectedOption) {
+					const otherOptionStock = inventoryStock.sizeInventory.find(
+						(inventory: any) => inventory.id === otherSelectedOption.id
+					).quantity;
+					return otherOptionStock >= 1 ? false : true;
+				} else if (title === 'Product Sizes' && otherSelectedOption) {
+					const otherOptionStock = inventoryStock.colorInventory.find(
+						(inventory: any) => inventory.id === otherSelectedOption.id
+					).quantity;
+					return otherOptionStock >= 1 ? false : true;
+				}
 			}
+			return false;
+		} else {
+			return true;
 		}
-		return false;
 	};
 
 	return (
