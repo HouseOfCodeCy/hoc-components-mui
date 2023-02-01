@@ -1,4 +1,5 @@
 import {
+	CartItemUtils,
 	CartUtils,
 	ICartItemResponse,
 	ICartResponse,
@@ -20,15 +21,12 @@ interface Props {
 
 const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 	const updateCartAndCartItem = async (tmpQuantity: number) => {
-		if (cartItem.attributes.product) {
+		if (cartItem) {
 			const tmpCartItem: ICartItemResponse = {
 				...cartItem,
 				attributes: {
 					...cartItem.attributes,
-					price: ProductUtils.calculatePriceWithQuantity(
-						cartItem.attributes.product?.data.attributes.price,
-						tmpQuantity
-					),
+					price: +CartItemUtils.getCartItemPrice(cartItem, false),
 				},
 			};
 			cart

@@ -9,7 +9,7 @@ interface Props {
 	valueProperty: string;
 	setSelectedOption: Dispatch<SetStateAction<any | null>>;
 	inventory?: any;
-	requried?: boolean;
+	required?: boolean;
 	otherSelectedOption?: any;
 }
 
@@ -21,9 +21,17 @@ const TextFieldSelect = ({
 	helperText = '',
 	setSelectedOption,
 	inventory,
-	requried = true,
+	required = true,
 	otherSelectedOption,
 }: Props) => {
+	const calculatePrice = (option: any) => (
+		<strong>
+			{option.attributes.price
+				? ' - €' + option.attributes.price.toFixed(2)
+				: ''}{' '}
+		</strong>
+	);
+
 	const calculateStockLabel = (option: any) => {
 		if (inventory) {
 			const inventoryStock = inventory?.find(
@@ -97,7 +105,7 @@ const TextFieldSelect = ({
 						sx={{ w: 1 }}
 						id={`text_field_${title}`}
 						select
-						required={requried}
+						required={required}
 						label={helperText}
 						placeholder={placeholder}>
 						{options.map((option) => (
@@ -108,11 +116,7 @@ const TextFieldSelect = ({
 								sx={{ w: 1 }}
 								onClick={() => setSelectedOption(option)}>
 								{`${option.attributes[valueProperty]}`}
-								<strong>
-									{option.attributes.price
-										? ' - €' + option.attributes.price.toFixed(2)
-										: ''}{' '}
-								</strong>
+								{calculatePrice(option)}
 								{calculateStockLabel(option)}
 							</MenuItem>
 						))}
