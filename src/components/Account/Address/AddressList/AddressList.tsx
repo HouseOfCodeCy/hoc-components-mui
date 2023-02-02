@@ -28,7 +28,7 @@ const AddressList = ({ addresses }: Props) => {
 							</ListItemIcon>
 							<ListItemText
 								primary={address.name}
-								secondary={AccountUtils.printAddressAsString(address)}
+								secondary={AccountUtils.printAddressAsStringFlat(address)}
 								sx={{ w: 1 }}
 							/>
 						</ListItemButton>
