@@ -5,6 +5,7 @@ import {
 	IProduct,
 	IUserFlat,
 	ProductInventoryUtils,
+	ProductOptions,
 	ProductUtils,
 } from '@houseofcodecy/hoc-utils';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -21,6 +22,7 @@ import {
 import { grey, orange, red } from '@mui/material/colors';
 
 import React, { useEffect, useRef, useState } from 'react';
+import ProductAvailabilityChip from '../common/ProductAvailabilityChip';
 
 interface CustomProps {
 	product: IProduct;
@@ -29,6 +31,7 @@ interface CustomProps {
 	updateCart: (cart: ICartResponse) => void;
 	cart?: ICartResponse | null;
 	nextRouter: any;
+	showStockOnCategories?: boolean;
 }
 
 const ProductItem = ({
@@ -38,9 +41,10 @@ const ProductItem = ({
 	cart,
 	updateCart,
 	nextRouter,
+	showStockOnCategories = false,
 }: CustomProps) => {
 	const [isProductFavorite, setIsProductFavorite] = useState(false);
-	const [productStock, setProductStock] = useState(0);
+	const [productStock, setProductStock] = useState<ProductOptions>();
 
 	const dataFetchedRef = useRef(false);
 
@@ -53,7 +57,7 @@ const ProductItem = ({
 
 	useEffect(() => {
 		async function fetchData() {
-			const productInventory: number =
+			const productInventory: ProductOptions =
 				await ProductInventoryUtils.calculateProductInventory(product);
 			productInventory ? setProductStock(productInventory) : undefined;
 		}
@@ -125,22 +129,31 @@ const ProductItem = ({
 						{product?.attributes?.name}
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
-						€{product?.attributes.price}
-					</Typography>
-					<Typography variant='subtitle2' color='text.secondary'>
-						Availability:{productStock}
+						{ProductUtils.printPriceRanges(product)}
 					</Typography>
 				</CardContent>
-				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+				<Box
+					sx={{
+						display: 'flex',
+						justifyContent: 'space-around',
+						alignItems: 'center',
+						pl: 1,
+						pb: 1,
+					}}>
 					<IconButton
 						aria-label='addToCart'
 						size='large'
-						disabled={productStock <= 0}
+						disabled={true}
 						onClick={() => {
 							addProductToCard();
 						}}>
 						<AddShoppingCartIcon
-							sx={{ color: productStock <= 0 ? grey[400] : orange[900] }}
+							sx={{
+								color:
+									productStock?.total && productStock?.total >= 0
+										? orange[900]
+										: grey[400],
+							}}
 						/>
 					</IconButton>
 					<IconButton
@@ -159,6 +172,13 @@ const ProductItem = ({
 							<FavoriteBorderIcon sx={{ color: grey[700] }} />
 						)}
 					</IconButton>
+					{productStock && showStockOnCategories && (
+						<ProductAvailabilityChip
+							label={ProductInventoryUtils.renderAvailabilityLabel(
+								productStock
+							)}
+						/>
+					)}
 				</Box>
 			</Box>
 		</Card>

@@ -2,7 +2,7 @@ import {
 	CartUtils,
 	CommonUtils,
 	DateTypes,
-	IOrderFlat,
+	IOrder,
 } from '@houseofcodecy/hoc-utils';
 import { ArrowForwardIos, CardGiftcard } from '@mui/icons-material';
 import { Box, Card, CardContent, IconButton, Typography } from '@mui/material';
@@ -11,7 +11,7 @@ import { grey, orange } from '@mui/material/colors';
 import React from 'react';
 
 interface CustomProps {
-	order: IOrderFlat;
+	order: IOrder;
 	nextRouter: any;
 }
 
@@ -37,22 +37,28 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 					<Typography
 						component='div'
 						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-						{CommonUtils.formatDate(order.createdAt, DateTypes.DATETIME)}
+						{CommonUtils.formatDate(
+							order.attributes.createdAt,
+							DateTypes.DATETIME
+						)}
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
-						Payment Method: {order.order_payment_method.name.toUpperCase()}
+						Payment Method:{' '}
+						{order.attributes.order_payment_method.data.attributes.name.toUpperCase()}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						{order?.shipping_method?.name}
+						{order?.attributes.shipping_method?.data?.attributes.name}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
 						Order Total: €
-						{order?.cart?.cart_items
-							? CartUtils.calculateTotalPriceFlat(order?.cart?.cart_items)
+						{order?.attributes.cart?.data.attributes.cart_items
+							? CartUtils.calculateTotalPrice(
+									order?.attributes.cart?.data.attributes.cart_items.data
+							  )
 							: 'N/A'}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						Status: {order.order_status.name}
+						Status: {order.attributes.order_status.data.attributes.name}
 					</Typography>
 				</CardContent>
 			</Box>
