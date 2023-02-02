@@ -6,6 +6,7 @@ interface Props {
 	size?: string;
 	variant?: 'outlined' | 'filled' | undefined;
 	color?: string;
+	onClick?: () => void;
 }
 
 const HChip = ({
@@ -13,18 +14,15 @@ const HChip = ({
 	size = 'small',
 	color = '#efdea7',
 	variant = 'outlined',
+	onClick,
 }: Props) => {
-	const handleClick = () => {
-		console.info(`You clicked on chip: ${size}`);
-	};
-
 	return (
 		<Chip
 			sx={{ backgroundColor: color }}
 			key={size}
 			label={label}
 			variant={variant}
-			onClick={handleClick}
+			onClick={onClick}
 		/>
 	);
 };

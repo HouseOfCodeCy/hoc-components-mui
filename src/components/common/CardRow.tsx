@@ -11,7 +11,7 @@ interface Props {
 
 const CardRow = ({ heading, content, Icon }: Props) => {
 	return (
-		<Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
+		<Card sx={{ w: '1', display: 'flex', justifyContent: 'flex-start' }}>
 			<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1, pr: 1 }}>
 				<IconButton aria-label='addToCart' size='large'>
 					<Icon sx={{ color: grey[800], fontSize: '42px' }} />
