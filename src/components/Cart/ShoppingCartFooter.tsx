@@ -32,7 +32,7 @@ const ShoppingCartFooter = ({
 		<Box sx={{ minHeight: '60px' }} onClick={() => showCart(true)}>
 			<Grid
 				container
-				justifyContent={'space-evenly'}
+				justifyContent={'space-between'}
 				alignItems={'center'}
 				sx={{
 					position: 'fixed',
@@ -41,21 +41,19 @@ const ShoppingCartFooter = ({
 					borderRadius: '10px 10px 0px 0px',
 					minHeight: '60px',
 					height: '60px',
+					p: 1,
 					background: '#e0cd3c',
 					bt: '1px solid black',
 					boxShadow: '#64646f33 0px 7px 29px 0px',
 				}}>
-				<Grid item xs={3}>
+				<Grid item>
 					<IconButton sx={{ color: grey[900] }}>
 						<ShoppingCart fontSize='large' />
 					</IconButton>
 				</Grid>
-				<Grid item xs={5} sx={{}}>
-					Cart
-				</Grid>
+				<Grid item>Cart</Grid>
 				<Grid
 					item
-					xs={3}
 					sx={{ fontSize: '20px', fontWeight: 'bold', textAlign: 'right' }}>
 					€{CartUtils.calculateTotalPrice(cart.attributes.cart_items?.data)}
 				</Grid>
