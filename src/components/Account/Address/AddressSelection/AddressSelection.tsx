@@ -162,7 +162,7 @@ const AddressSelection = ({
 								<Grid item key={address.id} xs={12} sx={{ padding: '10px' }}>
 									<Button
 										sx={{
-											borderTop: '3px solid black',
+											borderTop: '1px solid black',
 											padding: '15px',
 											width: '100%',
 											textAlign: 'left',
@@ -173,17 +173,14 @@ const AddressSelection = ({
 											updateShippingAddress(address);
 										}}
 										endIcon={<ArrowForwardIosOutlined />}>
-										<Grid container>
+										<Grid container sx={{ color: 'black' }}>
 											<Grid
 												item
 												xs={12}
-												sx={{ fontWeight: 'bold', fontSize: '20px' }}>
+												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
 												{address.address1}
 											</Grid>
-											<Grid
-												item
-												xs={12}
-												sx={{ fontWeight: 'bold', fontSize: '16px' }}>
+											<Grid item xs={12} sx={{ fontSize: '14px' }}>
 												{address.address2}
 											</Grid>
 											<Grid item xs={12}>
@@ -197,7 +194,8 @@ const AddressSelection = ({
 													label='Default'
 													color='success'
 													sx={{ marginTop: '10px' }}></Chip>
-											) : address.id === selectedAddress?.id ? (
+											) : null}
+											{address.id === selectedAddress?.id ? (
 												<Chip
 													label='Selected'
 													color='warning'

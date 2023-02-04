@@ -3,6 +3,7 @@ import AddressSelection from './components/Account/Address/AddressSelection/Addr
 import HButton from './components/Button/Button';
 import CartDetails from './components/Cart/CartDetails';
 import CartTotal from './components/Cart/CartTotal';
+import DeliverMethod from './components/Cart/DeliverMethod';
 import QuantityComponent from './components/Cart/QuantityComponent';
 import ShoppingCartFooter from './components/Cart/ShoppingCartFooter';
 import ShoppingCartItem from './components/Cart/ShoppingCartItem';
@@ -51,3 +52,4 @@ export { TextFieldSelect };
 export { SimpleDialog };
 export { CarouselComponent };
 export { AddToCartButton };
+export { DeliverMethod };
