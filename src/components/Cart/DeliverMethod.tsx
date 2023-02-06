@@ -1,4 +1,8 @@
-import { getShippingMethods, IShippingMethod } from '@houseofcodecy/hoc-utils';
+import {
+	getShippingMethods,
+	IShippingMethod,
+	OrderUtils,
+} from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -45,8 +49,12 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 			await getShippingMethods().then(async (response: any) => {
 				if (response.status === 200) {
 					setDeliveryMethods(response.data.data);
-					setSelectedDeliveryMethod(response.data.data[0]);
-					updateDeliveryMethod(response.data.data[0]);
+					setSelectedDeliveryMethod(
+						OrderUtils.getDefaultShippingMethod(response.data.data)
+					);
+					updateDeliveryMethod(
+						OrderUtils.getDefaultShippingMethod(response.data.data)
+					);
 				}
 			});
 		}
