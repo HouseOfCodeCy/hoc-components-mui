@@ -1348,10 +1348,10 @@
   resolved "https://registry.npmjs.org/@gar/promisify/-/promisify-1.1.3.tgz#555193ab2e3bb3b6adc3d551c9c030d9e860daf6"
   integrity sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==
 
-"@houseofcodecy/hoc-utils@^2.44.1":
-  version "2.44.1"
-  resolved "https://registry.npmjs.org/@houseofcodecy/hoc-utils/-/hoc-utils-2.44.1.tgz#7f5ce6059dda2be3c97b0fa085458719c9865d6c"
-  integrity sha512-ZjhVwfUp1pPWB1Rlp6mBSzovWkAbMeUyd5TUSpwomBn4LRH10ChBf5oXjg/NTTIpy+RSVQTDWJBUgoug800FcA==
+"@houseofcodecy/hoc-utils@^2.44.2":
+  version "2.44.2"
+  resolved "https://registry.npmjs.org/@houseofcodecy/hoc-utils/-/hoc-utils-2.44.2.tgz#6f207d77d025e2b3f8e5c68287e4ac273c268c19"
+  integrity sha512-6DSd3jX69jzwn+Spp83ijGPX7hFrBULU5phrk7cy+sx7E5yQYVsy/ht5d0aQN2x3bWqtTl8kKmYbidYkq1d1jg==
   dependencies:
     axios "1.2.1"
     date-fns "^2.29.3"

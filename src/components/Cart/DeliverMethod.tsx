@@ -1,3 +1,4 @@
+import { getShippingMethods, IShippingMethod } from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -15,11 +16,11 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { TransitionProps } from '@mui/material/transitions';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
 	isCheckout?: boolean;
-	updateDeliveryMethod: (method: string) => void;
+	updateDeliveryMethod: (shippingMethod: IShippingMethod) => void;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -33,8 +34,26 @@ const Transition = React.forwardRef(function Transition(
 
 const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
-		useState<string>('Delivery');
+		useState<IShippingMethod>();
+	const [deliveryMethods, setDeliveryMethods] = useState<IShippingMethod[]>();
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
+
+	const dataFetchedRef = useRef(false);
+
+	useEffect(() => {
+		async function fetchData() {
+			await getShippingMethods().then(async (response: any) => {
+				if (response.status === 200) {
+					setDeliveryMethods(response.data.data);
+					setSelectedDeliveryMethod(response.data.data[0]);
+					updateDeliveryMethod(response.data.data[0]);
+				}
+			});
+		}
+		if (dataFetchedRef.current) return;
+		dataFetchedRef.current = true;
+		fetchData();
+	}, []);
 
 	const handleClickOpen = () => {
 		setShowAddressDialog(true);
@@ -66,7 +85,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 								fontSize: '16px',
 								color: 'black',
 							}}>
-							{selectedDeliveryMethod}
+							{selectedDeliveryMethod?.attributes.name}
 						</Grid>
 						<Grid item xs={12}>
 							<small>Select Collection Method</small>
@@ -112,9 +131,14 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 						<Grid item xs={12} sx={{ textAlign: 'center' }}>
 							<h2>Select Collection Method</h2>
 						</Grid>
-						{['Delivery', 'Pickup from Store']?.map((option) => {
+						{deliveryMethods?.map((option) => {
 							return (
-								<Grid item key={option} xs={12} sx={{ padding: '10px' }}>
+								<Grid
+									item
+									key={option.id}
+									xs={12}
+									alignItems={'center'}
+									sx={{ padding: '10px' }}>
 									<Button
 										sx={{
 											borderTop: '1px solid black',
@@ -128,12 +152,15 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 											updateDeliveryMethod(option);
 										}}
 										endIcon={<ArrowForwardIosOutlined />}>
-										<Grid container sx={{ color: 'black' }}>
+										<Grid
+											container
+											alignItems={'center'}
+											sx={{ color: 'black' }}>
 											<Grid
 												item
 												xs={12}
 												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-												{option}
+												{option.attributes.name}
 											</Grid>
 										</Grid>
 									</Button>

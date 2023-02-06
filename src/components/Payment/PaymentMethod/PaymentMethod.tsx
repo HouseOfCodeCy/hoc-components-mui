@@ -1,7 +1,13 @@
 import {
+	getOrderPaymentMethods,
+	IOrderPaymentMethod,
+} from '@houseofcodecy/hoc-utils';
+import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
+	CreditCard,
+	Euro,
 } from '@mui/icons-material';
 import {
 	AppBar,
@@ -12,14 +18,18 @@ import {
 	Slide,
 	Toolbar,
 } from '@mui/material';
-import { grey } from '@mui/material/colors';
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import { green, grey } from '@mui/material/colors';
+import React, {
+	Dispatch,
+	SetStateAction,
+	useEffect,
+	useRef,
+	useState,
+} from 'react';
 import { TransitionProps } from 'react-transition-group/Transition';
 
 interface Props {
-	cashEnabled: boolean;
-	stripeEnabled: boolean;
-	setPaymentMethod: Dispatch<SetStateAction<string>>;
+	setPaymentMethod: Dispatch<SetStateAction<IOrderPaymentMethod | undefined>>;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -31,13 +41,45 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction='up' ref={ref} in={true} {...props} />;
 });
 
-const PaymentMethod = ({
-	cashEnabled,
-	stripeEnabled,
-	setPaymentMethod,
-}: Props) => {
-	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
+const PaymentMethod = ({ setPaymentMethod }: Props) => {
+	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
+		IOrderPaymentMethod | undefined
+	>();
+	const [paymentMethods, setPaymentMethods] = useState<IOrderPaymentMethod[]>();
 	const [showDialog, setShowDialog] = useState(false);
+
+	const dataFetchedRef = useRef(false);
+
+	useEffect(() => {
+		async function fetchData() {
+			await getOrderPaymentMethods().then(async (response: any) => {
+				if (response.status === 200) {
+					setPaymentMethods(response.data.data);
+				}
+			});
+		}
+		if (dataFetchedRef.current) return;
+		dataFetchedRef.current = true;
+		fetchData();
+	}, []);
+
+	const renderPaymentMethod = (paymentMethod: string | undefined) => {
+		if (paymentMethod === 'cash') {
+			return (
+				<IconButton sx={{ color: green[900] }}>
+					<Euro fontSize='medium' />
+					Cash
+				</IconButton>
+			);
+		} else {
+			return (
+				<IconButton sx={{ color: green[900] }}>
+					<CreditCard fontSize='medium' />
+					Credit Card
+				</IconButton>
+			);
+		}
+	};
 
 	return (
 		<Grid container sx={{ padding: '5px' }}>
@@ -61,12 +103,11 @@ const PaymentMethod = ({
 							fontWeight: 'bold',
 							fontSize: '16px',
 							color: 'black',
-						}}></Grid>
-					<Grid item xs={12}>
-						<small>Choose Payment Method</small>
+						}}>
+						{renderPaymentMethod(selectedPaymentMethod?.attributes.name)}
 					</Grid>
 					<Grid item xs={12}>
-						{selectedPaymentMethod}
+						<small>Choose Payment Method</small>
 					</Grid>
 					<Grid item xs={12}>
 						<Dialog
@@ -106,58 +147,34 @@ const PaymentMethod = ({
 								<Grid item xs={12} sx={{ textAlign: 'center' }}>
 									<h2>Payment Methods</h2>
 								</Grid>
-								{cashEnabled && (
-									<Grid item xs={12} sx={{ padding: '10px' }}>
-										<Button
-											sx={{
-												borderTop: '3px solid black',
-												padding: '15px',
-												width: '100%',
-												textAlign: 'left',
-											}}
-											onClick={() => {
-												setSelectedPaymentMethod('cash');
-												setPaymentMethod('cash');
-												setShowDialog(false);
-											}}
-											endIcon={<ArrowForwardIosOutlined />}>
-											<Grid container>
-												<Grid
-													item
-													xs={12}
-													sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-													Cash
+								{paymentMethods &&
+									paymentMethods.length > 0 &&
+									paymentMethods.map((method) => (
+										<Grid item xs={12} sx={{ padding: '10px' }}>
+											<Button
+												sx={{
+													borderTop: '1px solid black',
+													padding: '15px',
+													width: '100%',
+													textAlign: 'left',
+												}}
+												onClick={() => {
+													setSelectedPaymentMethod(method);
+													setPaymentMethod(method);
+													setShowDialog(false);
+												}}
+												endIcon={<ArrowForwardIosOutlined />}>
+												<Grid container>
+													<Grid
+														item
+														xs={12}
+														sx={{ fontWeight: 'bold', fontSize: '20px' }}>
+														{renderPaymentMethod(method.attributes.name)}
+													</Grid>
 												</Grid>
-											</Grid>
-										</Button>
-									</Grid>
-								)}
-								{stripeEnabled && (
-									<Grid item xs={12} sx={{ padding: '10px' }}>
-										<Button
-											sx={{
-												borderTop: '3px solid black',
-												padding: '15px',
-												width: '100%',
-												textAlign: 'left',
-											}}
-											onClick={() => {
-												setSelectedPaymentMethod('stripe');
-												setPaymentMethod('stripe');
-												setShowDialog(false);
-											}}
-											endIcon={<ArrowForwardIosOutlined />}>
-											<Grid container>
-												<Grid
-													item
-													xs={12}
-													sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-													Stripe
-												</Grid>
-											</Grid>
-										</Button>
-									</Grid>
-								)}
+											</Button>
+										</Grid>
+									))}
 							</Grid>
 						</Dialog>
 					</Grid>
