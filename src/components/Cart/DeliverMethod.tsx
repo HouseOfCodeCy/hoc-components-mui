@@ -24,7 +24,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
 	isCheckout?: boolean;
-	updateDeliveryMethod: (shippingMethod: IShippingMethod) => void;
+	updateDeliveryMethod: (shippingMethod: IShippingMethod | undefined) => void;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -48,12 +48,16 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 		async function fetchData() {
 			await getShippingMethods().then(async (response: any) => {
 				if (response.status === 200) {
-					setDeliveryMethods(response.data.data);
+					setDeliveryMethods(response.data.data as IShippingMethod[]);
 					setSelectedDeliveryMethod(
-						OrderUtils.getDefaultShippingMethod(response.data.data)
+						OrderUtils.getDefaultShippingMethod(
+							response.data.data as IShippingMethod[]
+						)
 					);
 					updateDeliveryMethod(
-						OrderUtils.getDefaultShippingMethod(response.data.data)
+						OrderUtils.getDefaultShippingMethod(
+							response.data.data as IShippingMethod[]
+						)
 					);
 				}
 			});
