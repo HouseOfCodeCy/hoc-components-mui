@@ -97,7 +97,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 								fontSize: '16px',
 								color: 'black',
 							}}>
-							{selectedDeliveryMethod?.attributes.name}
+							{selectedDeliveryMethod?.attributes.displayValue}
 						</Grid>
 						<Grid item xs={12}>
 							<small>Select Collection Method</small>
@@ -172,7 +172,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 												item
 												xs={12}
 												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-												{option.attributes.name}
+												{option.attributes.displayValue}
 											</Grid>
 										</Grid>
 									</Button>

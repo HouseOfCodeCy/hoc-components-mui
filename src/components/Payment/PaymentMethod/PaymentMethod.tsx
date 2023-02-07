@@ -104,7 +104,9 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 							fontSize: '16px',
 							color: 'black',
 						}}>
-						{renderPaymentMethod(selectedPaymentMethod?.attributes.name)}
+						{renderPaymentMethod(
+							selectedPaymentMethod?.attributes.displayValue
+						)}
 					</Grid>
 					<Grid item xs={12}>
 						<small>Choose Payment Method</small>
@@ -169,7 +171,9 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 														item
 														xs={12}
 														sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-														{renderPaymentMethod(method.attributes.name)}
+														{renderPaymentMethod(
+															method.attributes.displayValue
+														)}
 													</Grid>
 												</Grid>
 											</Button>

@@ -44,10 +44,10 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
 						Payment Method:{' '}
-						{order.attributes.order_payment_method.data.attributes.name.toUpperCase()}
+						{order.attributes.order_payment_method.data.attributes.displayValue.toUpperCase()}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						{order?.attributes.shipping_method?.data?.attributes.name}
+						{order?.attributes.shipping_method?.data?.attributes.displayValue}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
 						Order Total: €
