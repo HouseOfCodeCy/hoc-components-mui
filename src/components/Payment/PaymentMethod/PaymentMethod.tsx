@@ -6,9 +6,8 @@ import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
-	CreditCard,
-	Euro,
 } from '@mui/icons-material';
+
 import {
 	AppBar,
 	Button,
@@ -26,6 +25,7 @@ import React, {
 	useRef,
 	useState,
 } from 'react';
+
 import { TransitionProps } from 'react-transition-group/Transition';
 
 interface Props {
@@ -55,6 +55,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 			await getOrderPaymentMethods().then(async (response: any) => {
 				if (response.status === 200) {
 					setPaymentMethods(response.data.data);
+					setSelectedPaymentMethod(response.data.data[0]);
 				}
 			});
 		}
@@ -63,22 +64,15 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 		fetchData();
 	}, []);
 
-	const renderPaymentMethod = (paymentMethod: string | undefined) => {
-		if (paymentMethod === 'cash') {
-			return (
-				<IconButton sx={{ color: green[900] }}>
-					<Euro fontSize='medium' />
-					Cash
-				</IconButton>
-			);
-		} else {
-			return (
-				<IconButton sx={{ color: green[900] }}>
-					<CreditCard fontSize='medium' />
-					Credit Card
-				</IconButton>
-			);
-		}
+	const renderPaymentMethod = (
+		paymentMethod: IOrderPaymentMethod | undefined
+	) => {
+		return (
+			<IconButton sx={{ color: green[900] }}>
+				{/* ICON */}
+				{paymentMethod?.attributes.displayValue}
+			</IconButton>
+		);
 	};
 
 	return (
@@ -104,9 +98,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 							fontSize: '16px',
 							color: 'black',
 						}}>
-						{renderPaymentMethod(
-							selectedPaymentMethod?.attributes.displayValue
-						)}
+						{renderPaymentMethod(selectedPaymentMethod)}
 					</Grid>
 					<Grid item xs={12}>
 						<small>Choose Payment Method</small>
@@ -171,9 +163,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 														item
 														xs={12}
 														sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-														{renderPaymentMethod(
-															method.attributes.displayValue
-														)}
+														{renderPaymentMethod(method)}
 													</Grid>
 												</Grid>
 											</Button>

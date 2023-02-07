@@ -75,6 +75,17 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 		setShowAddressDialog(false);
 	};
 
+	const renderShippingMethod = (
+		shippingMethod: IShippingMethod | undefined
+	) => {
+		return (
+			<IconButton sx={{ color: grey[900] }}>
+				{/* <Icon>{shippingMethod?.attributes.icon}</Icon> */}
+				{shippingMethod?.attributes.displayValue}
+			</IconButton>
+		);
+	};
+
 	return (
 		<Grid container sx={{ padding: '5px' }}>
 			<Grid item xs={12} sx={{ paddingBottom: '10px' }}>
@@ -97,7 +108,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 								fontSize: '16px',
 								color: 'black',
 							}}>
-							{selectedDeliveryMethod?.attributes.displayValue}
+							{renderShippingMethod(selectedDeliveryMethod)}
 						</Grid>
 						<Grid item xs={12}>
 							<small>Select Collection Method</small>
@@ -172,7 +183,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 												item
 												xs={12}
 												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-												{option.attributes.displayValue}
+												{renderShippingMethod(selectedDeliveryMethod)}
 											</Grid>
 										</Grid>
 									</Button>
