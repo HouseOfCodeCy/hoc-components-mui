@@ -64,7 +64,7 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@houseofcodecy/hoc-utils": "^2.49.0",
+    "@houseofcodecy/hoc-utils": "^2.50.0",
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.8",
     "react-material-ui-carousel": "^3.4.2"

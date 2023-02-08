@@ -1,8 +1,4 @@
-import {
-	getShippingMethods,
-	IShippingMethod,
-	OrderUtils,
-} from '@houseofcodecy/hoc-utils';
+import { IShippingMethodOption } from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -20,11 +16,14 @@ import {
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
 import { TransitionProps } from '@mui/material/transitions';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Props {
 	isCheckout?: boolean;
-	updateDeliveryMethod: (shippingMethod: IShippingMethod | undefined) => void;
+	shippingMethodOptions?: IShippingMethodOption[];
+	updateShippingMethodOption: (
+		shippingMethodOption: IShippingMethodOption | undefined
+	) => void;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -36,36 +35,19 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction='up' ref={ref} in={true} {...props} />;
 });
 
-const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
-	const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
-		useState<IShippingMethod>();
-	const [deliveryMethods, setDeliveryMethods] = useState<IShippingMethod[]>();
+const DeliverMethodOptions = ({
+	shippingMethodOptions,
+	updateShippingMethodOption,
+}: Props) => {
+	const [selectedShippingMethodOption, setSelectedShippingMethodOption] =
+		useState<IShippingMethodOption>();
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 
-	const dataFetchedRef = useRef(false);
-
 	useEffect(() => {
-		async function fetchData() {
-			await getShippingMethods().then(async (response: any) => {
-				if (response.status === 200) {
-					setDeliveryMethods(response.data.data as IShippingMethod[]);
-					setSelectedDeliveryMethod(
-						OrderUtils.getDefaultShippingMethod(
-							response.data.data as IShippingMethod[]
-						)
-					);
-					updateDeliveryMethod(
-						OrderUtils.getDefaultShippingMethod(
-							response.data.data as IShippingMethod[]
-						)
-					);
-				}
-			});
+		if (shippingMethodOptions && shippingMethodOptions.length > 0) {
+			setSelectedShippingMethodOption(shippingMethodOptions[0]);
 		}
-		if (dataFetchedRef.current) return;
-		dataFetchedRef.current = true;
-		fetchData();
-	}, []);
+	}, [shippingMethodOptions]);
 
 	const handleClickOpen = () => {
 		setShowAddressDialog(true);
@@ -76,12 +58,12 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	};
 
 	const renderShippingMethod = (
-		shippingMethod: IShippingMethod | undefined
+		shippingMethod: IShippingMethodOption | undefined
 	) => {
 		return (
 			<IconButton sx={{ color: grey[900] }}>
 				{/* <Icon>{shippingMethod?.attributes.icon}</Icon> */}
-				{shippingMethod?.attributes.displayValue}
+				{shippingMethod?.attributes.name}
 			</IconButton>
 		);
 	};
@@ -108,10 +90,10 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 								fontSize: '16px',
 								color: 'black',
 							}}>
-							{renderShippingMethod(selectedDeliveryMethod)}
+							{renderShippingMethod(selectedShippingMethodOption)}
 						</Grid>
 						<Grid item xs={12}>
-							<small>Select Collection Method</small>
+							<small>Select Option</small>
 						</Grid>
 					</Grid>
 				</Button>
@@ -154,7 +136,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 						<Grid item xs={12} sx={{ textAlign: 'center' }}>
 							<h2>Select Collection Method</h2>
 						</Grid>
-						{deliveryMethods?.map((option) => {
+						{shippingMethodOptions?.map((option) => {
 							return (
 								<Grid
 									item
@@ -170,9 +152,9 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 											textAlign: 'left',
 										}}
 										onClick={() => {
-											setSelectedDeliveryMethod(option);
+											setSelectedShippingMethodOption(option);
 											handleClose();
-											updateDeliveryMethod(option);
+											updateShippingMethodOption(option);
 										}}
 										endIcon={<ArrowForwardIosOutlined />}>
 										<Grid
@@ -205,4 +187,4 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	);
 };
 
-export default DeliverMethod;
+export default DeliverMethodOptions;

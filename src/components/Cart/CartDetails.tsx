@@ -1,13 +1,22 @@
-import { CartUtils, ICartItemResponse } from '@houseofcodecy/hoc-utils';
+import {
+	CartUtils,
+	ICartItemResponse,
+	IShippingMethodOption,
+} from '@houseofcodecy/hoc-utils';
 import { Grid } from '@mui/material';
 import React from 'react';
 
 interface Props {
 	cartItems?: ICartItemResponse[];
 	showShippingCost?: boolean;
+	shippingMethodOption?: IShippingMethodOption;
 }
 
-const CartDetails = ({ cartItems, showShippingCost = false }: Props) => {
+const CartDetails = ({
+	cartItems,
+	showShippingCost = false,
+	shippingMethodOption,
+}: Props) => {
 	return cartItems && cartItems?.length > 0 ? (
 		<Grid
 			container
@@ -29,7 +38,7 @@ const CartDetails = ({ cartItems, showShippingCost = false }: Props) => {
 							Shipping Cost
 						</Grid>
 						<Grid item xs={5}>
-							€0
+							€{shippingMethodOption?.attributes.price}
 						</Grid>
 					</Grid>
 				</Grid>
