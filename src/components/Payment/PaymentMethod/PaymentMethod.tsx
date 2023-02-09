@@ -56,6 +56,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 				if (response.status === 200) {
 					setPaymentMethods(response.data.data);
 					setSelectedPaymentMethod(response.data.data[0]);
+					setPaymentMethod(response.data.data[0]);
 				}
 			});
 		}

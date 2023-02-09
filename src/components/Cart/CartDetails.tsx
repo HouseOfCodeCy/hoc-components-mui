@@ -27,7 +27,7 @@ const CartDetails = ({
 			<Grid item xs={12} sx={{ textAlign: 'center' }}>
 				<h3>Cart Summary</h3>
 			</Grid>
-			{showShippingCost && (
+			{showShippingCost && shippingMethodOption && (
 				<Grid item xs={12}>
 					<Grid
 						container
@@ -38,7 +38,7 @@ const CartDetails = ({
 							Shipping Cost
 						</Grid>
 						<Grid item xs={5}>
-							€{shippingMethodOption?.attributes.price}
+							€{shippingMethodOption?.attributes.price || 0}
 						</Grid>
 					</Grid>
 				</Grid>
@@ -68,6 +68,25 @@ const CartDetails = ({
 					</Grid>
 					<Grid item xs={5}>
 						{CartUtils.calculateTotalDiscount(cartItems)}%
+					</Grid>
+				</Grid>
+			</Grid>
+			<Grid item xs={12}>
+				<Grid
+					container
+					alignItems={'center'}
+					justifyContent={'space-between'}
+					sx={{ fontSize: '20px' }}
+					columnGap={2}>
+					<Grid item xs={5}>
+						Order Total
+					</Grid>
+					<Grid item xs={5} sx={{ fontWeight: 'bold' }}>
+						€
+						{(
+							(shippingMethodOption?.attributes.price || 0) +
+							+CartUtils.calculateTotalPrice(cartItems)
+						).toFixed(2)}
 					</Grid>
 				</Grid>
 			</Grid>

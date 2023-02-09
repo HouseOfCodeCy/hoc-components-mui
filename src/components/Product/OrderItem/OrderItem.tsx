@@ -47,7 +47,7 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 						{order.attributes.order_payment_method.data.attributes.displayValue.toUpperCase()}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
-						{order?.attributes.shipping_method?.data?.attributes.displayValue}
+						{order?.attributes.shipping_method_option?.data?.attributes.name}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>
 						Order Total: €
