@@ -29,6 +29,7 @@ import React, {
 } from 'react';
 
 import { TransitionProps } from 'react-transition-group/Transition';
+import SelectButton from '../../Button/SelectButton';
 
 interface Props {
 	setPaymentMethod: Dispatch<SetStateAction<IOrderPaymentMethod | undefined>>;
@@ -79,10 +80,10 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 		paymentMethod: IOrderPaymentMethod | undefined
 	) => {
 		return (
-			<IconButton sx={{ color: grey[900] }}>
-				{renderIcon(paymentMethod)}
-				{paymentMethod?.attributes.displayValue}
-			</IconButton>
+			<SelectButton
+				value={paymentMethod?.attributes.displayValue}
+				icon={renderIcon(paymentMethod)}
+			/>
 		);
 	};
 
@@ -168,10 +169,12 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 						{paymentMethods &&
 							paymentMethods.length > 0 &&
 							paymentMethods.map((method) => (
-								<Grid item xs={12} sx={{ padding: '10px' }}>
+								<Grid
+									item
+									xs={12}
+									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
 									<Button
 										sx={{
-											borderTop: '1px solid black',
 											padding: '15px',
 											width: '100%',
 											textAlign: 'left',

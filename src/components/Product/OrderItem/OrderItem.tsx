@@ -21,7 +21,7 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 			sx={{
 				w: 1,
 				display: 'flex',
-				justifyContent: 'space-between',
+				justifyContent: 'flex-start',
 				cursor: 'pointer',
 			}}
 			onClick={() => {
@@ -43,7 +43,7 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 						)}
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
-						Payment Method:{' '}
+						Payment:
 						{order.attributes.order_payment_method.data.attributes.displayValue.toUpperCase()}
 					</Typography>
 					<Typography variant='subtitle2' color='text.secondary'>

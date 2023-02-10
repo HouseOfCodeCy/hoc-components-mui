@@ -4,7 +4,6 @@ import {
 	OrderUtils,
 } from '@houseofcodecy/hoc-utils';
 import {
-	Add,
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
@@ -23,6 +22,7 @@ import {
 import { grey } from '@mui/material/colors';
 import { TransitionProps } from '@mui/material/transitions';
 import React, { useEffect, useRef, useState } from 'react';
+import SelectButton from '../Button/SelectButton';
 
 interface Props {
 	isCheckout?: boolean;
@@ -81,10 +81,10 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 		shippingMethod: IShippingMethod | undefined
 	) => {
 		return (
-			<IconButton sx={{ color: grey[900] }}>
-				{renderIcon(shippingMethod)}
-				{shippingMethod?.attributes.displayValue}
-			</IconButton>
+			<SelectButton
+				value={shippingMethod?.attributes.displayValue}
+				icon={renderIcon(shippingMethod)}
+			/>
 		);
 	};
 
@@ -174,10 +174,9 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 									key={option.id}
 									xs={12}
 									alignItems={'center'}
-									sx={{ padding: '10px' }}>
+									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
 									<Button
 										sx={{
-											borderTop: '1px solid black',
 											padding: '15px',
 											width: '100%',
 											textAlign: 'left',
@@ -203,14 +202,6 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 								</Grid>
 							);
 						})}
-						<Grid item xs={12}>
-							<Button
-								variant='contained'
-								endIcon={<Add />}
-								sx={{ width: '100%', padding: '15px' }}>
-								Add New Address
-							</Button>
-						</Grid>
 					</Grid>
 				</Dialog>
 			</Grid>

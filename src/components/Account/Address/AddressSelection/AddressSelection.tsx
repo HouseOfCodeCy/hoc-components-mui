@@ -4,6 +4,7 @@ import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
+	LocationCity,
 } from '@mui/icons-material';
 import {
 	AppBar,
@@ -105,11 +106,22 @@ const AddressSelection = ({
 					}}>
 					<Grid container>
 						<Grid
-							item
-							xs={12}
-							sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-							{selectedAddress?.address1}, {selectedAddress?.address2},{' '}
-							{`${selectedAddress?.city?.name}, ${selectedAddress?.postCode}, ${selectedAddress?.telephone}`}
+							container
+							display={'flex'}
+							alignItems={'center'}
+							columnGap={2}>
+							<Grid item>
+								<IconButton sx={{ color: grey[900] }}>
+									<LocationCity />
+								</IconButton>
+							</Grid>
+							<Grid
+								item
+								xs={9}
+								sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
+								{selectedAddress?.address1}, {selectedAddress?.address2},{' '}
+								{`${selectedAddress?.city?.name}, ${selectedAddress?.postCode}, ${selectedAddress?.telephone}`}
+							</Grid>
 						</Grid>
 						<Grid item xs={12}>
 							<small>
@@ -159,10 +171,13 @@ const AddressSelection = ({
 						</Grid>
 						{addresses?.map((address) => {
 							return (
-								<Grid item key={address.id} xs={12} sx={{ padding: '10px' }}>
+								<Grid
+									item
+									key={address.id}
+									xs={12}
+									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
 									<Button
 										sx={{
-											borderTop: '1px solid black',
 											padding: '15px',
 											width: '100%',
 											textAlign: 'left',

@@ -8,9 +8,12 @@ import {
 	IProductSize,
 	IUserFlat,
 } from '@houseofcodecy/hoc-utils';
-import { ShoppingBag } from '@mui/icons-material';
-import { Button } from '@mui/material';
-import React from 'react';
+import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
+import { IconButton } from '@mui/material';
+import { grey } from '@mui/material/colors';
+
+import React, { useState } from 'react';
 
 interface Props {
 	configuration: ConfigurationInterface;
@@ -37,6 +40,8 @@ const AddToCartButton = ({
 	quantity,
 	updateCart,
 }: Props) => {
+	const [loading, setLoading] = useState(false);
+
 	const checkIfDisabled = () => {
 		if (selectedProductColor && selectedProductSize) {
 			return false;
@@ -64,6 +69,7 @@ const AddToCartButton = ({
 	};
 
 	const addToCart = async () => {
+		setLoading(true);
 		if (configuration?.addToCartNeedsAccount) {
 			if (user && authenticated) {
 				// push item to cart
@@ -102,6 +108,7 @@ const AddToCartButton = ({
 									selectedProductSize
 								);
 							}
+							setLoading(false);
 						}
 					} else {
 						// create a new CartItem and refresh cart
@@ -113,6 +120,7 @@ const AddToCartButton = ({
 							selectedProductColor,
 							selectedProductSize
 						);
+						setLoading(false);
 					}
 				} else {
 					// if the logged in user has not yet created a cart
@@ -125,6 +133,7 @@ const AddToCartButton = ({
 							selectedProductColor,
 							selectedProductSize
 						);
+						setLoading(false);
 					}
 				}
 			} else {
@@ -160,6 +169,7 @@ const AddToCartButton = ({
 							selectedProductSize
 						);
 					}
+					setLoading(false);
 				} else {
 					// create a new CartItem and refresh cart
 					await CartUtils.createCartActionsAndGetCart(
@@ -170,6 +180,7 @@ const AddToCartButton = ({
 						selectedProductColor,
 						selectedProductSize
 					);
+					setLoading(false);
 				}
 			} else {
 				if (product && user) {
@@ -182,12 +193,13 @@ const AddToCartButton = ({
 						selectedProductSize
 					);
 				}
+				setLoading(false);
 			}
 		}
 	};
 
 	return (
-		<Button
+		<LoadingButton
 			variant='contained'
 			color={getButtonLabel(cart) === 'Add to Cart' ? 'warning' : 'primary'}
 			onClick={addToCart}
@@ -198,9 +210,27 @@ const AddToCartButton = ({
 				height: '60px',
 				borderRadius: '10px',
 			}}
-			startIcon={<ShoppingBag fontSize={'large'} />}>
+			loading={loading}
+			loadingPosition='end'
+			endIcon={
+				getButtonLabel(cart) === 'Add to Cart' ? (
+					<IconButton
+						aria-label='addToCart'
+						size='large'
+						sx={{ color: grey[50] }}>
+						<AddShoppingCart />
+					</IconButton>
+				) : (
+					<IconButton
+						aria-label='updateCart'
+						size='large'
+						sx={{ color: grey[50] }}>
+						<ShoppingCartCheckout />
+					</IconButton>
+				)
+			}>
 			{getButtonLabel(cart)}
-		</Button>
+		</LoadingButton>
 	);
 };
 
