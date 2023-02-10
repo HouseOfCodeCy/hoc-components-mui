@@ -109,7 +109,10 @@ const DeliverMethodOptions = ({
 							{renderShippingMethod(selectedShippingMethodOption)}
 						</Grid>
 						<Grid item xs={12}>
-							<small>Select Option</small>
+							<small>
+								Select {shippingMethodValue === 'pickup' ? 'Store' : 'Delivery'}{' '}
+								Option
+							</small>
 						</Grid>
 					</Grid>
 				</Button>
