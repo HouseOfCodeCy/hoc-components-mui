@@ -4,6 +4,8 @@ import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
+	LocalShipping,
+	Store,
 } from '@mui/icons-material';
 import {
 	AppBar,
@@ -20,6 +22,7 @@ import React, { useEffect, useState } from 'react';
 
 interface Props {
 	isCheckout?: boolean;
+	shippingMethodValue?: string;
 	shippingMethodOptions?: IShippingMethodOption[];
 	updateShippingMethodOption: (
 		shippingMethodOption: IShippingMethodOption | undefined
@@ -37,6 +40,7 @@ const Transition = React.forwardRef(function Transition(
 
 const DeliverMethodOptions = ({
 	shippingMethodOptions,
+	shippingMethodValue,
 	updateShippingMethodOption,
 }: Props) => {
 	const [selectedShippingMethodOption, setSelectedShippingMethodOption] =
@@ -46,6 +50,7 @@ const DeliverMethodOptions = ({
 	useEffect(() => {
 		if (shippingMethodOptions && shippingMethodOptions.length > 0) {
 			setSelectedShippingMethodOption(shippingMethodOptions[0]);
+			updateShippingMethodOption(shippingMethodOptions[0]);
 		}
 	}, [shippingMethodOptions]);
 
@@ -58,14 +63,25 @@ const DeliverMethodOptions = ({
 	};
 
 	const renderShippingMethod = (
-		shippingMethod: IShippingMethodOption | undefined
+		shippingMethodOption: IShippingMethodOption | undefined
 	) => {
 		return (
 			<IconButton sx={{ color: grey[900] }}>
-				{/* <Icon>{shippingMethod?.attributes.icon}</Icon> */}
-				{shippingMethod?.attributes.name}
+				{renderIcon()}
+				{shippingMethodOption?.attributes.name}
 			</IconButton>
 		);
+	};
+
+	const renderIcon = () => {
+		if (shippingMethodValue) {
+			if (shippingMethodValue === 'pickup') {
+				return <Store />;
+			} else {
+				return <LocalShipping />;
+			}
+		}
+		return <LocalShipping />;
 	};
 
 	return (

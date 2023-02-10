@@ -6,6 +6,8 @@ import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
+	AttachMoney,
+	CreditCard,
 } from '@mui/icons-material';
 
 import {
@@ -70,10 +72,21 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 	) => {
 		return (
 			<IconButton sx={{ color: green[900] }}>
-				{/* ICON */}
+				{renderIcon(paymentMethod)}
 				{paymentMethod?.attributes.displayValue}
 			</IconButton>
 		);
+	};
+
+	const renderIcon = (paymentMethod: IOrderPaymentMethod | undefined) => {
+		if (paymentMethod) {
+			return paymentMethod.attributes.value === 'cash' ? (
+				<AttachMoney />
+			) : (
+				<CreditCard />
+			);
+		}
+		return <CreditCard />;
 	};
 
 	return (

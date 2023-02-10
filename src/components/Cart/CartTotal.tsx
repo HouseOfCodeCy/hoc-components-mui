@@ -1,7 +1,6 @@
 import { CartUtils, ICartResponse } from '@houseofcodecy/hoc-utils';
 import AccountBalanceOutlinedIcon from '@mui/icons-material/AccountBalanceOutlined';
 import { Button, Grid } from '@mui/material';
-import { orange } from '@mui/material/colors';
 import React from 'react';
 
 interface Props {
@@ -43,7 +42,9 @@ const CartTotal = ({
 						variant='contained'
 						size='large'
 						sx={{
-							backgroundColor: orange[300],
+							backgroundColor: '#e0cd3c',
+							color: '#212121',
+							fontWeight: 'bold',
 							borderColor: 'black',
 							width: '100%',
 							height: '50px',

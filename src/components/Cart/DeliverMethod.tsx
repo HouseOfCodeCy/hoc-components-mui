@@ -8,6 +8,8 @@ import {
 	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
+	LocalShipping,
+	Store,
 } from '@mui/icons-material';
 import {
 	AppBar,
@@ -80,10 +82,21 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	) => {
 		return (
 			<IconButton sx={{ color: grey[900] }}>
-				{/* <Icon>{shippingMethod?.attributes.icon}</Icon> */}
+				{renderIcon(shippingMethod)}
 				{shippingMethod?.attributes.displayValue}
 			</IconButton>
 		);
+	};
+
+	const renderIcon = (shippingMethod: IShippingMethod | undefined) => {
+		if (shippingMethod) {
+			if (shippingMethod.attributes.value === 'pickup') {
+				return <Store />;
+			} else {
+				return <LocalShipping />;
+			}
+		}
+		return <LocalShipping />;
 	};
 
 	return (
