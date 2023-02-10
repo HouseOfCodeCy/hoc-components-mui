@@ -8,6 +8,7 @@ const Loading = () => {
 			container
 			display={'flex'}
 			justifyContent={'center'}
+			flexDirection={'column'}
 			alignItems={'center'}
 			sx={{
 				height: '100%',
@@ -24,6 +25,9 @@ const Loading = () => {
 				wrapperClass='dna-wrapper'
 				ballColors={['#ff0000', '#00ff00', '#0000ff']}
 			/>
+			<Grid item sx={{ fontWeight: 'bold' }}>
+				Online Shop
+			</Grid>
 		</Grid>
 	);
 };
