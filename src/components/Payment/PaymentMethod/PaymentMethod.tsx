@@ -1,6 +1,7 @@
 import {
 	getOrderPaymentMethods,
 	IOrderPaymentMethod,
+	StatusCode,
 } from '@houseofcodecy/hoc-utils';
 import {
 	ArrowBackIos,
@@ -56,7 +57,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 	useEffect(() => {
 		async function fetchData() {
 			await getOrderPaymentMethods().then(async (response: any) => {
-				if (response.status === 200) {
+				if (response.status === StatusCode.OK) {
 					setPaymentMethods(response.data.data);
 					setSelectedPaymentMethod(response.data.data[0]);
 					setPaymentMethod(response.data.data[0]);

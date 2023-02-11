@@ -2,6 +2,7 @@ import {
 	getShippingMethods,
 	IShippingMethod,
 	OrderUtils,
+	StatusCode,
 } from '@houseofcodecy/hoc-utils';
 import {
 	ArrowBackIos,
@@ -49,7 +50,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	useEffect(() => {
 		async function fetchData() {
 			await getShippingMethods().then(async (response: any) => {
-				if (response.status === 200) {
+				if (response.status === StatusCode.OK) {
 					setDeliveryMethods(response.data.data as IShippingMethod[]);
 					setSelectedDeliveryMethod(
 						OrderUtils.getDefaultShippingMethod(
