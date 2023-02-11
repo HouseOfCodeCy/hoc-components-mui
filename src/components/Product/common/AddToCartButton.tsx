@@ -12,6 +12,7 @@ import { AddShoppingCart, ShoppingCartCheckout } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { IconButton } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { isUndefined } from 'lodash';
 
 import React, { useState } from 'react';
 
@@ -43,10 +44,26 @@ const AddToCartButton = ({
 	const [loading, setLoading] = useState(false);
 
 	const checkIfDisabled = () => {
-		if (selectedProductColor && selectedProductSize) {
-			return false;
+		let mandatoryIsMissing = true;
+		const productHasColors = product?.attributes.product_colors?.data?.length;
+		const productHasSizes = product?.attributes.product_sizes?.data?.length;
+		if (productHasColors && isUndefined(selectedProductColor)) {
+			mandatoryIsMissing = true;
+			return mandatoryIsMissing;
+		} else if (productHasColors && !isUndefined(selectedProductColor)) {
+			mandatoryIsMissing = false;
+		} else if (!productHasColors) {
+			mandatoryIsMissing = false;
 		}
-		return true;
+		if (productHasSizes && isUndefined(selectedProductSize)) {
+			mandatoryIsMissing = true;
+			return mandatoryIsMissing;
+		} else if (productHasSizes && !isUndefined(selectedProductSize)) {
+			mandatoryIsMissing = false;
+		} else if (!productHasSizes) {
+			mandatoryIsMissing = false;
+		}
+		return mandatoryIsMissing;
 	};
 
 	const getButtonLabel = (cart: ICartResponse | null) => {
