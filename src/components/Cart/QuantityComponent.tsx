@@ -10,8 +10,10 @@ import {
 	DeleteOutlineRounded,
 	RemoveCircleOutline,
 } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
 import { Grid, IconButton } from '@mui/material';
-import React from 'react';
+import { red, yellow } from '@mui/material/colors';
+import React, { useState } from 'react';
 
 interface Props {
 	cartItem: ICartItemResponse;
@@ -20,7 +22,11 @@ interface Props {
 }
 
 const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
+	const [loadingDelete, setLoadingDelete] = useState(false);
+	const [loadingQuantity, setLoadingQuantity] = useState(false);
+
 	const updateCartAndCartItem = async (tmpQuantity: number) => {
+		setLoadingQuantity(true);
 		if (cartItem) {
 			const tmpCartItem: ICartItemResponse = {
 				...cartItem,
@@ -37,10 +43,12 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 						updateCart
 				  )
 				: undefined;
+			setLoadingQuantity(false);
 		}
 	};
 
 	const deleteCartItemFromCart = async () => {
+		setLoadingDelete(true);
 		// if this is the last cart item in the cart
 		if (cart?.attributes.cart_items?.data.length === 1) {
 			await CartUtils.deleteCartItemAndProductInventoryAndCartAndGetCart(
@@ -49,6 +57,7 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 				`${cart.id}`,
 				updateCart
 			);
+			setLoadingDelete(false);
 		} else {
 			cart &&
 				(await CartUtils.deleteCartItemAndProductInventoryAndGetCart(
@@ -57,6 +66,7 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 					`${cart.id}`,
 					updateCart
 				));
+			setLoadingDelete(false);
 		}
 	};
 
@@ -71,15 +81,29 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 			alignItems={'center'}
 			justifyContent={'space-between'}>
 			<Grid item>
-				<Grid container alignItems={'center'}>
-					<Grid item>
-						<IconButton
-							sx={{ m: 0 }}
+				<Grid
+					container
+					display={'flex'}
+					justifyContent={'center'}
+					alignItems={'center'}>
+					<Grid item sx={{ textAlign: 'center' }}>
+						<LoadingButton
+							size='large'
+							loadingPosition='end'
+							loading={loadingQuantity}
+							endIcon={
+								<IconButton
+									aria-label='incrementCartItem'
+									size='large'
+									sx={{ color: yellow[700] }}>
+									<RemoveCircleOutline sx={{ fontSize: 36 }} />
+								</IconButton>
+							}
 							disabled={
 								cartItem.attributes.product_inventory?.data.attributes
 									.quantity === 1
 							}
-							onClick={async () => {
+							onClick={() => {
 								const tmpQuantity = cartItem.attributes.product_inventory?.data
 									.attributes.quantity
 									? ProductUtils.quantityHandle(
@@ -89,21 +113,29 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 									  )
 									: 1;
 								updateCartAndCartItem(tmpQuantity);
-							}}>
-							<RemoveCircleOutline sx={{ fontSize: 36 }} />
-						</IconButton>
+							}}></LoadingButton>
 					</Grid>
-					<Grid item sx={{ fontSize: '30px' }}>
+					<Grid item sx={{ fontSize: '30px', textAlign: 'center' }}>
 						{cartItem.attributes.product_inventory?.data.attributes.quantity}
 					</Grid>
-					<Grid item>
-						<IconButton
+					<Grid item sx={{ textAlign: 'center' }}>
+						<LoadingButton
 							disabled={
 								cartItem.attributes.product_inventory?.data.attributes
 									.quantity === 9
 							}
-							sx={{ fontSize: '30px' }}
-							onClick={async () => {
+							loading={loadingQuantity}
+							size='large'
+							startIcon={
+								<IconButton
+									aria-label='incrementCartItem'
+									size='large'
+									sx={{ color: yellow[700] }}>
+									<AddCircleOutline sx={{ fontSize: 36 }} />{' '}
+								</IconButton>
+							}
+							loadingPosition='start'
+							onClick={() => {
 								const tmpQuantity = cartItem.attributes.product_inventory?.data
 									.attributes.quantity
 									? ProductUtils.quantityHandle(
@@ -113,24 +145,24 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 									  )
 									: 1;
 								updateCartAndCartItem(tmpQuantity);
-							}}>
-							<AddCircleOutline sx={{ fontSize: 36 }} />
-						</IconButton>
+							}}></LoadingButton>
 					</Grid>
 				</Grid>
 			</Grid>
 			<Grid item>
-				<IconButton
-					sx={{ fontSize: '30px' }}
-					disabled={
-						cartItem.attributes.product_inventory?.data.attributes.quantity ===
-						1
+				<LoadingButton
+					size='large'
+					loadingPosition='center'
+					endIcon={
+						<IconButton
+							aria-label='deleteCartItem'
+							size='large'
+							sx={{ color: red[700] }}>
+							<DeleteOutlineRounded sx={{ fontSize: 36 }} color='error' />
+						</IconButton>
 					}
-					onClick={async () => {
-						deleteCartItemFromCart();
-					}}>
-					<DeleteOutlineRounded sx={{ fontSize: 36 }} color='error' />
-				</IconButton>
+					loading={loadingDelete}
+					onClick={deleteCartItemFromCart}></LoadingButton>
 			</Grid>
 		</Grid>
 	);

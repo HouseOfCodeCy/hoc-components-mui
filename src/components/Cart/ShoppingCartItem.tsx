@@ -45,10 +45,13 @@ const ShoppingCartItem = ({
 					<Typography
 						component='div'
 						variant='h3'
-						sx={{ fontWeight: 300, fontSize: '14px' }}>
+						sx={{ fontWeight: 300, fontSize: '13px' }}>
 						{CartItemUtils.getCartItemOptions(cartItem)}
 					</Typography>
-					<Typography variant='h5' color='text.secondary' component='div'>
+					<Typography
+						variant='h3'
+						component='div'
+						sx={{ fontWeight: 500, fontSize: '16px' }}>
 						{CartItemUtils.getCartItemPrice(cartItem)}(
 						{cartItem.attributes.product_inventory?.data?.attributes.quantity}x)
 						= €{cartItem.attributes.price}
