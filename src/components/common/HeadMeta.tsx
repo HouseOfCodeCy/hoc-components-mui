@@ -5,7 +5,7 @@ interface Props {
 	Head: ({ children }: { children: React.ReactNode }) => JSX.Element;
 	configuration: ConfigurationInterface;
 	title: string;
-	content: string;
+	content?: string;
 }
 
 const HeadMeta = ({ Head, configuration, title, content }: Props) => {
