@@ -26,6 +26,8 @@ interface Props {
 	shippingAddress: IAddressFlat | null;
 	updateShippingAddress: (address: IAddressFlat) => void;
 	actionLabel?: string;
+	showAddNewAddress?: boolean;
+	nextRouter?: any;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -43,6 +45,8 @@ const AddressSelection = ({
 	shippingAddress,
 	updateShippingAddress,
 	actionLabel = 'Change Address',
+	showAddNewAddress = true,
+	nextRouter,
 }: Props) => {
 	const [addresses, setAddresses] = useState<IAddressFlat[]>();
 	const [selectedAddress, setSelectedAddress] = useState<
@@ -221,14 +225,17 @@ const AddressSelection = ({
 								</Grid>
 							);
 						})}
-						<Grid item xs={12}>
-							<Button
-								variant='contained'
-								endIcon={<Add />}
-								sx={{ width: '100%', padding: '15px' }}>
-								Add New Address
-							</Button>
-						</Grid>
+						{showAddNewAddress && (
+							<Grid item xs={12}>
+								<Button
+									variant='contained'
+									endIcon={<Add />}
+									onClick={() => nextRouter?.push(`/account/addaddress`)}
+									sx={{ width: '100%', padding: '15px' }}>
+									Add New Address
+								</Button>
+							</Grid>
+						)}
 					</Grid>
 				</Dialog>
 			</Grid>

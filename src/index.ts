@@ -1,3 +1,4 @@
+import AddAddressButton from './components/Account/Address/AddAddressButton';
 import AddressList from './components/Account/Address/AddressList/AddressList';
 import AddressSelection from './components/Account/Address/AddressSelection/AddressSelection';
 import HButton from './components/Button/Button';
@@ -31,6 +32,7 @@ import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsAccordion from './components/Product/Reviews/ReviewsAccordion';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 
+export { AddAddressButton };
 export { HeadMeta };
 export { Loading };
 export { FavoriteProductItem };

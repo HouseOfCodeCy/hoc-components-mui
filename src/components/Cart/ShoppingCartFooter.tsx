@@ -11,6 +11,7 @@ interface Props {
 	showCartOnFooter: boolean;
 	showCart: (show: boolean) => void;
 	nextRouter: any;
+	urlsNotToShow?: string[];
 }
 
 const ShoppingCartFooter = ({
@@ -19,16 +20,20 @@ const ShoppingCartFooter = ({
 	showCartOnFooter,
 	user,
 	nextRouter,
+	urlsNotToShow = ['checkout', 'cart', 'account'],
 }: Props) => {
-	const isCheckout = nextRouter.asPath.includes('/checkout') ? true : false;
-	const isCartPath = nextRouter.asPath.includes('/cart') ? true : false;
+	const isPageListedInListedUrls = urlsNotToShow.some((url) => {
+		if (nextRouter.asPath.includes(`/${url}`)) {
+			return true;
+		}
+	});
+	console.log(isPageListedInListedUrls);
 
 	return cart &&
 		cart?.attributes?.cart_items &&
 		user &&
 		showCartOnFooter &&
-		!isCartPath &&
-		!isCheckout ? (
+		!isPageListedInListedUrls ? (
 		<Box sx={{ minHeight: '60px' }} onClick={() => showCart(true)}>
 			<Grid
 				container
