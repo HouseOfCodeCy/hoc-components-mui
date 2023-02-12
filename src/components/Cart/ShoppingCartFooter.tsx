@@ -26,6 +26,7 @@ const ShoppingCartFooter = ({
 		if (nextRouter.asPath.includes(`/${url}`)) {
 			return true;
 		}
+		return false;
 	});
 	console.log(isPageListedInListedUrls);
 
