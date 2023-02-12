@@ -47,6 +47,7 @@ const AddToCartButton = ({
 		let mandatoryIsMissing = true;
 		const productHasColors = product?.attributes.product_colors?.data?.length;
 		const productHasSizes = product?.attributes.product_sizes?.data?.length;
+		// check colors
 		if (productHasColors && isUndefined(selectedProductColor)) {
 			mandatoryIsMissing = true;
 			return mandatoryIsMissing;
@@ -55,6 +56,7 @@ const AddToCartButton = ({
 		} else if (!productHasColors) {
 			mandatoryIsMissing = false;
 		}
+		// check sizes
 		if (productHasSizes && isUndefined(selectedProductSize)) {
 			mandatoryIsMissing = true;
 			return mandatoryIsMissing;
@@ -63,6 +65,9 @@ const AddToCartButton = ({
 		} else if (!productHasSizes) {
 			mandatoryIsMissing = false;
 		}
+
+		// check product stock
+
 		return mandatoryIsMissing;
 	};
 

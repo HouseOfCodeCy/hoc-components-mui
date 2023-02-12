@@ -15,6 +15,7 @@ import CardRow from './components/common/CardRow';
 import CarouselComponent from './components/common/CarouselComponent';
 import FullScreenDialog from './components/common/FullScreenDialog';
 import HChip from './components/common/HChip';
+import HeadMeta from './components/common/HeadMeta';
 import HNavigation from './components/common/HNavigation';
 import Loading from './components/common/Loading';
 import SimpleDialog from './components/common/SimpleDialog';
@@ -30,6 +31,7 @@ import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsAccordion from './components/Product/Reviews/ReviewsAccordion';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 
+export { HeadMeta };
 export { Loading };
 export { FavoriteProductItem };
 export { HButton };
