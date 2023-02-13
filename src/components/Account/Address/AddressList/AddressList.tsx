@@ -1,8 +1,8 @@
 import { AccountUtils, IAddressFlat } from '@houseofcodecy/hoc-utils';
-import { LocationCity } from '@mui/icons-material';
+import { LocationCity, Settings } from '@mui/icons-material';
 import {
-	Chip,
 	Grid,
+	IconButton,
 	List,
 	ListItem,
 	ListItemButton,
@@ -17,11 +17,17 @@ interface Props {
 }
 
 const AddressList = ({ addresses }: Props) => {
+	const onAddressClicked = (address: IAddressFlat) => {
+		console.log(address);
+	};
 	return (
 		<Grid container>
 			<List sx={{ width: '100%' }}>
 				{addresses.map((address) => (
-					<ListItem sx={{ width: '100%' }} key={address.id}>
+					<ListItem
+						sx={{ width: '100%' }}
+						key={address.id}
+						onClick={() => onAddressClicked(address)}>
 						<ListItemButton>
 							<ListItemIcon sx={{ color: blue[700] }}>
 								<LocationCity sx={{ fontSize: '34px' }} />
@@ -32,7 +38,10 @@ const AddressList = ({ addresses }: Props) => {
 								sx={{ w: 1 }}
 							/>
 						</ListItemButton>
-						{address.isDefault && <Chip label='Default' sx={{ w: 1 }} />}
+						<IconButton size='large'>
+							<Settings />
+						</IconButton>
+						{/* {address.isDefault && <Chip label='Default' sx={{ w: 1 }} />} */}
 					</ListItem>
 				))}
 			</List>
