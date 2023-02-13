@@ -1,4 +1,10 @@
-import { ICityFlat } from '@houseofcodecy/hoc-utils';
+import {
+	createAddress,
+	getCities,
+	ICity,
+	IUserFlat,
+	StatusCode,
+} from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -21,10 +27,15 @@ import {
 	Typography,
 } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TransitionProps } from 'react-transition-group/Transition';
+
+interface Props {
+	user: IUserFlat;
+	addUser: (user: IUserFlat) => void;
+}
 
 interface IFormInput {
 	name: string;
@@ -32,7 +43,7 @@ interface IFormInput {
 	address2: string;
 	postCode: string;
 	telephone: string;
-	city: ICityFlat;
+	cityId: number;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -44,11 +55,26 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction='up' ref={ref} in={true} {...props} />;
 });
 
-const AddAddressButton = () => {
+const AddAddressButton = ({ user, addUser }: Props) => {
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
+	const [cities, setCities] = useState<ICity[] | null>(null);
 
 	const { register, handleSubmit } = useForm<IFormInput>();
-	const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+
+	const dataFetchedRef = useRef(false);
+
+	useEffect(() => {
+		async function fetchData() {
+			await getCities().then(async (response: any) => {
+				if (response.status === StatusCode.OK) {
+					setCities(response.data.data as ICity[]);
+				}
+			});
+		}
+		if (dataFetchedRef.current) return;
+		dataFetchedRef.current = true;
+		fetchData();
+	}, []);
 
 	const handleClickOpen = () => {
 		setShowAddressDialog(true);
@@ -56,6 +82,22 @@ const AddAddressButton = () => {
 
 	const handleClose = () => {
 		setShowAddressDialog(false);
+	};
+
+	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
+		const selectedCity = cities?.find((city) => city.id === data.cityId);
+		if (selectedCity) {
+			const addressPayload = {
+				...data,
+				city: data.cityId,
+				isDefault: false,
+			};
+			await createAddress(addressPayload, user, addUser).then(
+				(response: any) => {
+					setShowAddressDialog(false);
+				}
+			);
+		}
 	};
 
 	return (
@@ -185,7 +227,7 @@ const AddAddressButton = () => {
 											),
 										}}
 										sx={{ borderRadius: '10px' }}
-										{...register('address2', { pattern: /^[A-Za-z]+$/i })}
+										{...register('address2', { required: true, maxLength: 40 })}
 									/>
 								</Grid>
 								<Grid item xs={12}>
@@ -225,7 +267,7 @@ const AddAddressButton = () => {
 													),
 												}}
 												sx={{ borderRadius: '10px' }}
-												{...register('telephone', { min: 8, max: 8 })}
+												{...register('telephone')}
 											/>
 										</Grid>
 									</Grid>
@@ -250,7 +292,7 @@ const AddAddressButton = () => {
 													),
 												}}
 												sx={{ borderRadius: '10px' }}
-												{...register('postCode', { min: 3, max: 5 })}
+												{...register('postCode')}
 											/>
 										</Grid>
 										<Grid item xs={7}>
@@ -269,10 +311,10 @@ const AddAddressButton = () => {
 														</InputAdornment>
 													),
 												}}
-												{...register('city', { min: 8, max: 8 })}>
-												{['Nicosia', 'Limassol'].map((option) => (
-													<MenuItem key={option} value={option}>
-														{option}
+												{...register('cityId')}>
+												{cities?.map((option: ICity) => (
+													<MenuItem key={option.id} value={option.id}>
+														{option.attributes.name}
 													</MenuItem>
 												))}
 											</TextField>

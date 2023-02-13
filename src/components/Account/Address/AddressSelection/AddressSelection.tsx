@@ -1,4 +1,8 @@
-import { IAddressFlat, IUserFlat } from '@houseofcodecy/hoc-utils';
+import {
+	AccountUtils,
+	IAddressFlat,
+	IUserFlat,
+} from '@houseofcodecy/hoc-utils';
 import {
 	Add,
 	ArrowBackIos,
@@ -109,24 +113,25 @@ const AddressSelection = ({
 						!isCheckout ? handleClickOpen() : null;
 					}}>
 					<Grid container>
-						<Grid
-							container
-							display={'flex'}
-							alignItems={'center'}
-							columnGap={2}>
-							<Grid item>
-								<IconButton sx={{ color: grey[900] }}>
-									<LocationCity />
-								</IconButton>
-							</Grid>
+						{selectedAddress && (
 							<Grid
-								item
-								xs={9}
-								sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-								{selectedAddress?.address1}, {selectedAddress?.address2},{' '}
-								{`${selectedAddress?.city?.name}, ${selectedAddress?.postCode}, ${selectedAddress?.telephone}`}
+								container
+								display={'flex'}
+								alignItems={'center'}
+								columnGap={2}>
+								<Grid item>
+									<IconButton sx={{ color: grey[900] }}>
+										<LocationCity />
+									</IconButton>
+								</Grid>
+								<Grid
+									item
+									xs={9}
+									sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
+									{AccountUtils.printAddressAsStringFlat(selectedAddress)}
+								</Grid>
 							</Grid>
-						</Grid>
+						)}
 						<Grid item xs={12}>
 							<small>
 								{!isCheckout ? `${actionLabel}` : `Shipping Address`}
