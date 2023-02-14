@@ -93,7 +93,7 @@ const AddToCartButton = ({
 	const addToCart = async () => {
 		setLoading(true);
 		if (configuration?.addToCartNeedsAccount) {
-			if (user && authenticated) {
+			if (user) {
 				// push item to cart
 				// if cart exists on the context
 				if (cart && product) {

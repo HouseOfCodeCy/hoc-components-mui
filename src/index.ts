@@ -22,6 +22,7 @@ import Loading from './components/common/Loading';
 import SimpleDialog from './components/common/SimpleDialog';
 import TextFieldSelect from './components/common/TextFieldSelect';
 import OrderShippingMethod from './components/Order/OrderShippingMethod';
+import PayButtonCash from './components/Payment/PayButtonCash';
 import PaymentMethod from './components/Payment/PaymentMethod/PaymentMethod';
 import AddToCartButton from './components/Product/common/AddToCartButton';
 import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem';
@@ -32,6 +33,7 @@ import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsAccordion from './components/Product/Reviews/ReviewsAccordion';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 
+export { PayButtonCash };
 export { AddAddressButton };
 export { HeadMeta };
 export { Loading };

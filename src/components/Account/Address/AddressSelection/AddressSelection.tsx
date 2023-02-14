@@ -235,9 +235,9 @@ const AddressSelection = ({
 								<Button
 									variant='contained'
 									endIcon={<Add />}
-									onClick={() => nextRouter?.push(`/account/addaddress`)}
+									onClick={() => nextRouter?.push(`/account/addresses`)}
 									sx={{ width: '100%', padding: '15px' }}>
-									Add New Address
+									Manage your Addresses
 								</Button>
 							</Grid>
 						)}

@@ -28,7 +28,6 @@ const ShoppingCartFooter = ({
 		}
 		return false;
 	});
-	console.log(isPageListedInListedUrls);
 
 	return cart &&
 		cart?.attributes?.cart_items &&
