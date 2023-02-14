@@ -4,6 +4,8 @@ import {
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
 	LocalShipping,
+	LocationOn,
+	LockClock,
 	Store,
 } from '@mui/icons-material';
 import {
@@ -68,6 +70,8 @@ const DeliverMethodOptions = ({
 		return (
 			<SelectButton
 				value={shippingMethodOption?.attributes.name}
+				description={shippingMethodOption?.attributes.description}
+				iconDescription={renderIconDescription()}
 				icon={renderIcon()}
 			/>
 		);
@@ -82,6 +86,17 @@ const DeliverMethodOptions = ({
 			}
 		}
 		return <LocalShipping />;
+	};
+
+	const renderIconDescription = () => {
+		if (shippingMethodValue) {
+			if (shippingMethodValue === 'pickup') {
+				return <LocationOn />;
+			} else {
+				return <LockClock />;
+			}
+		}
+		return <LocationOn />;
 	};
 
 	return (

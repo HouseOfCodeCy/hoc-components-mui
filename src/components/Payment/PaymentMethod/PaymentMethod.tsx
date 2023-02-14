@@ -83,6 +83,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 		return (
 			<SelectButton
 				value={paymentMethod?.attributes.displayValue}
+				description={paymentMethod?.attributes.description}
 				icon={renderIcon(paymentMethod)}
 			/>
 		);
