@@ -92,7 +92,8 @@ const AddToCartButton = ({
 
 	const addToCart = async () => {
 		setLoading(true);
-		if (configuration?.addToCartNeedsAccount) {
+		// if shop is configured without guestCheckout
+		if (configuration?.guestCheckout) {
 			if (user) {
 				// push item to cart
 				// if cart exists on the context

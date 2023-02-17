@@ -2,6 +2,13 @@ import { Alert, AlertColor, AlertTitle, Snackbar } from '@mui/material';
 import React, { createContext, useContext, useState } from 'react';
 
 export type SnackBarContextType = {
+	/**
+	 * Show an alert, wrap in SnackBar component
+	 * @param {string} message The message of the Alert
+	 * @param {AlertColor} typeColor The severity of the Alert
+	 * @param {string} title The title of the Alert
+	 * @returns
+	 */
 	showSnackBar: (
 		message: string,
 		typeColor: AlertColor,

@@ -21,7 +21,7 @@ import {
 import Menu from '@mui/icons-material/Menu';
 import { Grid, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import { blue, green, orange, red } from '@mui/material/colors';
+import { blue, grey, orange } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -187,40 +187,46 @@ export default function HNavigation({
 			</List>
 			<Divider />
 			<List sx={[{ width: 1 }]}>
-				<ListItem key={'logout-user-info'}>
-					<ListItemText
-						primary={
-							isUserLoggedIn() ? (
+				{isUserLoggedIn() && (
+					<ListItem key={'logout-user-info'}>
+						<ListItemText
+							primary={
 								<Grid container>
-									<Grid item xs={12}>
-										<strong>Logged in as:</strong>
-									</Grid>
-									<Grid item xs={12}>
-										{user?.name}
+									<Grid item>
+										Hi, <strong>{user?.name}</strong>!
 									</Grid>
 								</Grid>
-							) : (
-								'Login'
-							)
-						}
-					/>
-				</ListItem>
-				<ListItem key={'logout-button-user'}>
+							}
+						/>
+					</ListItem>
+				)}
+				<ListItem disablePadding key={'logout-button-user'}>
 					{!isUserLoggedIn() && (
 						<ListItemButton
+							sx={{
+								p: 2,
+								borderRadius: '5px',
+								backgroundColor: '#a6ca54',
+							}}
 							onClick={() => {
 								nextRouter.push('/login');
 							}}>
 							<ListItemIcon>
-								<Logout sx={{ color: green[700] }} />
+								<Logout sx={{ color: grey[900] }} />
 							</ListItemIcon>
 							<ListItemText primary={'Login'} />
 						</ListItemButton>
 					)}
 					{isUserLoggedIn() && (
-						<ListItemButton onClick={() => logoutUserFromSession()}>
+						<ListItemButton
+							sx={{
+								p: 2,
+								borderRadius: '5px',
+								backgroundColor: '#e65c52',
+							}}
+							onClick={() => logoutUserFromSession()}>
 							<ListItemIcon>
-								<Logout sx={{ color: red[500] }} />
+								<Logout sx={{ color: grey[900] }} />
 							</ListItemIcon>
 							<ListItemText primary={'Logout'} />
 						</ListItemButton>
