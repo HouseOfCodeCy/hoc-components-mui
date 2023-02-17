@@ -1,3 +1,4 @@
+/********************** COMPONENTS ***********************/
 import AddAddressButton from './components/Account/Address/AddAddressButton';
 import AddressList from './components/Account/Address/AddressList/AddressList';
 import AddressSelection from './components/Account/Address/AddressSelection/AddressSelection';
@@ -11,7 +12,6 @@ import QuantityComponent from './components/Cart/QuantityComponent';
 import ShoppingCartFooter from './components/Cart/ShoppingCartFooter';
 import ShoppingCartItem from './components/Cart/ShoppingCartItem';
 import ShoppingCartItems from './components/Cart/ShoppingCartItems';
-import AlertController from './components/common/AlertController';
 import CardRow from './components/common/CardRow';
 import CarouselComponent from './components/common/CarouselComponent';
 import FullScreenDialog from './components/common/FullScreenDialog';
@@ -32,6 +32,8 @@ import ReviewComponent from './components/Product/Reviews/ReviewComponent';
 import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsAccordion from './components/Product/Reviews/ReviewsAccordion';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
+/********************** PROVIDERS ***********************/
+import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
 export { PayButtonCash };
 export { AddAddressButton };
@@ -49,7 +51,6 @@ export { OrderItem };
 export { CardRow };
 export { ReviewComponent };
 export { ReviewRating };
-export { AlertController };
 export { CartDetails };
 export { CartTotal };
 export { QuantityComponent };
@@ -67,3 +68,5 @@ export { AddToCartButton };
 export { DeliverMethod };
 export { DeliverMethodOptions };
 export { OrderShippingMethod };
+export { SnackBarProvider };
+export { useSnackBar };

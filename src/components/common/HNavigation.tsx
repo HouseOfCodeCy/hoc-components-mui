@@ -1,4 +1,5 @@
 import {
+	IAddressFlat,
 	ICartResponse,
 	IProductCategoryParent,
 	isUserLoggedIn,
@@ -29,13 +30,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import React, { Fragment, useState } from 'react';
-import AlertController from './AlertController';
+import { useSnackBar } from '../../providers/SnackBarProvider';
 
 interface Props {
 	parentCategories: IProductCategoryParent[];
 	user?: IUserFlat | null;
 	cart: ICartResponse | null;
 	removeUser: () => void;
+	updateCart: (cart: ICartResponse | null) => void;
+	updateShippingAddress: (address: IAddressFlat | null) => void;
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 	nextRouter: any;
 	packageInfo: any;
@@ -46,12 +49,14 @@ export default function HNavigation({
 	user,
 	cart,
 	removeUser,
+	updateCart,
+	updateShippingAddress,
 	setIsAuthenticated,
 	nextRouter,
 	packageInfo,
 }: Props) {
 	const [state, setState] = useState(false);
-	const [showAlert, setShowAlert] = useState<boolean>(false);
+	const { showSnackBar } = useSnackBar();
 
 	const primaryMenuItems = [
 		{ name: 'Home', icon: <Home />, url: '/#welcome-section' },
@@ -97,15 +102,13 @@ export default function HNavigation({
 		{ name: 'Contact', icon: <ContactMail />, url: '#' },
 	];
 
-	const handleCloseAlert = () => {
-		setShowAlert(false);
-	};
-
 	const logoutUserFromSession = () => {
 		logoutUser();
 		removeUser();
 		setIsAuthenticated(false);
-		setShowAlert(true);
+		updateCart(null);
+		updateShippingAddress(null);
+		showSnackBar('Succesfully Logged Out', 'success', 'Logout');
 	};
 
 	const toggleDrawer =
@@ -204,7 +207,10 @@ export default function HNavigation({
 				</ListItem>
 				<ListItem key={'logout-button-user'}>
 					{!isUserLoggedIn() && (
-						<ListItemButton onClick={() => nextRouter.push('/login')}>
+						<ListItemButton
+							onClick={() => {
+								nextRouter.push('/login');
+							}}>
 							<ListItemIcon>
 								<Logout sx={{ color: green[700] }} />
 							</ListItemIcon>
@@ -244,12 +250,6 @@ export default function HNavigation({
 
 	return (
 		<Grid container display={'flex'} alignItems={'center'}>
-			<AlertController
-				openAlert={showAlert}
-				handleClose={handleCloseAlert}
-				severity={'success'}
-				message={'Succesfully Logged Out'}
-			/>
 			<Fragment key={'sidemenu-key'}>
 				<IconButton onClick={toggleDrawer(true)}>
 					<Menu fontSize={'large'} sx={{ color: orange[300] }} />
