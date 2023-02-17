@@ -32,12 +32,12 @@ const CarouselComponent = ({ media }: Props) => {
 			}}
 			sx={{
 				textAlign: 'center',
-				minHeight: 280,
-				maxHeight: 280,
+				minHeight: 300,
+				maxHeight: 300,
 			}}>
 			{media.map((image, i) => (
 				<Paper key={i}>
-					<img src={`${image}`} alt={image} height={260} />
+					<img src={`${image}`} alt={image} height={300} />
 				</Paper>
 			))}
 		</Carousel>
