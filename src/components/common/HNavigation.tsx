@@ -59,7 +59,7 @@ export default function HNavigation({
 	const { showSnackBar } = useSnackBar();
 
 	const primaryMenuItems = [
-		{ name: 'Home', icon: <Home />, url: '/#welcome-section' },
+		{ name: 'Home', icon: <Home />, url: '/' },
 		{
 			name: 'Your Cart',
 			icon: <ShoppingCart />,
