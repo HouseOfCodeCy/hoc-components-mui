@@ -1,6 +1,6 @@
 {
   "name": "@houseofcodecy/hoc-components-mui",
-  "version": "1.21.1",
+  "version": "1.21.2-0",
   "description": "A component library consisting of MUI wrapped components for HoC Projects",
   "main": "./dist/cjs/index.js",
   "module": "./dist/esm/index.js",
