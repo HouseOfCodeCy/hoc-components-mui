@@ -22,7 +22,7 @@ const ShoppingCartItem = ({
 			sx={{ display: 'flex', flex: '1', boxShadow: '#0000000a 0px 3px 5px' }}>
 			<CardMedia
 				component='img'
-				sx={{ width: 120, objectFit: 'cover' }}
+				sx={{ width: 120, objectFit: 'cover', cursor: 'pointer' }}
 				image={CartItemUtils.getCartItemMedia(cartItem)[0]}
 				alt='Live from space album cover'
 				onClick={() =>
@@ -31,6 +31,7 @@ const ShoppingCartItem = ({
 			/>
 			<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
 				<CardContent
+					sx={{ cursor: 'pointer' }}
 					onClick={() =>
 						nextRouter.push(
 							`/product/${CartItemUtils.getCartItemProduct(cartItem)?.id}`
