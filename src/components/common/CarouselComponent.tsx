@@ -6,19 +6,26 @@ interface Props {
 	media: string[];
 	width?: string;
 	flexColumnSize?: number;
+	autoPlay?: boolean;
 }
 
-const CarouselComponent = ({ media, width, flexColumnSize = 4 }: Props) => {
+const CarouselComponent = ({
+	media,
+	width,
+	flexColumnSize = 4,
+	autoPlay = false,
+}: Props) => {
 	return (
 		<Grid container display={'flex'} justifyContent={'center'}>
 			<Grid item xs={11} lg={flexColumnSize}>
 				<Carousel
 					fullHeightHover={false}
-					autoPlay={false}
+					autoPlay={autoPlay}
 					indicators={true}
-					navButtonsAlwaysVisible={true}
+					navButtonsAlwaysVisible={false}
 					cycleNavigation={true}
 					animation={'slide'}
+					swipe={true}
 					duration={100}
 					navButtonsProps={{
 						// Change the colors and radius of the actual buttons. THIS STYLES BOTH BUTTONS
@@ -36,8 +43,8 @@ const CarouselComponent = ({ media, width, flexColumnSize = 4 }: Props) => {
 					}}
 					sx={{
 						textAlign: 'center',
-						minHeight: 360,
-						maxHeight: 360,
+						minHeight: 400,
+						maxHeight: 400,
 					}}>
 					{media.map((image, i) => (
 						<Paper key={i}>
@@ -45,6 +52,7 @@ const CarouselComponent = ({ media, width, flexColumnSize = 4 }: Props) => {
 								src={`${image}`}
 								alt={image}
 								height={360}
+								style={{ objectFit: 'cover' }}
 								width={width ? width : undefined}
 							/>
 						</Paper>

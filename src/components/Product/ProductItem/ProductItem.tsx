@@ -98,16 +98,23 @@ const ProductItem = ({
 	};
 
 	return (
-		<Card sx={{ w: 1, display: 'flex', justifyContent: 'flex-start' }}>
+		<Card
+			sx={{
+				w: 1,
+				display: 'flex',
+				justifyContent: 'flex-start',
+				minHeight: '220px',
+			}}>
 			{product?.attributes.mediaUrls && (
 				<CardMedia
 					component='img'
 					sx={{
 						objectFit: 'contain',
-						minHeight: 160,
-						maxHeight: 160,
-						maxWidth: 140,
-						minWidth: 140,
+						textAlign: 'center',
+						minHeight: 210,
+						maxHeight: 210,
+						maxWidth: 160,
+						minWidth: 160,
 						cursor: 'pointer',
 					}}
 					image={product?.attributes.mediaUrls[0]}
@@ -125,7 +132,11 @@ const ProductItem = ({
 					}}>
 					<Typography
 						component='div'
-						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
+						sx={{
+							fontSize: '16px',
+							fontWeight: 'bold',
+							textAlign: 'left',
+						}}>
 						{product?.attributes?.name}
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
@@ -135,10 +146,9 @@ const ProductItem = ({
 				<Box
 					sx={{
 						display: 'flex',
-						justifyContent: 'space-around',
+						justifyContent: 'space-between',
 						alignItems: 'center',
-						pl: 1,
-						pb: 1,
+						p: 1,
 					}}>
 					<IconButton
 						aria-label='addToCart'
