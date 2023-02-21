@@ -22,6 +22,7 @@ import Loading from './components/common/Loading';
 import SimpleDialog from './components/common/SimpleDialog';
 import TextFieldSelect from './components/common/TextFieldSelect';
 import OrderShippingMethod from './components/Order/OrderShippingMethod';
+import OrderStepper from './components/Order/OrderStepper';
 import PayButtonCash from './components/Payment/PayButtonCash';
 import PaymentMethod from './components/Payment/PaymentMethod/PaymentMethod';
 import AddToCartButton from './components/Product/common/AddToCartButton';
@@ -35,6 +36,7 @@ import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
+export { OrderStepper };
 export { PayButtonCash };
 export { AddAddressButton };
 export { HeadMeta };
