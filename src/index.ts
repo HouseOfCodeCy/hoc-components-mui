@@ -2,6 +2,7 @@
 import AddAddressButton from './components/Account/Address/AddAddressButton';
 import AddressList from './components/Account/Address/AddressList/AddressList';
 import AddressSelection from './components/Account/Address/AddressSelection/AddressSelection';
+import EditAddressDialog from './components/Account/Address/EditAddress';
 import HButton from './components/Button/Button';
 import SelectButton from './components/Button/SelectButton';
 import CartDetails from './components/Cart/CartDetails';
@@ -36,6 +37,7 @@ import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
+export { EditAddressDialog };
 export { OrderStepper };
 export { PayButtonCash };
 export { AddAddressButton };

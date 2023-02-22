@@ -1,4 +1,4 @@
-import { AccountUtils, IAddressFlat } from '@houseofcodecy/hoc-utils';
+import { AccountUtils, IAddress } from '@houseofcodecy/hoc-utils';
 import { LocationCity, Settings } from '@mui/icons-material';
 import {
 	Grid,
@@ -10,15 +10,20 @@ import {
 	ListItemText,
 } from '@mui/material';
 import { blue } from '@mui/material/colors';
-import React from 'react';
+import React, { useState } from 'react';
+import EditAddressDialog from '../EditAddress';
 
 interface Props {
-	addresses: IAddressFlat[];
+	addresses: IAddress[];
 }
 
 const AddressList = ({ addresses }: Props) => {
-	const onAddressClicked = (address: IAddressFlat) => {
-		console.log(address);
+	const [selectedAddress, setSelectedAddress] = useState<IAddress | null>(null);
+	const [showEditAddressDialog, setShowEditAddressDialog] = useState(false);
+
+	const onAddressClicked = (address: IAddress) => {
+		setSelectedAddress(address);
+		setShowEditAddressDialog(true);
 	};
 	return (
 		<Grid container>
@@ -33,18 +38,25 @@ const AddressList = ({ addresses }: Props) => {
 								<LocationCity sx={{ fontSize: '34px' }} />
 							</ListItemIcon>
 							<ListItemText
-								primary={address.name}
-								secondary={AccountUtils.printAddressAsStringFlat(address)}
+								primary={address.attributes.name}
+								secondary={AccountUtils.printAddressAsString(address)}
 								sx={{ w: 1 }}
 							/>
 						</ListItemButton>
-						<IconButton size='large'>
+						<IconButton size='large' onClick={() => console.log('')}>
 							<Settings />
 						</IconButton>
 						{/* {address.isDefault && <Chip label='Default' sx={{ w: 1 }} />} */}
 					</ListItem>
 				))}
 			</List>
+			<Grid item xs={12}>
+				<EditAddressDialog
+					address={selectedAddress}
+					showEditAddressDialog={showEditAddressDialog}
+					setShowEditAddressDialog={setShowEditAddressDialog}
+				/>
+			</Grid>
 		</Grid>
 	);
 };

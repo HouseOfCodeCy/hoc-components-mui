@@ -21,7 +21,7 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 			sx={{
 				w: 1,
 				display: 'flex',
-				justifyContent: 'flex-start',
+				justifyContent: 'space-between',
 				cursor: 'pointer',
 			}}
 			onClick={() => {
@@ -32,8 +32,8 @@ const OrderItem = ({ order, nextRouter }: CustomProps) => {
 					<CardGiftcard sx={{ color: orange[700], fontSize: '52px' }} />
 				</IconButton>
 			</Box>
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-				<CardContent sx={{ flex: '1 0 auto' }}>
+			<Box sx={{ w: 1 }}>
+				<CardContent sx={{ w: 1 }}>
 					<Typography
 						component='div'
 						sx={{ fontSize: '16px', fontWeight: 'bold' }}>

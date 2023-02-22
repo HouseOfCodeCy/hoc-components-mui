@@ -1,9 +1,10 @@
 import {
-	createAddress,
 	getCities,
+	IAddress,
+	IAddressBody,
 	ICity,
-	IUserFlat,
 	StatusCode,
+	updateAddress,
 } from '@houseofcodecy/hoc-utils';
 import {
 	Add,
@@ -32,10 +33,12 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { TransitionProps } from 'react-transition-group/Transition';
+import { useSnackBar } from '../../../providers/SnackBarProvider';
 
 interface Props {
-	user: IUserFlat;
-	addUser: (user: IUserFlat) => void;
+	address: IAddress | null;
+	showEditAddressDialog: boolean;
+	setShowEditAddressDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 interface IFormInput {
@@ -57,11 +60,15 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction='up' ref={ref} in={true} {...props} />;
 });
 
-const AddAddressButton = ({ user, addUser }: Props) => {
-	const [showAddressDialog, setShowAddressDialog] = useState(false);
+const EditAddressDialog = ({
+	address,
+	showEditAddressDialog = false,
+	setShowEditAddressDialog,
+}: Props) => {
 	const [cities, setCities] = useState<ICity[] | null>(null);
 
 	const { register, handleSubmit } = useForm<IFormInput>();
+	const { showSnackBar } = useSnackBar();
 
 	const dataFetchedRef = useRef(false);
 
@@ -79,24 +86,24 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 	}, []);
 
 	const handleClickOpen = () => {
-		setShowAddressDialog(true);
+		setShowEditAddressDialog(true);
 	};
 
 	const handleClose = () => {
-		setShowAddressDialog(false);
+		setShowEditAddressDialog(false);
 	};
 
-	const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-		const selectedCity = cities?.find((city) => city.id === data.cityId);
+	const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
+		const selectedCity = cities?.find((city) => city.id === +data.cityId);
 		if (selectedCity) {
-			const addressPayload = {
+			const addressPayload: IAddressBody = {
 				...data,
-				city: data.cityId,
-				isDefault: false,
+				city: { data: selectedCity },
 			};
-			await createAddress(addressPayload, user, addUser).then(
+			await updateAddress(`${address?.id}`, addressPayload).then(
 				(response: any) => {
-					setShowAddressDialog(false);
+					setShowEditAddressDialog(false);
+					showSnackBar('Address Edited', 'success', 'Success');
 				}
 			);
 		}
@@ -104,25 +111,6 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 
 	return (
 		<Grid container>
-			<Grid
-				item
-				xs={11}
-				sx={{
-					width: 1,
-					height: '60px',
-					borderRadius: '10px',
-					position: 'fixed',
-					bottom: 0,
-				}}>
-				<Button
-					fullWidth
-					variant='contained'
-					endIcon={<Add />}
-					onClick={handleClickOpen}
-					sx={{ width: '100%', padding: '15px' }}>
-					Add New Address
-				</Button>
-			</Grid>
 			<Grid item xs={12}>
 				<Dialog
 					fullWidth
@@ -136,7 +124,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 							m: 0,
 						},
 					}}
-					open={showAddressDialog}
+					open={showEditAddressDialog}
 					onClose={handleClose}
 					TransitionComponent={Transition}>
 					<AppBar
@@ -159,7 +147,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 					</AppBar>
 					<Grid container>
 						<Grid item xs={12} sx={{ textAlign: 'center' }}>
-							<h2>Add new address</h2>
+							<h2>Edit {address?.attributes.name}</h2>
 						</Grid>
 						{/* "handleSubmit" will validate your inputs before invoking
 						"onSubmit" */}
@@ -175,6 +163,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 											</Typography>
 										}
 										required
+										defaultValue={address?.attributes.name}
 										variant='filled'
 										InputProps={{
 											startAdornment: (
@@ -189,7 +178,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 										{...register('name', {
 											required: true,
 											minLength: 3,
-											maxLength: 40,
+											maxLength: 50,
 										})}
 									/>
 								</Grid>
@@ -198,6 +187,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 										fullWidth
 										id='outlined-basic'
 										required
+										value={address?.attributes.address1}
 										label={
 											<Typography sx={{ fontWeight: 'bold' }}>
 												Address *
@@ -220,6 +210,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 										fullWidth
 										id='outlined-basic'
 										label='Address 2'
+										value={address?.attributes.address2}
 										variant='filled'
 										InputProps={{
 											startAdornment: (
@@ -260,6 +251,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 												id='outlined-basic'
 												required
 												label='Telephone'
+												value={address?.attributes.telephone}
 												variant='filled'
 												InputProps={{
 													startAdornment: (
@@ -284,6 +276,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 												fullWidth
 												id='outlined-basic'
 												label='Post Code'
+												value={address?.attributes.postCode}
 												required
 												variant='filled'
 												InputProps={{
@@ -304,6 +297,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 												label='City'
 												select
 												required
+												value={address?.attributes.city.data.id}
 												variant='filled'
 												sx={{ borderRadius: '10px' }}
 												InputProps={{
@@ -328,9 +322,10 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 										container
 										display={'flex'}
 										alignItems={'center'}
-										justifyContent={'flex-end'}>
+										justifyContent={'space-between'}>
 										<Grid item xs={12}>
 											<Checkbox
+												checked={address?.attributes.isDefault}
 												color='success'
 												size='medium'
 												{...register('isDefault')}
@@ -347,7 +342,7 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 										endIcon={<Add />}
 										type='submit'
 										sx={{ width: '100%', padding: '15px' }}>
-										Add Address
+										Update Address
 									</Button>
 								</Grid>
 							</Grid>
@@ -359,4 +354,4 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 	);
 };
 
-export default AddAddressButton;
+export default EditAddressDialog;
