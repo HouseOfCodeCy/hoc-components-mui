@@ -4,23 +4,13 @@ import {
 	StatusCode,
 } from '@houseofcodecy/hoc-utils';
 import {
-	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
 	AttachMoney,
 	CreditCard,
 } from '@mui/icons-material';
 
-import {
-	AppBar,
-	Button,
-	Dialog,
-	Grid,
-	IconButton,
-	Slide,
-	Toolbar,
-} from '@mui/material';
-import { grey } from '@mui/material/colors';
+import { Button, Grid } from '@mui/material';
 import React, {
 	Dispatch,
 	SetStateAction,
@@ -29,21 +19,12 @@ import React, {
 	useState,
 } from 'react';
 
-import { TransitionProps } from 'react-transition-group/Transition';
 import SelectButton from '../../Button/SelectButton';
+import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 
 interface Props {
 	setPaymentMethod: Dispatch<SetStateAction<IOrderPaymentMethod | undefined>>;
 }
-
-const Transition = React.forwardRef(function Transition(
-	props: TransitionProps & {
-		children: React.ReactElement;
-	},
-	ref: React.Ref<unknown>
-) {
-	return <Slide direction='up' ref={ref} in={true} {...props} />;
-});
 
 const PaymentMethod = ({ setPaymentMethod }: Props) => {
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
@@ -131,75 +112,41 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 				</Grid>
 			</Button>
 			<Grid item xs={12}>
-				<Dialog
-					fullWidth
-					PaperProps={{
-						sx: {
-							position: 'fixed',
-							width: '100%',
-							bottom: 0,
-							left: 0,
-							right: 0,
-							m: 0,
-						},
-					}}
-					open={showDialog}
-					onClose={handleClose}
-					TransitionComponent={Transition}>
-					<AppBar
-						sx={{
-							position: 'relative',
-							backgroundColor: grey[900],
-							height: '70px',
-							display: 'flex',
-							justifyContent: 'center',
-						}}>
-						<Toolbar sx={{ color: grey[700] }}>
-							<IconButton
-								edge='start'
-								color='inherit'
-								onClick={handleClose}
-								aria-label='close'>
-								<ArrowBackIos />
-							</IconButton>
-						</Toolbar>
-					</AppBar>
-					<Grid container>
-						<Grid item xs={12} sx={{ textAlign: 'center' }}>
-							<h2>Payment Methods</h2>
-						</Grid>
-						{paymentMethods &&
-							paymentMethods.length > 0 &&
-							paymentMethods.map((method) => (
-								<Grid
-									item
-									xs={12}
-									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
-									<Button
-										sx={{
-											padding: '15px',
-											width: '100%',
-											textAlign: 'left',
-										}}
-										onClick={() => {
-											setSelectedPaymentMethod(method);
-											setPaymentMethod(method);
-											handleClose();
-										}}
-										endIcon={<ArrowForwardIosOutlined />}>
-										<Grid container>
-											<Grid
-												item
-												xs={12}
-												sx={{ fontWeight: 'bold', fontSize: '20px' }}>
-												{renderPaymentMethod(method)}
-											</Grid>
+				<FullScreenDialog
+					show={showDialog}
+					setShowDialog={setShowDialog}
+					dialogHeader='Payment Methods'>
+					{paymentMethods &&
+						paymentMethods.length > 0 &&
+						paymentMethods.map((method) => (
+							<Grid
+								item
+								xs={12}
+								sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
+								<Button
+									sx={{
+										padding: '15px',
+										width: '100%',
+										textAlign: 'left',
+									}}
+									onClick={() => {
+										setSelectedPaymentMethod(method);
+										setPaymentMethod(method);
+										handleClose();
+									}}
+									endIcon={<ArrowForwardIosOutlined />}>
+									<Grid container>
+										<Grid
+											item
+											xs={12}
+											sx={{ fontWeight: 'bold', fontSize: '20px' }}>
+											{renderPaymentMethod(method)}
 										</Grid>
-									</Button>
-								</Grid>
-							))}
-					</Grid>
-				</Dialog>
+									</Grid>
+								</Button>
+							</Grid>
+						))}
+				</FullScreenDialog>
 			</Grid>
 		</Grid>
 	);

@@ -50,10 +50,7 @@ const ReviewsAccordion = ({ reviews }: Props) => {
 									</Grid>
 									<Grid item xs={3} sx={{ textAlign: 'right' }}>
 										<small>
-											{
-												review.attributes.users_permissions_user?.data
-													.attributes.name
-											}
+											{review.attributes.user?.data.attributes.name}
 										</small>
 									</Grid>
 								</Grid>

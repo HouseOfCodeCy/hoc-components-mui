@@ -1,5 +1,7 @@
 import { IReview, ReviewUtils } from '@houseofcodecy/hoc-utils';
+import { Star } from '@mui/icons-material';
 import { Grid } from '@mui/material';
+import { yellow } from '@mui/material/colors';
 import React from 'react';
 
 interface Props {
@@ -7,26 +9,37 @@ interface Props {
 }
 
 const ReviewsHeader = ({ reviews }: Props) => {
-	return (
-		<Grid container>
-			{reviews && reviews.length && (
-				<Grid item xs={12}>
-					<small>
-						<strong>{ReviewUtils.calculateTotalReviews(reviews)} / 5</strong> |{' '}
-						{reviews.length} Review(s)
-					</small>
+	const TotalReviews = () => {
+		// if this item has reviews
+		if (reviews === undefined || reviews === null || reviews.length === 0) {
+			return (
+				<Grid container columnGap={1}>
+					<Grid item>
+						<Star sx={{ color: yellow[700] }} />
+					</Grid>
+					<Grid item>
+						<small>No Reviews Yet!</small>
+					</Grid>
 				</Grid>
-			)}
-			{!reviews ||
-				(reviews?.length <= 0 && (
-					<Grid item xs={12}>
+			);
+		} else {
+			return (
+				<Grid container columnGap={1}>
+					<Grid item>
+						<Star sx={{ color: yellow[700] }} />
+					</Grid>
+					<Grid item>
 						<small>
-							<strong>No Reviews Yet </strong>
+							<strong>{ReviewUtils.calculateTotalReviews(reviews)} / 5</strong>{' '}
+							| {reviews.length} Review(s)
 						</small>
 					</Grid>
-				))}
-		</Grid>
-	);
+				</Grid>
+			);
+		}
+	};
+
+	return <TotalReviews />;
 };
 
 export default ReviewsHeader;

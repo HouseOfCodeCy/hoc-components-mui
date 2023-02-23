@@ -1,4 +1,4 @@
-import { IReviewFlat } from '@houseofcodecy/hoc-utils';
+import { IReview } from '@houseofcodecy/hoc-utils';
 import EditIcon from '@mui/icons-material/Edit';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import {
@@ -11,14 +11,14 @@ import {
 } from '@mui/material';
 import { orange, red } from '@mui/material/colors';
 import React from 'react';
-import ReviewsHeader from './ReviewsHeader';
 
 interface CustomProps {
-	review: IReviewFlat;
+	review: IReview;
+	nextRouter?: any;
 }
 
 const ReviewsItem = (props: CustomProps) => {
-	const { review } = props;
+	const { review, nextRouter } = props;
 	return (
 		<Card
 			sx={{
@@ -27,7 +27,7 @@ const ReviewsItem = (props: CustomProps) => {
 				justifyContent: 'flex-start',
 				maxWidth: 345,
 			}}>
-			{review?.product?.mediaUrls && (
+			{review?.attributes.product?.mediaUrls && (
 				<CardMedia
 					component='img'
 					sx={{
@@ -37,8 +37,11 @@ const ReviewsItem = (props: CustomProps) => {
 						maxWidth: 140,
 						minWidth: 140,
 					}}
-					image={review?.product?.mediaUrls[0]}
-					title={review?.product?.name}
+					image={review?.attributes.product?.mediaUrls[0]}
+					title={review?.attributes.product?.name}
+					onClick={() =>
+						nextRouter.push(`/product/${review?.attributes.product?.id}`)
+					}
 				/>
 			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -46,18 +49,17 @@ const ReviewsItem = (props: CustomProps) => {
 					<Typography
 						component='div'
 						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-						{review?.title}
+						{review?.attributes.title}
 					</Typography>
 					<Typography component='div' sx={{ fontSize: '14px' }}>
-						{review?.reviewDescription}
+						{review?.attributes.reviewDescription}
 					</Typography>
 					<Typography
 						variant='subtitle1'
 						color='text.secondary'
 						component='div'>
-						Your Rating: {review?.rating}/5
+						Rating: {review?.attributes.rating}/5
 					</Typography>
-					<ReviewsHeader reviews={review.product.reviews?.data} />
 				</CardContent>
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
 					<IconButton aria-label='EditReview' size='large'>

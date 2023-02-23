@@ -15,6 +15,7 @@ interface Props {
 	children: React.ReactNode;
 	show: boolean;
 	setShowDialog: (show: boolean) => void;
+	dialogHeader?: string;
 	direction?: string;
 }
 
@@ -27,7 +28,12 @@ const Transition = React.forwardRef(function Transition(
 	return <Slide direction='up' ref={ref} in={true} {...props} />;
 });
 
-const FullScreenDialog = ({ children, show, setShowDialog }: Props) => {
+const FullScreenDialog = ({
+	children,
+	show,
+	setShowDialog,
+	dialogHeader,
+}: Props) => {
 	return (
 		<Dialog
 			fullWidth
@@ -66,7 +72,14 @@ const FullScreenDialog = ({ children, show, setShowDialog }: Props) => {
 					</IconButton>
 				</Toolbar>
 			</AppBar>
-			<Grid container>{children}</Grid>
+			<Grid container>
+				{dialogHeader && (
+					<Grid item xs={12} sx={{ textAlign: 'center' }}>
+						<h2>{dialogHeader}</h2>
+					</Grid>
+				)}
+				{children}
+			</Grid>
 		</Dialog>
 	);
 };

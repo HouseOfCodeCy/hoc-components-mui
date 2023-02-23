@@ -1,50 +1,27 @@
-import {
-	AccountUtils,
-	IAddressFlat,
-	IUserFlat,
-} from '@houseofcodecy/hoc-utils';
+import { AccountUtils, IAddress } from '@houseofcodecy/hoc-utils';
 import {
 	Add,
-	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
 	LocationCity,
 } from '@mui/icons-material';
-import {
-	AppBar,
-	Button,
-	Chip,
-	Dialog,
-	Grid,
-	IconButton,
-	Slide,
-	Toolbar,
-} from '@mui/material';
+import { Button, Chip, Grid, IconButton } from '@mui/material';
 import { grey } from '@mui/material/colors';
-import { TransitionProps } from '@mui/material/transitions';
 import React, { useEffect, useState } from 'react';
+import FullScreenDialog from '../../../common/Dialog/FullScreenDialog';
 
 interface Props {
-	user: IUserFlat;
+	addresses: IAddress[] | null;
 	isCheckout?: boolean;
-	shippingAddress: IAddressFlat | null;
-	updateShippingAddress: (address: IAddressFlat) => void;
+	shippingAddress: IAddress | null;
+	updateShippingAddress: (address: IAddress) => void;
 	actionLabel?: string;
 	showAddNewAddress?: boolean;
 	nextRouter?: any;
 }
 
-const Transition = React.forwardRef(function Transition(
-	props: TransitionProps & {
-		children: React.ReactElement;
-	},
-	ref: React.Ref<unknown>
-) {
-	return <Slide direction='up' ref={ref} in={true} {...props} />;
-});
-
 const AddressSelection = ({
-	user,
+	addresses,
 	isCheckout,
 	shippingAddress,
 	updateShippingAddress,
@@ -52,10 +29,9 @@ const AddressSelection = ({
 	showAddNewAddress = true,
 	nextRouter,
 }: Props) => {
-	const [addresses, setAddresses] = useState<IAddressFlat[]>();
-	const [selectedAddress, setSelectedAddress] = useState<
-		IAddressFlat | undefined
-	>(undefined);
+	const [selectedAddress, setSelectedAddress] = useState<IAddress | undefined>(
+		undefined
+	);
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 
 	const handleClickOpen = () => {
@@ -67,19 +43,15 @@ const AddressSelection = ({
 	};
 
 	useEffect(() => {
-		if (user && user.addresses && user.addresses.length > 0) {
-			setAddresses(user.addresses);
-		}
-	}, [user]);
-
-	useEffect(() => {
 		if (addresses && addresses.length > 0) {
 			const storage = globalThis?.sessionStorage;
 			const sessionShippingAddressId = storage.getItem('shippingAddress');
 			const shippingAddresFromSession = addresses.find(
 				(address) => address.id === +`${sessionShippingAddressId}`
 			);
-			const defaultAddress = addresses.find((address) => address.isDefault);
+			const defaultAddress = addresses.find(
+				(address) => address.attributes.isDefault
+			);
 			// if context has a shipping address
 			if (shippingAddress) {
 				setSelectedAddress(shippingAddress);
@@ -128,7 +100,7 @@ const AddressSelection = ({
 									item
 									xs={9}
 									sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-									{AccountUtils.printAddressAsStringFlat(selectedAddress)}
+									{AccountUtils.printAddressAsString(selectedAddress)}
 								</Grid>
 							</Grid>
 						)}
@@ -141,108 +113,74 @@ const AddressSelection = ({
 				</Button>
 			</Grid>
 			<Grid item xs={12}>
-				<Dialog
-					fullWidth
-					PaperProps={{
-						sx: {
-							position: 'fixed',
-							width: '100%',
-							bottom: 0,
-							left: 0,
-							right: 0,
-							m: 0,
-						},
-					}}
-					open={showAddressDialog}
-					onClose={handleClose}
-					TransitionComponent={Transition}>
-					<AppBar
-						sx={{
-							position: 'relative',
-							backgroundColor: grey[900],
-							height: '70px',
-							display: 'flex',
-							justifyContent: 'center',
-						}}>
-						<Toolbar sx={{ color: grey[700] }}>
-							<IconButton
-								edge='start'
-								color='inherit'
-								onClick={handleClose}
-								aria-label='close'>
-								<ArrowBackIos />
-							</IconButton>
-						</Toolbar>
-					</AppBar>
-					<Grid container>
-						<Grid item xs={12} sx={{ textAlign: 'center' }}>
-							<h2>Addresses</h2>
-						</Grid>
-						{addresses?.map((address) => {
-							return (
-								<Grid
-									item
-									key={address.id}
-									xs={12}
-									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
-									<Button
-										sx={{
-											padding: '15px',
-											width: '100%',
-											textAlign: 'left',
-										}}
-										onClick={() => {
-											setSelectedAddress(address);
-											handleClose();
-											updateShippingAddress(address);
-										}}
-										endIcon={<ArrowForwardIosOutlined />}>
-										<Grid container sx={{ color: 'black' }}>
-											<Grid
-												item
-												xs={12}
-												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-												{address.address1}
-											</Grid>
-											<Grid item xs={12} sx={{ fontSize: '14px' }}>
-												{address.address2}
-											</Grid>
-											<Grid item xs={12}>
-												{`${address.city?.name}, ${address.postCode}`}
-											</Grid>
-											<Grid item xs={12}>
-												{`${address.telephone}`}
-											</Grid>
-											{address.isDefault ? (
-												<Chip
-													label='Default'
-													color='success'
-													sx={{ marginTop: '10px' }}></Chip>
-											) : null}
-											{address.id === selectedAddress?.id ? (
-												<Chip
-													label='Selected'
-													color='warning'
-													sx={{ marginTop: '10px' }}></Chip>
-											) : null}
-										</Grid>
-									</Button>
-								</Grid>
-							);
-						})}
-						{showAddNewAddress && (
-							<Grid item xs={12}>
+				<FullScreenDialog
+					show={showAddressDialog}
+					setShowDialog={setShowAddressDialog}
+					dialogHeader='Addresses'>
+					{addresses?.map((address) => {
+						return (
+							<Grid
+								item
+								key={address.id}
+								xs={12}
+								sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
 								<Button
-									variant='contained'
-									endIcon={<Add />}
-									onClick={() => nextRouter?.push(`/account/addresses`)}
-									sx={{ width: '100%', padding: '15px' }}>
-									Manage your Addresses
+									sx={{
+										padding: '15px',
+										width: '100%',
+										textAlign: 'left',
+									}}
+									onClick={() => {
+										setSelectedAddress(address);
+										handleClose();
+										updateShippingAddress(address);
+									}}
+									endIcon={<ArrowForwardIosOutlined />}>
+									<Grid container sx={{ color: 'black' }}>
+										<Grid
+											item
+											xs={12}
+											sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+											{address.attributes.address1}
+										</Grid>
+										<Grid item xs={12} sx={{ fontSize: '14px' }}>
+											{address.attributes.address2}
+										</Grid>
+										<Grid item xs={12}>
+											{`${address.attributes.city.data.attributes.name}, ${address.attributes.postCode}`}
+										</Grid>
+										<Grid item xs={12}>
+											{`${address.attributes.telephone}`}
+										</Grid>
+										{address.attributes.isDefault ? (
+											<Chip
+												label='Default'
+												color='success'
+												sx={{ marginTop: '10px' }}></Chip>
+										) : null}
+										{address.id === selectedAddress?.id ? (
+											<Chip
+												label='Selected'
+												color='warning'
+												sx={{ marginTop: '10px' }}></Chip>
+										) : null}
+									</Grid>
 								</Button>
 							</Grid>
-						)}
-					</Grid>
-				</Dialog>
+						);
+					})}
+					{showAddNewAddress && (
+						<Grid item xs={12}>
+							<Button
+								variant='contained'
+								endIcon={<Add />}
+								onClick={() => nextRouter?.push(`/account/addresses`)}
+								sx={{ width: '100%', padding: '15px' }}>
+								Manage your Addresses
+							</Button>
+						</Grid>
+					)}
+				</FullScreenDialog>
 			</Grid>
 		</Grid>
 	);

@@ -5,39 +5,20 @@ import {
 	StatusCode,
 } from '@houseofcodecy/hoc-utils';
 import {
-	ArrowBackIos,
 	ArrowForwardIos,
 	ArrowForwardIosOutlined,
 	LocalShipping,
 	Store,
 } from '@mui/icons-material';
-import {
-	AppBar,
-	Button,
-	Dialog,
-	Grid,
-	IconButton,
-	Slide,
-	Toolbar,
-} from '@mui/material';
-import { grey } from '@mui/material/colors';
-import { TransitionProps } from '@mui/material/transitions';
+import { Button, Grid } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import SelectButton from '../Button/SelectButton';
+import FullScreenDialog from '../common/Dialog/FullScreenDialog';
 
 interface Props {
 	isCheckout?: boolean;
 	updateDeliveryMethod: (shippingMethod: IShippingMethod | undefined) => void;
 }
-
-const Transition = React.forwardRef(function Transition(
-	props: TransitionProps & {
-		children: React.ReactElement;
-	},
-	ref: React.Ref<unknown>
-) {
-	return <Slide direction='up' ref={ref} in={true} {...props} />;
-});
 
 const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 	const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
@@ -131,80 +112,43 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 				</Button>
 			</Grid>
 			<Grid item xs={12}>
-				<Dialog
-					fullWidth
-					PaperProps={{
-						sx: {
-							position: 'fixed',
-							width: '100%',
-							bottom: 0,
-							left: 0,
-							right: 0,
-							m: 0,
-						},
-					}}
-					open={showAddressDialog}
-					onClose={handleClose}
-					TransitionComponent={Transition}>
-					<AppBar
-						sx={{
-							position: 'relative',
-							backgroundColor: grey[900],
-							height: '70px',
-							display: 'flex',
-							justifyContent: 'center',
-						}}>
-						<Toolbar sx={{ color: grey[700] }}>
-							<IconButton
-								edge='start'
-								color='inherit'
-								onClick={handleClose}
-								aria-label='close'>
-								<ArrowBackIos />
-							</IconButton>
-						</Toolbar>
-					</AppBar>
-					<Grid container>
-						<Grid item xs={12} sx={{ textAlign: 'center' }}>
-							<h2>Select Collection Method</h2>
-						</Grid>
-						{deliveryMethods?.map((option) => {
-							return (
-								<Grid
-									item
-									key={option.id}
-									xs={12}
-									alignItems={'center'}
-									sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
-									<Button
-										sx={{
-											padding: '15px',
-											width: '100%',
-											textAlign: 'left',
-										}}
-										onClick={() => {
-											setSelectedDeliveryMethod(option);
-											handleClose();
-											updateDeliveryMethod(option);
-										}}
-										endIcon={<ArrowForwardIosOutlined />}>
+				<FullScreenDialog
+					show={showAddressDialog}
+					setShowDialog={setShowAddressDialog}
+					dialogHeader='Select Collection Method'>
+					{deliveryMethods?.map((option) => {
+						return (
+							<Grid
+								item
+								key={option.id}
+								xs={12}
+								alignItems={'center'}
+								sx={{ padding: '10px', borderTop: '1px solid #beb8b8' }}>
+								<Button
+									sx={{
+										padding: '15px',
+										width: '100%',
+										textAlign: 'left',
+									}}
+									onClick={() => {
+										setSelectedDeliveryMethod(option);
+										handleClose();
+										updateDeliveryMethod(option);
+									}}
+									endIcon={<ArrowForwardIosOutlined />}>
+									<Grid container alignItems={'center'} sx={{ color: 'black' }}>
 										<Grid
-											container
-											alignItems={'center'}
-											sx={{ color: 'black' }}>
-											<Grid
-												item
-												xs={12}
-												sx={{ fontWeight: 'bold', fontSize: '18px' }}>
-												{renderShippingMethod(option)}
-											</Grid>
+											item
+											xs={12}
+											sx={{ fontWeight: 'bold', fontSize: '18px' }}>
+											{renderShippingMethod(option)}
 										</Grid>
-									</Button>
-								</Grid>
-							);
-						})}
-					</Grid>
-				</Dialog>
+									</Grid>
+								</Button>
+							</Grid>
+						);
+					})}
+				</FullScreenDialog>
 			</Grid>
 		</Grid>
 	);

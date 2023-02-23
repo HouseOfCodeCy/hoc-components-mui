@@ -17,9 +17,10 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
 	order: IOrder;
+	mediaQuery?: 'desktop' | 'mobile' | null;
 }
 
-const OrderStepper = ({ order }: Props) => {
+const OrderStepper = ({ order, mediaQuery = 'mobile' }: Props) => {
 	const [orderStatuses, setOrderStatuses] = useState<IOrderStatus[]>([]);
 	const [orderActiveStep, setOrderActiveStep] = useState(0);
 
@@ -29,7 +30,17 @@ const OrderStepper = ({ order }: Props) => {
 		async function fetchData() {
 			await getOrderStatuses().then(async (response: any) => {
 				if (response.status === StatusCode.OK) {
-					setOrderStatuses(response.data.data);
+					if (mediaQuery === 'mobile') {
+						setOrderStatuses(
+							response.data.data.filter(
+								(status: IOrderStatus) =>
+									status.attributes.value !== 'CANCELLED' &&
+									status.attributes.value !== 'SUBMITTED'
+							)
+						);
+					} else {
+						setOrderStatuses(response.data.data);
+					}
 				}
 			});
 		}
@@ -63,7 +74,7 @@ const OrderStepper = ({ order }: Props) => {
 	};
 
 	return (
-		<Stack sx={{ width: '100%' }} spacing={4}>
+		<Stack sx={{ w: 1 }} spacing={0}>
 			<Stepper alternativeLabel activeStep={orderActiveStep}>
 				{orderStatuses.map((step) => (
 					<Step key={step.attributes.name}>

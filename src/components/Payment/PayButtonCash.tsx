@@ -2,7 +2,7 @@ import {
 	CartUtils,
 	CheckoutUtils,
 	getUser,
-	IAddressFlat,
+	IAddress,
 	ICartResponse,
 	IOrderPaymentMethod,
 	IShippingMethod,
@@ -22,7 +22,7 @@ interface Props {
 	addUser: (user: IUserFlat) => void;
 	nextRouter: any;
 	cart: ICartResponse | null;
-	shippingAddress: IAddressFlat | null;
+	shippingAddress: IAddress | null;
 	paymentMethod: IOrderPaymentMethod | undefined;
 	shippingMethod: IShippingMethod | undefined;
 	shippingMethodOption: IShippingMethodOption | undefined;

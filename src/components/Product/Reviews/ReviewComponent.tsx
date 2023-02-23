@@ -3,7 +3,7 @@ import { Card, CardContent, Grid, IconButton, Typography } from '@mui/material';
 import { yellow } from '@mui/material/colors';
 import { Box } from '@mui/system';
 import React, { useState } from 'react';
-import FullScreenDialog from '../../common/FullScreenDialog';
+import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 import ReviewRating from './ReviewRating';
 
 interface Props {
