@@ -1,7 +1,7 @@
 import {
 	AccountUtils,
 	CartUtils,
-	ConfigurationInterface,
+	CommerceConfigurationInterface,
 	ICartResponse,
 	IProduct,
 	IProductColor,
@@ -17,7 +17,7 @@ import { isUndefined } from 'lodash';
 import React, { useState } from 'react';
 
 interface Props {
-	configuration: ConfigurationInterface;
+	configuration: CommerceConfigurationInterface;
 	user: IUserFlat | null | undefined;
 	authenticated: boolean;
 	cart: ICartResponse | null;

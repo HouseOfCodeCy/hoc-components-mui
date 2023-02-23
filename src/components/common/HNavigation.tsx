@@ -1,5 +1,5 @@
 import {
-	IAddressFlat,
+	IAddress,
 	ICartResponse,
 	IProductCategoryParent,
 	isUserLoggedIn,
@@ -38,7 +38,7 @@ interface Props {
 	cart: ICartResponse | null;
 	removeUser: () => void;
 	updateCart: (cart: ICartResponse | null) => void;
-	updateShippingAddress: (address: IAddressFlat | null) => void;
+	updateShippingAddress: (address: IAddress | null) => void;
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 	nextRouter: any;
 	packageInfo: any;

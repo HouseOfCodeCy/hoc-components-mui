@@ -47,7 +47,7 @@ const ReviewsButton = ({ reviews }: Props) => {
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
-					dialogHeader='Reviews'>
+					dialogHeader={`Reviews - Product`}>
 					{reviews?.map((review) => {
 						return (
 							<Grid
