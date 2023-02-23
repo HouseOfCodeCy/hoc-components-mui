@@ -16,7 +16,10 @@ interface Props {
 	show: boolean;
 	setShowDialog: (show: boolean) => void;
 	dialogHeader?: string;
+	dialogSubHeader?: string;
 	direction?: string;
+	fullScreen?: boolean;
+	mediaQuery?: 'desktop' | 'mobile' | null;
 }
 
 const Transition = React.forwardRef(function Transition(
@@ -25,7 +28,7 @@ const Transition = React.forwardRef(function Transition(
 	},
 	ref: React.Ref<unknown>
 ) {
-	return <Slide direction='up' ref={ref} in={true} {...props} />;
+	return <Slide direction={'up'} ref={ref} in={true} {...props} />;
 });
 
 const FullScreenDialog = ({
@@ -33,14 +36,18 @@ const FullScreenDialog = ({
 	show,
 	setShowDialog,
 	dialogHeader,
+	dialogSubHeader,
+	fullScreen = false,
+	mediaQuery = 'mobile',
 }: Props) => {
 	return (
 		<Dialog
-			fullWidth
+			fullWidth={false}
+			fullScreen={fullScreen}
 			PaperProps={{
 				sx: {
 					position: 'fixed',
-					width: '100%',
+					width: 1,
 					bottom: 0,
 					left: 0,
 					right: 0,
@@ -76,6 +83,11 @@ const FullScreenDialog = ({
 				{dialogHeader && (
 					<Grid item xs={12} sx={{ textAlign: 'center' }}>
 						<h2>{dialogHeader}</h2>
+					</Grid>
+				)}
+				{dialogSubHeader && (
+					<Grid item xs={12} sx={{ textAlign: 'center', fontSize: '14px' }}>
+						{dialogSubHeader}
 					</Grid>
 				)}
 				{children}

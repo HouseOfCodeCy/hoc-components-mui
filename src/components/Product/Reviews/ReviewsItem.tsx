@@ -1,66 +1,121 @@
-import { IReview } from '@houseofcodecy/hoc-utils';
-import EditIcon from '@mui/icons-material/Edit';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import {
-	Box,
-	Card,
-	CardContent,
-	CardMedia,
-	IconButton,
-	Typography,
-} from '@mui/material';
-import { orange, red } from '@mui/material/colors';
+import { CommonUtils, IReview, IUserFlat } from '@houseofcodecy/hoc-utils';
+import { Edit, HighlightOff } from '@mui/icons-material';
+import { Box, Card, CardMedia, Grid, IconButton } from '@mui/material';
+import { orange, red, yellow } from '@mui/material/colors';
 import React from 'react';
+import Rating from './Rating';
 
 interface CustomProps {
 	review: IReview;
 	nextRouter?: any;
+	showUserName?: boolean;
+	showProductName?: boolean;
+	showProductImage?: boolean;
+	user?: IUserFlat | null | undefined;
+	mediaQuery?: 'desktop' | 'mobile' | null;
 }
 
 const ReviewsItem = (props: CustomProps) => {
-	const { review, nextRouter } = props;
+	const {
+		review,
+		nextRouter,
+		user,
+		showProductImage = true,
+		showUserName = true,
+		showProductName = false,
+		mediaQuery = 'mobile',
+	} = props;
 	return (
 		<Card
 			sx={{
 				w: 1,
 				display: 'flex',
 				justifyContent: 'flex-start',
-				maxWidth: 345,
 			}}>
-			{review?.attributes.product?.mediaUrls && (
-				<CardMedia
-					component='img'
-					sx={{
-						objectFit: 'contain',
-						minHeight: 160,
-						maxHeight: 160,
-						maxWidth: 140,
-						minWidth: 140,
-					}}
-					image={review?.attributes.product?.mediaUrls[0]}
-					title={review?.attributes.product?.name}
-					onClick={() =>
-						nextRouter.push(`/product/${review?.attributes.product?.id}`)
-					}
-				/>
-			)}
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
-				<CardContent sx={{ flex: '1 0 auto' }}>
-					<Typography
-						component='div'
-						sx={{ fontSize: '16px', fontWeight: 'bold' }}>
-						{review?.attributes.title}
-					</Typography>
-					<Typography component='div' sx={{ fontSize: '14px' }}>
-						{review?.attributes.reviewDescription}
-					</Typography>
-					<Typography
-						variant='subtitle1'
-						color='text.secondary'
-						component='div'>
-						Rating: {review?.attributes.rating}/5
-					</Typography>
-				</CardContent>
+			{showProductImage &&
+				review?.attributes.product?.data.attributes.mediaUrls && (
+					<CardMedia
+						component='img'
+						sx={{
+							objectFit: 'contain',
+							textAlign: 'center',
+							// minHeight: 210,
+							// maxHeight: 210,
+							maxWidth: mediaQuery === 'desktop' ? 160 : 100,
+							minWidth: mediaQuery === 'desktop' ? 160 : 100,
+							cursor: 'pointer',
+						}}
+						image={review?.attributes.product?.data.attributes.mediaUrls[0]}
+						title={review?.attributes.product?.data.attributes.name}
+						onClick={() =>
+							nextRouter.push(`/product/${review?.attributes.product?.data.id}`)
+						}
+					/>
+				)}
+			<Grid container sx={{ w: 1, p: 3 }}>
+				<Grid item xs={12}>
+					<Grid container display={'flex'} justifyContent={'space-between'}>
+						{showUserName && (
+							<Grid item sx={{ fontWeight: '900', color: yellow[900] }}>
+								{review.attributes.user?.data.attributes.name}
+							</Grid>
+						)}
+						{showProductName && (
+							<Grid item sx={{ fontWeight: '900', color: yellow[900] }}>
+								{review.attributes.product?.data.attributes.name}
+							</Grid>
+						)}
+						{review?.attributes.updatedAt && (
+							<Grid item sx={{ fontWeight: '200', fontSize: '12px' }}>
+								{CommonUtils.formatDate(review?.attributes.updatedAt)}
+							</Grid>
+						)}
+					</Grid>
+					<Grid container sx={{ pt: 2, pb: 3 }}>
+						<Grid item xs={12} sx={{ fontWeight: '600' }}>
+							{review?.attributes.title}
+						</Grid>
+						<Grid item xs={12}>
+							{review?.attributes.reviewDescription}
+						</Grid>
+					</Grid>
+					<Grid
+						container
+						display={'flex'}
+						alignItems={'center'}
+						justifyContent={'space-between'}>
+						{/* <Grid item>Rating: {review?.attributes.rating}/5</Grid> */}
+						<Grid item>
+							<Rating
+								rating={review?.attributes.rating}
+								mediaQuery={mediaQuery}
+							/>
+						</Grid>
+						<Grid item>
+							{user?.id === review.attributes.user?.data.id && (
+								<Box>
+									<IconButton aria-label='EditReview'>
+										<Edit sx={{ color: orange[900], fontSize: '40px' }} />
+									</IconButton>
+									<IconButton aria-label='deleteReview'>
+										<HighlightOff sx={{ color: red[900], fontSize: '40px' }} />
+									</IconButton>
+								</Box>
+							)}
+						</Grid>
+					</Grid>
+				</Grid>
+			</Grid>
+			{/* <Typography component='div' sx={{ fontSize: '14px' }}>
+				{review?.attributes.reviewDescription}
+			</Typography>
+			<Typography variant='subtitle1' color='text.secondary' component='div'>
+
+			</Typography>
+			<Typography component='div' sx={{ fontSize: '10px' }}>
+				{review?.attributes.createdAt}
+			</Typography>
+			{user?.id === review.attributes.user.data.id && (
 				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
 					<IconButton aria-label='EditReview' size='large'>
 						<EditIcon sx={{ color: orange[900] }} />
@@ -69,7 +124,7 @@ const ReviewsItem = (props: CustomProps) => {
 						<HighlightOffIcon sx={{ color: red[900] }} />
 					</IconButton>
 				</Box>
-			</Box>
+			)} */}
 		</Card>
 	);
 };

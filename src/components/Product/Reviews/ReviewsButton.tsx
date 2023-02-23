@@ -1,6 +1,7 @@
-import { IReview } from '@houseofcodecy/hoc-utils';
-import { Add, ArrowForwardIos } from '@mui/icons-material';
+import { IReview, IUserFlat, ReviewUtils } from '@houseofcodecy/hoc-utils';
+import { Add, ArrowForwardIos, Star } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
+import { yellow } from '@mui/material/colors';
 import React, { useState } from 'react';
 import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 import ReviewsHeader from './ReviewsHeader';
@@ -8,9 +9,11 @@ import ReviewsItem from './ReviewsItem';
 
 interface Props {
 	reviews: IReview[] | undefined;
+	user: IUserFlat | null | undefined;
+	mediaQuery?: 'desktop' | 'mobile' | null;
 }
 
-const ReviewsButton = ({ reviews }: Props) => {
+const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 
 	return (
@@ -43,11 +46,43 @@ const ReviewsButton = ({ reviews }: Props) => {
 					</Grid>
 				</Button>
 			</Grid>
+
 			<Grid item xs={12}>
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
-					dialogHeader={`Reviews - Product`}>
+					fullScreen={true}
+					mediaQuery={mediaQuery}
+					dialogHeader='Reviews'
+					dialogSubHeader={
+						reviews?.[0].attributes.product?.data.attributes.name
+					}>
+					<Grid item xs={12}>
+						<Grid
+							container
+							display={'flex'}
+							justifyContent={'center'}
+							sx={{ p: 2 }}>
+							<Grid item sx={{ textAlign: 'center' }}>
+								<Star
+									sx={{
+										fontSize: '76px',
+										color: yellow[500],
+									}}
+								/>
+							</Grid>
+							{reviews && (
+								<Grid item xs={12} sx={{ textAlign: 'center' }}>
+									{ReviewUtils.calculateTotalReviews(reviews)} / 5
+								</Grid>
+							)}
+							{reviews && (
+								<Grid item xs={12} sx={{ textAlign: 'center' }}>
+									Based on {reviews?.length} total reviews
+								</Grid>
+							)}
+						</Grid>
+					</Grid>
 					{reviews?.map((review) => {
 						return (
 							<Grid
@@ -58,19 +93,27 @@ const ReviewsButton = ({ reviews }: Props) => {
 									padding: '10px',
 									borderTop: '1px solid #beb8b8',
 								}}>
-								<ReviewsItem review={review} />
+								<ReviewsItem
+									review={review}
+									user={user}
+									showProductImage={false}
+								/>
 							</Grid>
 						);
 					})}
-					<Grid item xs={12}>
-						<Button
-							variant='contained'
-							endIcon={<Add />}
-							onClick={() => console.log('')}
-							sx={{ width: '100%', padding: '15px' }}>
-							Add your review
-						</Button>
-					</Grid>
+					{reviews?.filter(
+						(review) => review.attributes.user?.data.id === user?.id
+					)?.length === 0 && (
+						<Grid item xs={12}>
+							<Button
+								variant='contained'
+								endIcon={<Add />}
+								onClick={() => console.log('')}
+								sx={{ width: '100%', padding: '15px' }}>
+								Add your review
+							</Button>
+						</Grid>
+					)}
 				</FullScreenDialog>
 			</Grid>
 		</Grid>
