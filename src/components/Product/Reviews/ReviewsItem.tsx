@@ -2,7 +2,8 @@ import { CommonUtils, IReview, IUserFlat } from '@houseofcodecy/hoc-utils';
 import { Edit, HighlightOff } from '@mui/icons-material';
 import { Box, Card, CardMedia, Grid, IconButton } from '@mui/material';
 import { orange, red, yellow } from '@mui/material/colors';
-import React from 'react';
+import React, { useState } from 'react';
+import EditReviewDialog from './EditReview';
 import Rating from './Rating';
 
 interface CustomProps {
@@ -25,6 +26,9 @@ const ReviewsItem = (props: CustomProps) => {
 		showProductName = false,
 		mediaQuery = 'mobile',
 	} = props;
+
+	const [showEditDialog, setShowEditDialog] = useState(false);
+
 	return (
 		<Card
 			sx={{
@@ -94,7 +98,9 @@ const ReviewsItem = (props: CustomProps) => {
 						<Grid item>
 							{user?.id === review.attributes.user?.data.id && (
 								<Box>
-									<IconButton aria-label='EditReview'>
+									<IconButton
+										aria-label='EditReview'
+										onClick={() => setShowEditDialog(true)}>
 										<Edit sx={{ color: orange[900], fontSize: '40px' }} />
 									</IconButton>
 									<IconButton aria-label='deleteReview'>
@@ -103,28 +109,14 @@ const ReviewsItem = (props: CustomProps) => {
 								</Box>
 							)}
 						</Grid>
+						<EditReviewDialog
+							review={review}
+							showEditReviewDialog={showEditDialog}
+							setShowEditAddressDialog={setShowEditDialog}
+						/>
 					</Grid>
 				</Grid>
 			</Grid>
-			{/* <Typography component='div' sx={{ fontSize: '14px' }}>
-				{review?.attributes.reviewDescription}
-			</Typography>
-			<Typography variant='subtitle1' color='text.secondary' component='div'>
-
-			</Typography>
-			<Typography component='div' sx={{ fontSize: '10px' }}>
-				{review?.attributes.createdAt}
-			</Typography>
-			{user?.id === review.attributes.user.data.id && (
-				<Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-					<IconButton aria-label='EditReview' size='large'>
-						<EditIcon sx={{ color: orange[900] }} />
-					</IconButton>
-					<IconButton aria-label='deleteReview' size='large'>
-						<HighlightOffIcon sx={{ color: red[900] }} />
-					</IconButton>
-				</Box>
-			)} */}
 		</Card>
 	);
 };

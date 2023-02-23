@@ -1,5 +1,5 @@
 import { IReview, IReviewBody, updateReview } from '@houseofcodecy/hoc-utils';
-import { Add, Home, LocationOn } from '@mui/icons-material';
+import { Add, Edit, Note, Star } from '@mui/icons-material';
 import {
 	Button,
 	Grid,
@@ -15,7 +15,7 @@ import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 
 interface Props {
 	review: IReview | null;
-	showEditAddressDialog: boolean;
+	showEditReviewDialog: boolean;
 	setShowEditAddressDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -25,9 +25,9 @@ interface IFormInput {
 	rating: number;
 }
 
-const EditAddressDialog = ({
+const EditReviewDialog = ({
 	review,
-	showEditAddressDialog = false,
+	showEditReviewDialog = false,
 	setShowEditAddressDialog,
 }: Props) => {
 	const { register, handleSubmit } = useForm<IFormInput>();
@@ -47,9 +47,10 @@ const EditAddressDialog = ({
 		<Grid container>
 			<Grid item xs={12}>
 				<FullScreenDialog
-					show={showEditAddressDialog}
+					show={showEditReviewDialog}
 					setShowDialog={setShowEditAddressDialog}
-					dialogHeader={`Edit ${review?.attributes.product?.data.attributes.name}`}>
+					dialogHeader={`Edit Review`}
+					dialogSubHeader={review?.attributes.product?.data.attributes.name}>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Grid container display={'flex'} rowGap={2} sx={{ p: 3 }}>
 							<Grid item xs={12}>
@@ -57,7 +58,7 @@ const EditAddressDialog = ({
 									fullWidth
 									id='outlined-basic'
 									label={
-										<Typography sx={{ fontWeight: 'bold' }}>Name *</Typography>
+										<Typography sx={{ fontWeight: 'bold' }}>Title *</Typography>
 									}
 									required
 									defaultValue={review?.attributes.title}
@@ -65,7 +66,7 @@ const EditAddressDialog = ({
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												<Home />
+												<Note />
 											</InputAdornment>
 										),
 									}}
@@ -87,7 +88,7 @@ const EditAddressDialog = ({
 									defaultValue={review?.attributes.reviewDescription}
 									label={
 										<Typography sx={{ fontWeight: 'bold' }}>
-											Address *
+											Comment *
 										</Typography>
 									}
 									variant='filled'
@@ -95,7 +96,7 @@ const EditAddressDialog = ({
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												<LocationOn />
+												<Edit />
 											</InputAdornment>
 										),
 									}}
@@ -109,13 +110,13 @@ const EditAddressDialog = ({
 								<TextField
 									fullWidth
 									id='outlined-basic'
-									label='Address 2'
+									label='Rating'
 									defaultValue={review?.attributes.rating}
 									variant='filled'
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												<LocationOn />
+												<Star />
 											</InputAdornment>
 										),
 									}}
@@ -131,7 +132,7 @@ const EditAddressDialog = ({
 									endIcon={<Add />}
 									type='submit'
 									sx={{ width: '100%', padding: '15px' }}>
-									Update Address
+									Update Review
 								</Button>
 							</Grid>
 						</Grid>
@@ -142,4 +143,4 @@ const EditAddressDialog = ({
 	);
 };
 
-export default EditAddressDialog;
+export default EditReviewDialog;
