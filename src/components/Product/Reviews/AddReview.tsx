@@ -1,9 +1,9 @@
 import {
+	createReview,
 	getReviewsByProductId,
 	IProduct,
 	IReview,
-	IReviewBody,
-	updateReview,
+	IUserFlat,
 } from '@houseofcodecy/hoc-utils';
 import { Add, Edit, Note } from '@mui/icons-material';
 import {
@@ -13,7 +13,7 @@ import {
 	TextField,
 	Typography,
 } from '@mui/material';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useSnackBar } from '../../../providers/SnackBarProvider';
@@ -21,13 +21,12 @@ import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 import ReviewRating from './ReviewRating';
 
 interface Props {
-	review: IReview | null;
 	showEditReviewDialog: boolean;
-	setShowEditAddressDialog: React.Dispatch<React.SetStateAction<boolean>>;
+	setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	nextRouter?: any;
-	fetchReviews?: () => Promise<void>;
-	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 	product?: IProduct;
+	user?: IUserFlat | null | undefined;
+	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 }
 
 interface IFormInput {
@@ -35,53 +34,37 @@ interface IFormInput {
 	title: string;
 }
 
-const EditReview = ({
-	review,
+const AddReview = ({
 	showEditReviewDialog = false,
-	setShowEditAddressDialog,
+	setShowDialog,
 	nextRouter,
-	fetchReviews,
-	setReviews,
 	product,
+	user,
+	setReviews,
 }: Props) => {
 	const { register, handleSubmit } = useForm<IFormInput>();
 	const [tempRating, setTempRating] = useState(0);
 	const { showSnackBar } = useSnackBar();
 
-	useEffect(() => {
-		if (review) setTempRating(review.attributes.rating);
-	}, [review]);
-
 	const onSubmit: SubmitHandler<IFormInput> = async (data: IFormInput) => {
-		const reviewPayload: IReviewBody = {
+		const reviewPayload: any = {
 			...data,
 			rating: tempRating,
+			product: product?.id,
+			user: user?.id,
 		};
 		// update the review
-		await updateReview(`${review?.id}`, reviewPayload).then(
-			async (response: any) => {
-				// if user is updating a review in profile
-				if (nextRouter.asPath.includes('account')) {
-					// refresh reviews with user property
-					fetchReviews &&
-						(await fetchReviews().then((userReviewsResponse) => {
-							setShowEditAddressDialog(false);
-							showSnackBar('Review Updated', 'success', 'Success');
-						}));
+		await createReview(reviewPayload).then(async (response: any) => {
+			// if this is product reviews
+			// refresh the product reviews, with user object
+			await getReviewsByProductId(`${product?.id}`).then(
+				(productReviewsResponse: any) => {
+					setReviews && setReviews(productReviewsResponse.data.data);
+					setShowDialog(false);
+					showSnackBar('Review Updated', 'success', 'Success');
 				}
-				// else if this is product reviews
-				else {
-					// refresh the product reviews, with user object
-					await getReviewsByProductId(`${product?.id}`).then(
-						(productReviewsResponse: any) => {
-							setReviews && setReviews(productReviewsResponse.data.data);
-							setShowEditAddressDialog(false);
-							showSnackBar('Review Updated', 'success', 'Success');
-						}
-					);
-				}
-			}
-		);
+			);
+		});
 	};
 
 	return (
@@ -89,9 +72,9 @@ const EditReview = ({
 			<Grid item xs={12}>
 				<FullScreenDialog
 					show={showEditReviewDialog}
-					setShowDialog={setShowEditAddressDialog}
-					dialogHeader={`Edit Review`}
-					dialogSubHeader={review?.attributes.product?.data.attributes.name}>
+					setShowDialog={setShowDialog}
+					dialogHeader={`Add Review`}
+					dialogSubHeader={product?.attributes.name}>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Grid container display={'flex'} rowGap={2} sx={{ p: 3 }}>
 							<Grid item xs={12}>
@@ -102,7 +85,6 @@ const EditReview = ({
 										<Typography sx={{ fontWeight: 'bold' }}>Title *</Typography>
 									}
 									required
-									defaultValue={review?.attributes.title}
 									variant='filled'
 									InputProps={{
 										startAdornment: (
@@ -126,7 +108,6 @@ const EditReview = ({
 									fullWidth
 									id='outlined-basic'
 									required
-									defaultValue={review?.attributes.reviewDescription}
 									label={
 										<Typography sx={{ fontWeight: 'bold' }}>
 											Comment *
@@ -149,7 +130,6 @@ const EditReview = ({
 							</Grid>
 							<Grid item xs={12}>
 								<ReviewRating
-									reviewRating={review?.attributes.rating}
 									label={'Your Rating:'}
 									setTempRating={setTempRating}
 								/>
@@ -173,4 +153,4 @@ const EditReview = ({
 	);
 };
 
-export default EditReview;
+export default AddReview;

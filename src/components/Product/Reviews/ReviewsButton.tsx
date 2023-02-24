@@ -1,20 +1,39 @@
-import { IReview, IUserFlat, ReviewUtils } from '@houseofcodecy/hoc-utils';
+import {
+	IProduct,
+	IReview,
+	IUserFlat,
+	ReviewUtils,
+} from '@houseofcodecy/hoc-utils';
 import { Add, ArrowForwardIos, Star } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import { yellow } from '@mui/material/colors';
-import React, { useState } from 'react';
+import React, { SetStateAction, useState } from 'react';
 import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
+import AddReview from './AddReview';
 import ReviewsHeader from './ReviewsHeader';
 import ReviewsItem from './ReviewsItem';
 
 interface Props {
 	reviews: IReview[] | undefined;
+	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 	user: IUserFlat | null | undefined;
 	mediaQuery?: 'desktop' | 'mobile' | null;
+	nextRouter?: any;
+	fetchReviews?: () => Promise<void>;
+	product?: IProduct;
 }
 
-const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
+const ReviewsButton = ({
+	reviews,
+	user,
+	mediaQuery = 'mobile',
+	nextRouter,
+	fetchReviews,
+	product,
+	setReviews,
+}: Props) => {
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
+	const [showAddReviewDialog, setShowAddReviewDialog] = useState(false);
 
 	return (
 		<Grid container sx={{ padding: '5px' }}>
@@ -40,7 +59,11 @@ const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
 							<Grid
 								item
 								sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-								<ReviewsHeader reviews={reviews} />
+								<ReviewsHeader
+									reviews={reviews}
+									user={user}
+									iconSize={'44px'}
+								/>
 							</Grid>
 						</Grid>
 					</Grid>
@@ -55,7 +78,7 @@ const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
 					mediaQuery={mediaQuery}
 					dialogHeader='Reviews'
 					dialogSubHeader={
-						reviews?.[0].attributes.product?.data.attributes.name
+						reviews?.[0]?.attributes.product?.data.attributes.name
 					}>
 					<Grid item xs={12}>
 						<Grid
@@ -95,8 +118,12 @@ const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
 								}}>
 								<ReviewsItem
 									review={review}
+									setReviews={setReviews}
 									user={user}
 									showProductImage={false}
+									nextRouter={nextRouter}
+									fetchReviews={fetchReviews}
+									product={product}
 								/>
 							</Grid>
 						);
@@ -108,13 +135,24 @@ const ReviewsButton = ({ reviews, user, mediaQuery = 'mobile' }: Props) => {
 							<Button
 								variant='contained'
 								endIcon={<Add />}
-								onClick={() => console.log('')}
+								onClick={() => setShowAddReviewDialog(true)}
 								sx={{ width: '100%', padding: '15px' }}>
 								Add your review
 							</Button>
 						</Grid>
 					)}
 				</FullScreenDialog>
+			</Grid>
+
+			<Grid item xs={12}>
+				<AddReview
+					showEditReviewDialog={showAddReviewDialog}
+					setShowDialog={setShowAddReviewDialog}
+					nextRouter={nextRouter}
+					product={product}
+					user={user}
+					setReviews={setReviews}
+				/>
 			</Grid>
 		</Grid>
 	);

@@ -1,9 +1,17 @@
-import { CommonUtils, IReview, IUserFlat } from '@houseofcodecy/hoc-utils';
+import {
+	CommonUtils,
+	deleteReview,
+	getReviewsByProductId,
+	IProduct,
+	IReview,
+	IUserFlat,
+} from '@houseofcodecy/hoc-utils';
 import { Edit, HighlightOff } from '@mui/icons-material';
 import { Box, Card, CardMedia, Grid, IconButton } from '@mui/material';
 import { orange, red, yellow } from '@mui/material/colors';
-import React, { useState } from 'react';
-import EditReviewDialog from './EditReview';
+import React, { SetStateAction, useState } from 'react';
+import { useSnackBar } from '../../../providers/SnackBarProvider';
+import EditReview from './EditReview';
 import Rating from './Rating';
 
 interface CustomProps {
@@ -14,6 +22,9 @@ interface CustomProps {
 	showProductImage?: boolean;
 	user?: IUserFlat | null | undefined;
 	mediaQuery?: 'desktop' | 'mobile' | null;
+	fetchReviews?: () => Promise<void>;
+	product?: IProduct;
+	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 }
 
 const ReviewsItem = (props: CustomProps) => {
@@ -25,9 +36,36 @@ const ReviewsItem = (props: CustomProps) => {
 		showUserName = true,
 		showProductName = false,
 		mediaQuery = 'mobile',
+		fetchReviews,
+		product,
+		setReviews,
 	} = props;
 
 	const [showEditDialog, setShowEditDialog] = useState(false);
+	const { showSnackBar } = useSnackBar();
+
+	const deleteUserReview = async () => {
+		await deleteReview(review.id).then(async (response) => {
+			if (nextRouter.asPath.includes('account')) {
+				// refresh reviews with user property
+				fetchReviews &&
+					(await fetchReviews().then((userReviewsResponse) => {
+						showSnackBar('Review Deleted', 'success', 'Success');
+					}));
+			}
+			// else if this is product reviews
+			else {
+				// refresh the product reviews, with user object
+				await getReviewsByProductId(`${product?.id}`).then(
+					(productReviewsResponse: any) => {
+						setReviews && setReviews(productReviewsResponse.data.data);
+						showSnackBar('Review Updated', 'success', 'Success');
+					}
+				);
+			}
+			showSnackBar('Review Deleted', 'success', 'Success');
+		});
+	};
 
 	return (
 		<Card
@@ -88,7 +126,6 @@ const ReviewsItem = (props: CustomProps) => {
 						display={'flex'}
 						alignItems={'center'}
 						justifyContent={'space-between'}>
-						{/* <Grid item>Rating: {review?.attributes.rating}/5</Grid> */}
 						<Grid item>
 							<Rating
 								rating={review?.attributes.rating}
@@ -103,16 +140,22 @@ const ReviewsItem = (props: CustomProps) => {
 										onClick={() => setShowEditDialog(true)}>
 										<Edit sx={{ color: orange[900], fontSize: '40px' }} />
 									</IconButton>
-									<IconButton aria-label='deleteReview'>
+									<IconButton
+										aria-label='deleteReview'
+										onClick={deleteUserReview}>
 										<HighlightOff sx={{ color: red[900], fontSize: '40px' }} />
 									</IconButton>
 								</Box>
 							)}
 						</Grid>
-						<EditReviewDialog
+						<EditReview
 							review={review}
 							showEditReviewDialog={showEditDialog}
 							setShowEditAddressDialog={setShowEditDialog}
+							nextRouter={nextRouter}
+							fetchReviews={fetchReviews}
+							setReviews={setReviews}
+							product={product}
 						/>
 					</Grid>
 				</Grid>

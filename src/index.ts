@@ -30,7 +30,8 @@ import AddToCartButton from './components/Product/common/AddToCartButton';
 import FavoriteProductItem from './components/Product/FavoriteProductItem/FavoriteProductItem';
 import OrderItem from './components/Product/OrderItem/OrderItem';
 import ProductItem from './components/Product/ProductItem/ProductItem';
-import EditReviewDialog from './components/Product/Reviews/EditReview';
+import AddReview from './components/Product/Reviews/AddReview';
+import EditReview from './components/Product/Reviews/EditReview';
 import ReviewComponent from './components/Product/Reviews/ReviewComponent';
 import ReviewRating from './components/Product/Reviews/ReviewRating';
 import ReviewsAccordion from './components/Product/Reviews/ReviewsAccordion';
@@ -40,7 +41,8 @@ import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
-export { EditReviewDialog };
+export { AddReview };
+export { EditReview };
 export { ReviewsButton };
 export { ReviewsHeader };
 export { EditAddressDialog };
