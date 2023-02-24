@@ -5,7 +5,7 @@ import {
 	IReview,
 	IUserFlat,
 } from '@houseofcodecy/hoc-utils';
-import { Add, Edit, Note } from '@mui/icons-material';
+import { Add, Subtitles, ViewStream } from '@mui/icons-material';
 import {
 	Button,
 	Grid,
@@ -89,7 +89,7 @@ const AddReview = ({
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												<Note />
+												<ViewStream />
 											</InputAdornment>
 										),
 									}}
@@ -118,7 +118,7 @@ const AddReview = ({
 									InputProps={{
 										startAdornment: (
 											<InputAdornment position='start'>
-												<Edit />
+												<Subtitles />
 											</InputAdornment>
 										),
 									}}

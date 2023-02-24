@@ -50,23 +50,7 @@ const ReviewsButton = ({
 					onClick={() => {
 						setShowAddressDialog(true);
 					}}>
-					<Grid container>
-						<Grid
-							container
-							display={'flex'}
-							alignItems={'center'}
-							columnGap={2}>
-							<Grid
-								item
-								sx={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>
-								<ReviewsHeader
-									reviews={reviews}
-									user={user}
-									iconSize={'44px'}
-								/>
-							</Grid>
-						</Grid>
-					</Grid>
+					<ReviewsHeader reviews={reviews} user={user} iconSize={'44px'} />
 				</Button>
 			</Grid>
 
@@ -77,16 +61,21 @@ const ReviewsButton = ({
 					fullScreen={true}
 					mediaQuery={mediaQuery}
 					dialogHeader='Reviews'
-					dialogSubHeader={
-						reviews?.[0]?.attributes.product?.data.attributes.name
-					}>
+					dialogSubHeader={product?.attributes.name}>
 					<Grid item xs={12}>
 						<Grid
 							container
 							display={'flex'}
 							justifyContent={'center'}
 							sx={{ p: 2 }}>
-							<Grid item sx={{ textAlign: 'center' }}>
+							<Grid
+								item
+								sx={{
+									textAlign: 'center',
+									p: 3,
+									borderRadius: '45px',
+									backgroundColor: '#debd65b0',
+								}}>
 								<Star
 									sx={{
 										fontSize: '76px',
@@ -94,14 +83,19 @@ const ReviewsButton = ({
 									}}
 								/>
 							</Grid>
-							{reviews && (
-								<Grid item xs={12} sx={{ textAlign: 'center' }}>
+							{reviews && reviews?.length > 0 && (
+								<Grid item xs={12} sx={{ textAlign: 'center', pt: 1 }}>
 									{ReviewUtils.calculateTotalReviews(reviews)} / 5
 								</Grid>
 							)}
-							{reviews && (
+							{reviews && reviews?.length > 0 && (
 								<Grid item xs={12} sx={{ textAlign: 'center' }}>
 									Based on {reviews?.length} total reviews
+								</Grid>
+							)}
+							{reviews && reviews?.length === 0 && (
+								<Grid item xs={12} sx={{ textAlign: 'center', pt: 2 }}>
+									Be the first that reviews this product!
 								</Grid>
 							)}
 						</Grid>
@@ -136,7 +130,14 @@ const ReviewsButton = ({
 								variant='contained'
 								endIcon={<Add />}
 								onClick={() => setShowAddReviewDialog(true)}
-								sx={{ width: '100%', padding: '15px' }}>
+								sx={{
+									padding: '15px',
+									width: 1,
+									height: '60px',
+									borderRadius: '10px 10px 0 0',
+									position: 'fixed',
+									bottom: 0,
+								}}>
 								Add your review
 							</Button>
 						</Grid>

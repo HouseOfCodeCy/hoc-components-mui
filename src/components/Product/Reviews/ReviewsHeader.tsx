@@ -28,7 +28,7 @@ const ReviewsHeader = ({ reviews, user, iconSize = '24px' }: Props) => {
 				<Grid item>
 					<Star sx={{ color: yellow[700], fontSize: iconSize, w: 1 }} />
 				</Grid>
-				<Grid item xs={8}>
+				<Grid item xs={8} sx={{ w: 1 }}>
 					<Grid container display={'flex'} alignItems={'center'}>
 						<Grid item xs={12}>
 							{reviews && reviews.length > 0 && (
