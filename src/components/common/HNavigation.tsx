@@ -1,7 +1,7 @@
 import {
 	IAddress,
 	ICartResponse,
-	IProductCategoryParent,
+	ICategoryLevel1,
 	isUserLoggedIn,
 	IUserFlat,
 	logoutUser,
@@ -33,7 +33,7 @@ import React, { Fragment, useState } from 'react';
 import { useSnackBar } from '../../providers/SnackBarProvider';
 
 interface Props {
-	parentCategories: IProductCategoryParent[];
+	categoriesLevel1: ICategoryLevel1[];
 	user?: IUserFlat | null;
 	cart: ICartResponse | null;
 	removeUser: () => void;
@@ -45,7 +45,7 @@ interface Props {
 }
 
 export default function HNavigation({
-	parentCategories,
+	categoriesLevel1,
 	user,
 	cart,
 	removeUser,
@@ -74,16 +74,16 @@ export default function HNavigation({
 		},
 	];
 	const secondaryMenuItems = [
-		...parentCategories?.map((categoryParent) => {
+		...categoriesLevel1?.map((categoryLevel1) => {
 			if (
-				categoryParent.attributes.icon &&
-				categoryParent.attributes.icon !== ''
+				categoryLevel1.attributes.icon &&
+				categoryLevel1.attributes.icon !== ''
 			) {
 			}
 			return {
-				name: categoryParent.attributes.name,
+				name: categoryLevel1.attributes.name,
 				icon: <PetsOutlined />,
-				url: `/categories/${categoryParent.id}`,
+				url: `/categories/${categoryLevel1.id}`,
 			};
 		}),
 	];
