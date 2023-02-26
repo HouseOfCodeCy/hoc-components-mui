@@ -143,7 +143,7 @@ const EditReview = ({
 									}}
 									{...register('reviewDescription', {
 										required: true,
-										maxLength: 40,
+										maxLength: 100,
 									})}
 								/>
 							</Grid>
