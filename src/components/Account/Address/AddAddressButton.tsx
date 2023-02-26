@@ -29,6 +29,7 @@ import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 interface Props {
 	user: IUserFlat;
 	addUser: (user: IUserFlat) => void;
+	fetchUserAddresses: () => Promise<void>;
 }
 
 interface IFormInput {
@@ -41,7 +42,7 @@ interface IFormInput {
 	isDefault: boolean;
 }
 
-const AddAddressButton = ({ user, addUser }: Props) => {
+const AddAddressButton = ({ user, addUser, fetchUserAddresses }: Props) => {
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 	const [cities, setCities] = useState<ICity[] | null>(null);
 
@@ -72,7 +73,8 @@ const AddAddressButton = ({ user, addUser }: Props) => {
 				user: user.id,
 			};
 			await createAddress(addressPayload, user, addUser).then(
-				(response: any) => {
+				async (response: any) => {
+					await fetchUserAddresses();
 					setShowAddressDialog(false);
 				}
 			);
