@@ -20,6 +20,7 @@ import SimpleDialog from './components/common/Dialog/SimpleDialog';
 import HChip from './components/common/HChip';
 import HeadMeta from './components/common/HeadMeta';
 import HNavigation from './components/common/HNavigation';
+import HNavigationDesktop from './components/common/HNavigationDesktop';
 import Loading from './components/common/Loading';
 import TextFieldSelect from './components/common/TextFieldSelect';
 import OrderShippingMethod from './components/Order/OrderShippingMethod';
@@ -41,6 +42,7 @@ import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
+export { HNavigationDesktop };
 export { AddReview };
 export { EditReview };
 export { ReviewsButton };
