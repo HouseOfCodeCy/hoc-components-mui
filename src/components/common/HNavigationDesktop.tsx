@@ -1,5 +1,5 @@
 import { ICategoryLevel1 } from '@houseofcodecy/hoc-utils';
-import { Grid } from '@mui/material';
+import { Button } from '@mui/material';
 import React from 'react';
 
 interface Props {
@@ -9,11 +9,19 @@ interface Props {
 
 const HNavigationDesktop = ({ categoriesLevel1, nextRouter }: Props) => {
 	return (
-		<Grid container display={'flex'} columnSpacing={4}>
-			{categoriesLevel1.map((category) => (
-				<Grid item>{category.attributes.name}</Grid>
+		<>
+			{categoriesLevel1?.map((category) => (
+				<>
+					<Button
+						id='demo-positioned-button'
+						title={category.attributes.description}
+						onClick={() => nextRouter.push(`/categories/${category.id}`)}
+						sx={{ fontSize: '20px', fontWeight: 'bold' }}>
+						{category.attributes.name}
+					</Button>
+				</>
 			))}
-		</Grid>
+		</>
 	);
 };
 
