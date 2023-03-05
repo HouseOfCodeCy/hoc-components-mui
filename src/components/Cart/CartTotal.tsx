@@ -8,7 +8,7 @@ interface Props {
 	isCheckout?: boolean;
 	setShowCart: (showCart: boolean) => void;
 	nextRouter: any;
-	mediaQuery: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | null;
 }
 
 const CartTotal = ({
@@ -16,7 +16,7 @@ const CartTotal = ({
 	isCheckout = false,
 	setShowCart,
 	nextRouter,
-	mediaQuery,
+	mediaQuery = 'mobile',
 }: Props) => {
 	return cart && cart.attributes.cart_items ? (
 		<Grid

@@ -88,7 +88,7 @@ const AddAddressButton = ({ user, addUser, fetchUserAddresses }: Props) => {
 				variant='contained'
 				endIcon={<Add />}
 				onClick={() => setShowAddressDialog(true)}
-				sx={{ width: '100%', padding: '15px' }}>
+				sx={{ padding: '15px' }}>
 				Add New Address
 			</Button>
 			<Grid item xs={12}>
