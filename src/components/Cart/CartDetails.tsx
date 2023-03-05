@@ -33,7 +33,7 @@ const CartDetails = ({
 					alignItems={'center'}
 					justifyContent={'space-between'}
 					columnGap={2}>
-					<Grid item xs={5}>
+					<Grid item xs={6} sx={{ textAlign: 'right' }}>
 						Subtotal
 					</Grid>
 					<Grid item xs={5}>
@@ -48,7 +48,7 @@ const CartDetails = ({
 						alignItems={'center'}
 						justifyContent={'space-between'}
 						columnGap={2}>
-						<Grid item xs={5}>
+						<Grid item xs={5} sx={{ textAlign: 'right' }}>
 							Shipping Cost
 						</Grid>
 						<Grid item xs={5}>
@@ -63,7 +63,7 @@ const CartDetails = ({
 					alignItems={'center'}
 					justifyContent={'space-between'}
 					columnGap={2}>
-					<Grid item xs={5}>
+					<Grid item xs={6} sx={{ textAlign: 'right' }}>
 						Discount
 					</Grid>
 					<Grid item xs={5}>
@@ -76,9 +76,9 @@ const CartDetails = ({
 					container
 					alignItems={'center'}
 					justifyContent={'space-between'}
-					sx={{ fontSize: '20px' }}
+					sx={{ fontSize: '18px' }}
 					columnGap={2}>
-					<Grid item xs={5}>
+					<Grid item xs={6} sx={{ textAlign: 'right' }}>
 						Order Total
 					</Grid>
 					<Grid item xs={5} sx={{ fontWeight: 'bold' }}>

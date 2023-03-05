@@ -15,7 +15,6 @@ import {
 	Logout,
 	Newspaper,
 	PetsOutlined,
-	ShoppingBasket,
 	ShoppingCart,
 } from '@mui/icons-material';
 import Menu from '@mui/icons-material/Menu';
@@ -42,6 +41,7 @@ interface Props {
 	setIsAuthenticated: (isAuthenticated: boolean) => void;
 	nextRouter: any;
 	packageInfo: any;
+	logoImageComponent: any;
 }
 
 export default function HNavigation({
@@ -54,6 +54,7 @@ export default function HNavigation({
 	setIsAuthenticated,
 	nextRouter,
 	packageInfo,
+	logoImageComponent,
 }: Props) {
 	const [state, setState] = useState(false);
 	const { showSnackBar } = useSnackBar();
@@ -132,7 +133,7 @@ export default function HNavigation({
 			sx={{ width: 250 }}>
 			<List sx={{ width: 1 }}>
 				<ListItem sx={{ justifyContent: 'center', width: '100%' }}>
-					<ShoppingBasket sx={{ fontSize: 80, color: orange[700] }} />
+					{logoImageComponent}
 				</ListItem>
 			</List>
 			<Divider />

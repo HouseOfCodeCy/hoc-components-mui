@@ -8,6 +8,7 @@ interface Props {
 	isCheckout?: boolean;
 	setShowCart: (showCart: boolean) => void;
 	nextRouter: any;
+	mediaQuery: 'desktop' | 'mobile' | null;
 }
 
 const CartTotal = ({
@@ -15,6 +16,7 @@ const CartTotal = ({
 	isCheckout = false,
 	setShowCart,
 	nextRouter,
+	mediaQuery,
 }: Props) => {
 	return cart && cart.attributes.cart_items ? (
 		<Grid
@@ -26,8 +28,11 @@ const CartTotal = ({
 				boxShadow: '#11111a0d 0px 4px 16px, #11111a0d 0px 8px 32px',
 				padding: '2rem',
 			}}>
-			<Grid item xs={6}>
-				<Grid container columnGap={2} sx={{ fontSize: '24px' }}>
+			<Grid item xs={6} lg={12}>
+				<Grid
+					container
+					columnGap={2}
+					sx={{ fontSize: mediaQuery === 'mobile' ? '24px' : '20px' }}>
 					<Grid item xs={4} sx={{ textAlign: 'right', tWeight: 300 }}>
 						Total:
 					</Grid>
@@ -37,7 +42,7 @@ const CartTotal = ({
 				</Grid>
 			</Grid>
 			{!isCheckout ? (
-				<Grid item xs={5} sx={{ textAlign: 'right' }}>
+				<Grid item xs={5} lg={12} sx={{ textAlign: 'right' }}>
 					<Button
 						variant='contained'
 						size='large'
@@ -47,7 +52,7 @@ const CartTotal = ({
 							fontWeight: 'bold',
 							borderColor: 'black',
 							width: '100%',
-							height: '50px',
+							height: mediaQuery === 'mobile' ? '50px' : '46px',
 						}}
 						startIcon={<AccountBalanceOutlinedIcon />}
 						onClick={() => {

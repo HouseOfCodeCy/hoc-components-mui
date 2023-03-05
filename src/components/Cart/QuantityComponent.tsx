@@ -19,9 +19,15 @@ interface Props {
 	cartItem: ICartItemResponse;
 	cart: ICartResponse | null;
 	updateCart: (cart: ICartResponse | null) => void;
+	mediaQuery: 'desktop' | 'mobile' | null;
 }
 
-const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
+const QuantityComponent = ({
+	cartItem,
+	cart,
+	updateCart,
+	mediaQuery,
+}: Props) => {
 	const [loadingDelete, setLoadingDelete] = useState(false);
 	const [loadingQuantity, setLoadingQuantity] = useState(false);
 
@@ -96,7 +102,9 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 									aria-label='incrementCartItem'
 									size='large'
 									sx={{ color: yellow[700] }}>
-									<RemoveCircleOutline sx={{ fontSize: 36 }} />
+									<RemoveCircleOutline
+										sx={{ fontSize: mediaQuery === 'mobile' ? 36 : 20 }}
+									/>
 								</IconButton>
 							}
 							disabled={
@@ -115,7 +123,12 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 								updateCartAndCartItem(tmpQuantity);
 							}}></LoadingButton>
 					</Grid>
-					<Grid item sx={{ fontSize: '30px', textAlign: 'center' }}>
+					<Grid
+						item
+						sx={{
+							fontSize: mediaQuery === 'mobile' ? '30px' : '20px',
+							textAlign: 'center',
+						}}>
 						{cartItem.attributes.product_inventory?.data.attributes.quantity}
 					</Grid>
 					<Grid item sx={{ textAlign: 'center' }}>
@@ -131,7 +144,9 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 									aria-label='incrementCartItem'
 									size='large'
 									sx={{ color: yellow[700] }}>
-									<AddCircleOutline sx={{ fontSize: 36 }} />{' '}
+									<AddCircleOutline
+										sx={{ fontSize: mediaQuery === 'mobile' ? 36 : 20 }}
+									/>{' '}
 								</IconButton>
 							}
 							loadingPosition='start'
@@ -158,7 +173,10 @@ const QuantityComponent = ({ cartItem, cart, updateCart }: Props) => {
 							aria-label='deleteCartItem'
 							size='large'
 							sx={{ color: red[700] }}>
-							<DeleteOutlineRounded sx={{ fontSize: 36 }} color='error' />
+							<DeleteOutlineRounded
+								sx={{ fontSize: mediaQuery === 'mobile' ? 36 : 20 }}
+								color='error'
+							/>
 						</IconButton>
 					}
 					loading={loadingDelete}

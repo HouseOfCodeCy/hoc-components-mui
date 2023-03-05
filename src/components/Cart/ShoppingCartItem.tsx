@@ -9,6 +9,8 @@ interface Props {
 	cart: ICartResponse | null;
 	updateCart: (cart: ICartResponse | null) => void;
 	nextRouter: any;
+	showImage?: boolean;
+	mediaQuery: 'desktop' | 'mobile' | null;
 }
 
 const ShoppingCartItem = ({
@@ -16,19 +18,27 @@ const ShoppingCartItem = ({
 	cart,
 	updateCart,
 	nextRouter,
+	showImage = true,
+	mediaQuery,
 }: Props) => {
 	return cartItem ? (
 		<Card
 			sx={{ display: 'flex', flex: '1', boxShadow: '#0000000a 0px 3px 5px' }}>
-			<CardMedia
-				component='img'
-				sx={{ width: 120, objectFit: 'cover', cursor: 'pointer' }}
-				image={CartItemUtils.getCartItemMedia(cartItem)[0]}
-				alt='Live from space album cover'
-				onClick={() =>
-					nextRouter.push(`/product/${cartItem.attributes.product?.data?.id}`)
-				}
-			/>
+			{showImage && (
+				<CardMedia
+					component='img'
+					sx={{
+						width: mediaQuery === 'mobile' ? 120 : 60,
+						objectFit: 'cover',
+						cursor: 'pointer',
+					}}
+					image={CartItemUtils.getCartItemMedia(cartItem)[0]}
+					alt='Live from space album cover'
+					onClick={() =>
+						nextRouter.push(`/product/${cartItem.attributes.product?.data?.id}`)
+					}
+				/>
+			)}
 			<Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
 				<CardContent
 					sx={{ cursor: 'pointer' }}
@@ -62,6 +72,7 @@ const ShoppingCartItem = ({
 					cartItem={cartItem}
 					cart={cart}
 					updateCart={updateCart}
+					mediaQuery={mediaQuery}
 				/>
 			</Box>
 		</Card>

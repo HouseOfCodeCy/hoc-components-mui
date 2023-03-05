@@ -7,6 +7,8 @@ interface Props {
 	cart: ICartResponse | null;
 	updateCart: (cart: ICartResponse | null) => void;
 	nextRouter: any;
+	showImage?: boolean;
+	mediaQuery: 'desktop' | 'mobile' | null;
 }
 
 const ShoppingCartItems = ({
@@ -14,16 +16,20 @@ const ShoppingCartItems = ({
 	cart,
 	updateCart,
 	nextRouter,
+	mediaQuery,
+	showImage = true,
 }: Props) => {
 	return (
 		<>
 			{cartItems?.map((cartItem: ICartItemResponse) => {
 				return (
-					<div key={cartItem.id} className='asdasd'>
+					<div key={cartItem.id}>
 						<ShoppingCartItem
 							key={cartItem.id}
 							cartItem={cartItem}
 							cart={cart}
+							mediaQuery={mediaQuery}
+							showImage={showImage}
 							updateCart={updateCart}
 							nextRouter={nextRouter}
 						/>

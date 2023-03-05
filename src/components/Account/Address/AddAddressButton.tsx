@@ -83,25 +83,14 @@ const AddAddressButton = ({ user, addUser, fetchUserAddresses }: Props) => {
 
 	return (
 		<Grid container>
-			<Grid
-				item
-				xs={11}
-				sx={{
-					width: 1,
-					height: '60px',
-					borderRadius: '10px',
-					position: 'fixed',
-					bottom: 0,
-				}}>
-				<Button
-					fullWidth
-					variant='contained'
-					endIcon={<Add />}
-					onClick={() => setShowAddressDialog(true)}
-					sx={{ width: '100%', padding: '15px' }}>
-					Add New Address
-				</Button>
-			</Grid>
+			<Button
+				fullWidth
+				variant='contained'
+				endIcon={<Add />}
+				onClick={() => setShowAddressDialog(true)}
+				sx={{ width: '100%', padding: '15px' }}>
+				Add New Address
+			</Button>
 			<Grid item xs={12}>
 				<FullScreenDialog
 					show={showAddressDialog}
