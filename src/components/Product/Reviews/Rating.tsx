@@ -5,7 +5,7 @@ import React from 'react';
 
 interface Props {
 	rating: number;
-	mediaQuery: 'desktop' | 'mobile' | null;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const Rating = ({ rating, mediaQuery = 'mobile' }: Props) => {

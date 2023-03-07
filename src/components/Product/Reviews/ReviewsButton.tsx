@@ -17,7 +17,7 @@ interface Props {
 	reviews: IReview[] | undefined;
 	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 	user: IUserFlat | null | undefined;
-	mediaQuery?: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	nextRouter?: any;
 	fetchReviews?: () => Promise<void>;
 	product?: IProduct;

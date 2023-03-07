@@ -19,7 +19,7 @@ interface Props {
 	dialogSubHeader?: string;
 	direction?: string;
 	fullScreen?: boolean;
-	mediaQuery?: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const Transition = React.forwardRef(function Transition(

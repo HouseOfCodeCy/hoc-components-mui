@@ -8,7 +8,6 @@ import {
 	ProductOptions,
 	ProductUtils,
 } from '@houseofcodecy/hoc-utils';
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {
@@ -16,8 +15,8 @@ import {
 	Card,
 	CardContent,
 	CardMedia,
+	Grid,
 	IconButton,
-	Typography,
 } from '@mui/material';
 import { grey, orange, red } from '@mui/material/colors';
 
@@ -32,6 +31,7 @@ interface CustomProps {
 	cart?: ICartResponse | null;
 	nextRouter: any;
 	showStockOnCategories?: boolean;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const ProductItem = ({
@@ -42,6 +42,7 @@ const ProductItem = ({
 	updateCart,
 	nextRouter,
 	showStockOnCategories = false,
+	mediaQuery = 'mobile',
 }: CustomProps) => {
 	const [isProductFavorite, setIsProductFavorite] = useState(false);
 	const [productStock, setProductStock] = useState<ProductOptions>();
@@ -111,10 +112,10 @@ const ProductItem = ({
 					sx={{
 						objectFit: 'contain',
 						textAlign: 'center',
-						minHeight: 210,
-						maxHeight: 210,
-						maxWidth: 160,
-						minWidth: 160,
+						minHeight: mediaQuery === 'laptop' ? 180 : 210,
+						maxHeight: mediaQuery === 'laptop' ? 180 : 210,
+						maxWidth: mediaQuery === 'laptop' ? 140 : 160,
+						minWidth: mediaQuery === 'laptop' ? 140 : 160,
 						cursor: 'pointer',
 					}}
 					image={product?.attributes.mediaUrls[0]}
@@ -124,48 +125,43 @@ const ProductItem = ({
 					}}
 				/>
 			)}
-			<Box sx={{ display: 'flex', flexDirection: 'column' }}>
+			<Box sx={{ display: 'flex', flexDirection: 'column', w: 1 }}>
 				<CardContent
 					sx={{ flex: '1 0 auto', cursor: 'pointer' }}
 					onClick={() => {
 						nextRouter.push(`/product/${product.id}`);
 					}}>
-					<Typography
-						component='div'
-						sx={{
-							fontSize: '16px',
-							fontWeight: 'bold',
-							textAlign: 'left',
-						}}>
-						{product?.attributes?.name}
-					</Typography>
-					<Typography component='div' sx={{ fontSize: '14px' }}>
-						{ProductUtils.printPriceRanges(product)}
-					</Typography>
-				</CardContent>
-				<Box
-					sx={{
-						display: 'flex',
-						justifyContent: 'space-between',
-						alignItems: 'center',
-						p: 1,
-					}}>
-					<IconButton
-						aria-label='addToCart'
-						size='large'
-						disabled={true}
-						onClick={() => {
-							addProductToCard();
-						}}>
-						<AddShoppingCartIcon
+					<Grid container>
+						<Grid
+							item
+							xs={12}
 							sx={{
-								color:
-									productStock?.total && productStock?.total >= 0
-										? orange[900]
-										: grey[400],
-							}}
-						/>
-					</IconButton>
+								fontSize:
+									mediaQuery === 'mobile' || mediaQuery === 'tablet'
+										? '16px'
+										: mediaQuery === 'laptop'
+										? '18px'
+										: '20px',
+								fontWeight: 'bold',
+								textAlign: 'left',
+							}}>
+							{product?.attributes?.name}
+						</Grid>
+						{/* <Grid item xs={12} sx={{ fontSize: '14px' }}>
+							{ProductUtils.printPriceRanges(product)}
+						</Grid> */}
+					</Grid>
+				</CardContent>
+				<Grid
+					container
+					display={'flex'}
+					justifyContent={'space-around'}
+					alignItems={'center'}>
+					<Grid
+						item
+						sx={{ fontSize: '24px', color: orange[900], fontWeight: 'bold' }}>
+						{ProductUtils.printPriceRanges(product)}
+					</Grid>
 					<IconButton
 						aria-label='favorite'
 						size='large'
@@ -189,7 +185,7 @@ const ProductItem = ({
 							)}
 						/>
 					)}
-				</Box>
+				</Grid>
 			</Box>
 		</Card>
 	);

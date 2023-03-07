@@ -21,7 +21,7 @@ interface CustomProps {
 	showProductName?: boolean;
 	showProductImage?: boolean;
 	user?: IUserFlat | null | undefined;
-	mediaQuery?: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	fetchReviews?: () => Promise<void>;
 	product?: IProduct;
 	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;

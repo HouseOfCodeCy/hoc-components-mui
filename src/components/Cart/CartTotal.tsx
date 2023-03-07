@@ -8,7 +8,7 @@ interface Props {
 	isCheckout?: boolean;
 	setShowCart: (showCart: boolean) => void;
 	nextRouter: any;
-	mediaQuery?: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const CartTotal = ({

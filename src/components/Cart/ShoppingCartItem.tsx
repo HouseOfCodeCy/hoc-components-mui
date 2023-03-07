@@ -10,7 +10,7 @@ interface Props {
 	updateCart: (cart: ICartResponse | null) => void;
 	nextRouter: any;
 	showImage?: boolean;
-	mediaQuery: 'desktop' | 'mobile' | null;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const ShoppingCartItem = ({

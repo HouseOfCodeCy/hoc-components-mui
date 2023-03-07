@@ -19,7 +19,7 @@ interface Props {
 	cartItem: ICartItemResponse;
 	cart: ICartResponse | null;
 	updateCart: (cart: ICartResponse | null) => void;
-	mediaQuery: 'desktop' | 'mobile' | null;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const QuantityComponent = ({

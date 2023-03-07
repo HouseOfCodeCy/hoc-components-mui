@@ -17,7 +17,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 interface Props {
 	order: IOrder;
-	mediaQuery?: 'desktop' | 'mobile' | null;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const OrderStepper = ({ order, mediaQuery = 'mobile' }: Props) => {
