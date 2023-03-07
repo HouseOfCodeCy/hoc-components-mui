@@ -18,7 +18,7 @@ import {
 	Grid,
 	IconButton,
 } from '@mui/material';
-import { grey, orange, red } from '@mui/material/colors';
+import { grey, red } from '@mui/material/colors';
 
 import React, { useEffect, useRef, useState } from 'react';
 import ProductAvailabilityChip from '../common/ProductAvailabilityChip';
@@ -104,7 +104,18 @@ const ProductItem = ({
 				w: 1,
 				display: 'flex',
 				justifyContent: 'flex-start',
-				minHeight: '220px',
+				alignItems: 'center',
+				minHeight:
+					mediaQuery === 'desktop'
+						? 220
+						: mediaQuery === 'laptop'
+						? 180
+						: mediaQuery === 'mobile'
+						? 250
+						: mediaQuery === 'tablet'
+						? 250
+						: 340,
+				p: 1,
 			}}>
 			{product?.attributes.mediaUrls && (
 				<CardMedia
@@ -112,10 +123,46 @@ const ProductItem = ({
 					sx={{
 						objectFit: 'contain',
 						textAlign: 'center',
-						minHeight: mediaQuery === 'laptop' ? 180 : 210,
-						maxHeight: mediaQuery === 'laptop' ? 180 : 210,
-						maxWidth: mediaQuery === 'laptop' ? 140 : 160,
-						minWidth: mediaQuery === 'laptop' ? 140 : 160,
+						minHeight:
+							mediaQuery === 'desktop'
+								? 180
+								: mediaQuery === 'laptop'
+								? 140
+								: mediaQuery === 'mobile'
+								? 210
+								: mediaQuery === 'tablet'
+								? 210
+								: 300,
+						maxHeight:
+							mediaQuery === 'desktop'
+								? 180
+								: mediaQuery === 'laptop'
+								? 140
+								: mediaQuery === 'mobile'
+								? 210
+								: mediaQuery === 'tablet'
+								? 210
+								: 300,
+						maxWidth:
+							mediaQuery === 'desktop'
+								? 180
+								: mediaQuery === 'laptop'
+								? 100
+								: mediaQuery === 'mobile'
+								? 210
+								: mediaQuery === 'tablet'
+								? 210
+								: 300,
+						minWidth:
+							mediaQuery === 'desktop'
+								? 180
+								: mediaQuery === 'laptop'
+								? 100
+								: mediaQuery === 'mobile'
+								? 210
+								: mediaQuery === 'tablet'
+								? 210
+								: 300,
 						cursor: 'pointer',
 					}}
 					image={product?.attributes.mediaUrls[0]}
@@ -125,16 +172,18 @@ const ProductItem = ({
 					}}
 				/>
 			)}
-			<Box sx={{ display: 'flex', flexDirection: 'column', w: 1 }}>
+			<Box aria-label={product?.attributes.name} sx={{ w: 1 }}>
 				<CardContent
-					sx={{ flex: '1 0 auto', cursor: 'pointer' }}
-					onClick={() => {
-						nextRouter.push(`/product/${product.id}`);
+					sx={{
+						cursor: 'pointer',
 					}}>
-					<Grid container>
+					<Grid container display={'flex'} alignContent={'space-between'}>
 						<Grid
 							item
 							xs={12}
+							onClick={() => {
+								nextRouter.push(`/product/${product.id}`);
+							}}
 							sx={{
 								fontSize:
 									mediaQuery === 'mobile' || mediaQuery === 'tablet'
@@ -144,48 +193,83 @@ const ProductItem = ({
 										: '20px',
 								fontWeight: 'bold',
 								textAlign: 'left',
+								minHeight:
+									mediaQuery === 'desktop'
+										? 100
+										: mediaQuery === 'laptop'
+										? 80
+										: mediaQuery === 'mobile'
+										? 130
+										: mediaQuery === 'tablet'
+										? 130
+										: 220,
+								maxHeight:
+									mediaQuery === 'desktop'
+										? 100
+										: mediaQuery === 'laptop'
+										? 80
+										: mediaQuery === 'mobile'
+										? 130
+										: mediaQuery === 'tablet'
+										? 130
+										: 220,
+								textOverflow: 'ellipsis',
+								overflow: 'hidden',
 							}}>
 							{product?.attributes?.name}
 						</Grid>
-						{/* <Grid item xs={12} sx={{ fontSize: '14px' }}>
-							{ProductUtils.printPriceRanges(product)}
-						</Grid> */}
+						<Grid item xs={12}>
+							<Grid
+								container
+								display={'flex'}
+								justifyContent={'space-between'}
+								alignItems={'center'}>
+								<Grid
+									item
+									onClick={() => {
+										nextRouter.push(`/product/${product.id}`);
+									}}
+									sx={{
+										fontSize:
+											mediaQuery === 'mobile' || mediaQuery === 'tablet'
+												? '16px'
+												: mediaQuery === 'laptop'
+												? '14px'
+												: mediaQuery === 'desktop'
+												? '20px'
+												: '22px',
+										color: '#cb913d',
+										fontWeight: 'bold',
+									}}>
+									{ProductUtils.printPriceRanges(product)}
+								</Grid>
+								<IconButton
+									aria-label='favorite'
+									size='large'
+									onClick={() => {
+										if (user) {
+											updateUserFavorites();
+										} else {
+											nextRouter.push('/login');
+										}
+									}}>
+									{isProductFavorite ? (
+										<FavoriteIcon sx={{ color: red[600] }} />
+									) : (
+										<FavoriteBorderIcon sx={{ color: grey[700] }} />
+									)}
+								</IconButton>
+								{productStock && showStockOnCategories && (
+									<ProductAvailabilityChip
+										label={ProductInventoryUtils.renderAvailabilityLabel(
+											productStock
+										)}
+									/>
+								)}
+							</Grid>
+						</Grid>
 					</Grid>
 				</CardContent>
-				<Grid
-					container
-					display={'flex'}
-					justifyContent={'space-around'}
-					alignItems={'center'}>
-					<Grid
-						item
-						sx={{ fontSize: '24px', color: orange[900], fontWeight: 'bold' }}>
-						{ProductUtils.printPriceRanges(product)}
-					</Grid>
-					<IconButton
-						aria-label='favorite'
-						size='large'
-						onClick={() => {
-							if (user) {
-								updateUserFavorites();
-							} else {
-								nextRouter.push('/login');
-							}
-						}}>
-						{isProductFavorite ? (
-							<FavoriteIcon sx={{ color: red[600] }} />
-						) : (
-							<FavoriteBorderIcon sx={{ color: grey[700] }} />
-						)}
-					</IconButton>
-					{productStock && showStockOnCategories && (
-						<ProductAvailabilityChip
-							label={ProductInventoryUtils.renderAvailabilityLabel(
-								productStock
-							)}
-						/>
-					)}
-				</Grid>
 			</Box>
 		</Card>
 	);

@@ -12,12 +12,12 @@ interface Props {
 const CarouselComponent = ({
 	media,
 	width,
-	flexColumnSize = 4,
+	flexColumnSize = 11,
 	autoPlay = false,
 }: Props) => {
 	return (
 		<Grid container display={'flex'} justifyContent={'center'}>
-			<Grid item xs={11} lg={flexColumnSize}>
+			<Grid item xs={12} lg={flexColumnSize}>
 				<Carousel
 					fullHeightHover={false}
 					autoPlay={autoPlay}
