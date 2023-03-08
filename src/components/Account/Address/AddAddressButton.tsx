@@ -30,6 +30,7 @@ interface Props {
 	user: IUserFlat;
 	addUser: (user: IUserFlat) => void;
 	fetchUserAddresses: () => Promise<void>;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 interface IFormInput {
@@ -42,7 +43,12 @@ interface IFormInput {
 	isDefault: boolean;
 }
 
-const AddAddressButton = ({ user, addUser, fetchUserAddresses }: Props) => {
+const AddAddressButton = ({
+	user,
+	addUser,
+	fetchUserAddresses,
+	mediaQuery,
+}: Props) => {
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 	const [cities, setCities] = useState<ICity[] | null>(null);
 
@@ -95,6 +101,7 @@ const AddAddressButton = ({ user, addUser, fetchUserAddresses }: Props) => {
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader='Add new address'>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Grid container display={'flex'} rowGap={2} sx={{ p: 3 }}>

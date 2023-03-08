@@ -24,9 +24,10 @@ import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 
 interface Props {
 	setPaymentMethod: Dispatch<SetStateAction<IOrderPaymentMethod | undefined>>;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
-const PaymentMethod = ({ setPaymentMethod }: Props) => {
+const PaymentMethod = ({ setPaymentMethod, mediaQuery }: Props) => {
 	const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
 		IOrderPaymentMethod | undefined
 	>();
@@ -115,6 +116,7 @@ const PaymentMethod = ({ setPaymentMethod }: Props) => {
 				<FullScreenDialog
 					show={showDialog}
 					setShowDialog={setShowDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader='Payment Methods'>
 					{paymentMethods &&
 						paymentMethods.length > 0 &&

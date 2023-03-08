@@ -31,6 +31,7 @@ import FullScreenDialog from '../../common/Dialog/FullScreenDialog';
 interface Props {
 	address: IAddress | null;
 	showEditAddressDialog: boolean;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	setShowEditAddressDialog: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -47,6 +48,7 @@ interface IFormInput {
 const EditAddressDialog = ({
 	address,
 	showEditAddressDialog = false,
+	mediaQuery,
 	setShowEditAddressDialog,
 }: Props) => {
 	const [cities, setCities] = useState<ICity[] | null>(null);
@@ -91,6 +93,7 @@ const EditAddressDialog = ({
 				<FullScreenDialog
 					show={showEditAddressDialog}
 					setShowDialog={setShowEditAddressDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader={`Edit ${address?.attributes.name}`}>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Grid container display={'flex'} rowGap={2} sx={{ p: 3 }}>

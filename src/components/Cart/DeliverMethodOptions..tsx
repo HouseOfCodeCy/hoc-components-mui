@@ -16,6 +16,7 @@ interface Props {
 	isCheckout?: boolean;
 	shippingMethodValue?: string;
 	shippingMethodOptions?: IShippingMethodOption[];
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	updateShippingMethodOption: (
 		shippingMethodOption: IShippingMethodOption | undefined
 	) => void;
@@ -25,6 +26,7 @@ const DeliverMethodOptions = ({
 	shippingMethodOptions,
 	shippingMethodValue,
 	updateShippingMethodOption,
+	mediaQuery,
 }: Props) => {
 	const [selectedShippingMethodOption, setSelectedShippingMethodOption] =
 		useState<IShippingMethodOption>();
@@ -116,6 +118,7 @@ const DeliverMethodOptions = ({
 			<Grid item xs={12}>
 				<FullScreenDialog
 					show={showAddressDialog}
+					mediaQuery={mediaQuery}
 					setShowDialog={setShowAddressDialog}
 					dialogHeader='Select Collection Method'>
 					{shippingMethodOptions?.map((option) => {

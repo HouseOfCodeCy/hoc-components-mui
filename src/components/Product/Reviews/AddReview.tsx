@@ -25,6 +25,7 @@ interface Props {
 	setShowDialog: React.Dispatch<React.SetStateAction<boolean>>;
 	nextRouter?: any;
 	product?: IProduct;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	user?: IUserFlat | null | undefined;
 	setReviews?: (value: SetStateAction<IReview[] | undefined>) => void;
 }
@@ -37,6 +38,7 @@ interface IFormInput {
 const AddReview = ({
 	showEditReviewDialog = false,
 	setShowDialog,
+	mediaQuery,
 	nextRouter,
 	product,
 	user,
@@ -73,6 +75,7 @@ const AddReview = ({
 				<FullScreenDialog
 					show={showEditReviewDialog}
 					setShowDialog={setShowDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader={`Add Review`}
 					dialogSubHeader={product?.attributes.name}>
 					<form onSubmit={handleSubmit(onSubmit)}>

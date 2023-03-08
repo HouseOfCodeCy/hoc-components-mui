@@ -15,9 +15,10 @@ import EditAddressDialog from '../EditAddress';
 
 interface Props {
 	addresses: IAddress[];
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
-const AddressList = ({ addresses }: Props) => {
+const AddressList = ({ addresses, mediaQuery }: Props) => {
 	const [selectedAddress, setSelectedAddress] = useState<IAddress | null>(null);
 	const [showEditAddressDialog, setShowEditAddressDialog] = useState(false);
 
@@ -53,6 +54,7 @@ const AddressList = ({ addresses }: Props) => {
 			<Grid item xs={12}>
 				<EditAddressDialog
 					address={selectedAddress}
+					mediaQuery={mediaQuery}
 					showEditAddressDialog={showEditAddressDialog}
 					setShowEditAddressDialog={setShowEditAddressDialog}
 				/>

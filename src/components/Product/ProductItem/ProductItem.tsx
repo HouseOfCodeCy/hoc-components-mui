@@ -111,7 +111,7 @@ const ProductItem = ({
 						: mediaQuery === 'laptop'
 						? 180
 						: mediaQuery === 'mobile'
-						? 250
+						? 200
 						: mediaQuery === 'tablet'
 						? 250
 						: 340,
@@ -129,7 +129,7 @@ const ProductItem = ({
 								: mediaQuery === 'laptop'
 								? 140
 								: mediaQuery === 'mobile'
-								? 210
+								? 160
 								: mediaQuery === 'tablet'
 								? 210
 								: 300,
@@ -139,7 +139,7 @@ const ProductItem = ({
 								: mediaQuery === 'laptop'
 								? 140
 								: mediaQuery === 'mobile'
-								? 210
+								? 160
 								: mediaQuery === 'tablet'
 								? 210
 								: 300,
@@ -149,7 +149,7 @@ const ProductItem = ({
 								: mediaQuery === 'laptop'
 								? 100
 								: mediaQuery === 'mobile'
-								? 210
+								? 160
 								: mediaQuery === 'tablet'
 								? 210
 								: 300,
@@ -159,7 +159,7 @@ const ProductItem = ({
 								: mediaQuery === 'laptop'
 								? 100
 								: mediaQuery === 'mobile'
-								? 210
+								? 160
 								: mediaQuery === 'tablet'
 								? 210
 								: 300,
@@ -231,12 +231,14 @@ const ProductItem = ({
 									}}
 									sx={{
 										fontSize:
-											mediaQuery === 'mobile' || mediaQuery === 'tablet'
-												? '16px'
+											mediaQuery === 'mobile'
+												? '18px'
 												: mediaQuery === 'laptop'
 												? '14px'
 												: mediaQuery === 'desktop'
 												? '20px'
+												: mediaQuery === 'tablet'
+												? '18px'
 												: '22px',
 										color: '#cb913d',
 										fontWeight: 'bold',

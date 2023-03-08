@@ -1,4 +1,4 @@
-import { ArrowBackIos } from '@mui/icons-material';
+import { ArrowBackIos, Close } from '@mui/icons-material';
 import {
 	AppBar,
 	Dialog,
@@ -17,6 +17,7 @@ interface Props {
 	setShowDialog: (show: boolean) => void;
 	dialogHeader?: string;
 	dialogSubHeader?: string;
+	dialogAction?: any;
 	direction?: string;
 	fullScreen?: boolean;
 	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
@@ -39,18 +40,27 @@ const FullScreenDialog = ({
 	dialogSubHeader,
 	fullScreen = false,
 	mediaQuery = 'mobile',
+	dialogAction,
 }: Props) => {
 	return (
 		<Dialog
 			fullWidth={false}
-			fullScreen={fullScreen}
+			fullScreen={
+				mediaQuery === 'mobile' || mediaQuery === 'tablet' ? true : false
+			}
 			PaperProps={{
 				sx: {
-					position: 'fixed',
-					width: 1,
-					bottom: 0,
-					left: 0,
-					right: 0,
+					position:
+						mediaQuery === 'mobile' || mediaQuery === 'tablet'
+							? 'fixed'
+							: 'inherit',
+					width: mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 1 : 700,
+					height: '100%',
+					bottom:
+						mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : '10%',
+					left: mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : '40%',
+					right:
+						mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : undefined,
 					m: 0,
 				},
 			}}
@@ -61,25 +71,38 @@ const FullScreenDialog = ({
 			TransitionComponent={Transition}>
 			<AppBar
 				sx={{
-					position: 'relative',
+					position: 'sticky',
+					top: 0,
 					backgroundColor: grey[900],
-					height: '70px',
+					height: '60px',
 					display: 'flex',
-					justifyContent: 'center',
 				}}>
-				<Toolbar sx={{ color: grey[700] }}>
+				<Toolbar
+					sx={{
+						display: 'flex',
+						justifyContent: 'flex-end',
+						color: grey[700],
+					}}>
 					<IconButton
-						edge='start'
+						edge={
+							mediaQuery === 'mobile' || mediaQuery === 'tablet'
+								? 'start'
+								: 'end'
+						}
 						color='inherit'
 						onClick={() => {
 							setShowDialog(false);
 						}}
 						aria-label='close'>
-						<ArrowBackIos />
+						{mediaQuery === 'mobile' || mediaQuery === 'tablet' ? (
+							<ArrowBackIos />
+						) : (
+							<Close />
+						)}
 					</IconButton>
 				</Toolbar>
 			</AppBar>
-			<Grid container>
+			<Grid container sx={{ position: 'relative' }}>
 				{dialogHeader && (
 					<Grid item xs={12} sx={{ textAlign: 'center' }}>
 						<h2>{dialogHeader}</h2>
@@ -90,7 +113,24 @@ const FullScreenDialog = ({
 						{dialogSubHeader}
 					</Grid>
 				)}
-				{children}
+				<Grid item xs={12}>
+					{children}
+				</Grid>
+				{dialogAction && (
+					<Grid
+						item
+						xs={12}
+						sx={{
+							position: 'absolute',
+							top: '100%',
+							padding: '20px',
+							width: 1,
+							height: '60px',
+							borderRadius: '10px 10px 0 0',
+						}}>
+						{dialogAction}
+					</Grid>
+				)}
 			</Grid>
 		</Dialog>
 	);

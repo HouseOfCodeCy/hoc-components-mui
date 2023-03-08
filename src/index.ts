@@ -29,6 +29,7 @@ import ReviewsButton from './components/Product/Reviews/ReviewsButton';
 import ReviewsHeader from './components/Product/Reviews/ReviewsHeader';
 import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 import AddToCartButton from './components/Product/common/AddToCartButton';
+import AccordionComponent from './components/common/AccordionComponent';
 import CardRow from './components/common/CardRow';
 import CarouselComponent from './components/common/CarouselComponent';
 import FullScreenDialog from './components/common/Dialog/FullScreenDialog';
@@ -43,6 +44,7 @@ import TextFieldSelect from './components/common/TextFieldSelect';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
+export { AccordionComponent };
 export { ResponseMeta };
 export { HNavigationDesktop };
 export { AddReview };

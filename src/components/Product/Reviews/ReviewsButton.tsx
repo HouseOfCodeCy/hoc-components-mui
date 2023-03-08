@@ -35,6 +35,27 @@ const ReviewsButton = ({
 	const [showAddressDialog, setShowAddressDialog] = useState(false);
 	const [showAddReviewDialog, setShowAddReviewDialog] = useState(false);
 
+	const RenderAddReviewButton = () => {
+		if (
+			reviews?.filter((review) => review.attributes.user?.data.id === user?.id)
+				?.length === 0
+		) {
+			return (
+				<Button
+					variant='contained'
+					endIcon={<Add />}
+					onClick={() => setShowAddReviewDialog(true)}
+					sx={{
+						width: 1,
+					}}>
+					Add your review
+				</Button>
+			);
+		} else {
+			return null;
+		}
+	};
+
 	return (
 		<Grid container sx={{ padding: '5px' }}>
 			<Grid item xs={12} sx={{ paddingBottom: '10px' }}>
@@ -58,9 +79,9 @@ const ReviewsButton = ({
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
-					fullScreen={true}
 					mediaQuery={mediaQuery}
 					dialogHeader='Reviews'
+					dialogAction={RenderAddReviewButton()}
 					dialogSubHeader={product?.attributes.name}>
 					<Grid item xs={12}>
 						<Grid
@@ -122,26 +143,6 @@ const ReviewsButton = ({
 							</Grid>
 						);
 					})}
-					{reviews?.filter(
-						(review) => review.attributes.user?.data.id === user?.id
-					)?.length === 0 && (
-						<Grid item xs={12}>
-							<Button
-								variant='contained'
-								endIcon={<Add />}
-								onClick={() => setShowAddReviewDialog(true)}
-								sx={{
-									padding: '15px',
-									width: 1,
-									height: '60px',
-									borderRadius: '10px 10px 0 0',
-									position: 'fixed',
-									bottom: 0,
-								}}>
-								Add your review
-							</Button>
-						</Grid>
-					)}
 				</FullScreenDialog>
 			</Grid>
 
@@ -151,6 +152,7 @@ const ReviewsButton = ({
 					setShowDialog={setShowAddReviewDialog}
 					nextRouter={nextRouter}
 					product={product}
+					mediaQuery={mediaQuery}
 					user={user}
 					setReviews={setReviews}
 				/>

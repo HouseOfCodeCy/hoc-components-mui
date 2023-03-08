@@ -48,7 +48,7 @@ const CartDetails = ({
 						alignItems={'center'}
 						justifyContent={'space-between'}
 						columnGap={2}>
-						<Grid item xs={5} sx={{ textAlign: 'right' }}>
+						<Grid item xs={6} sx={{ textAlign: 'right' }}>
 							Shipping Cost
 						</Grid>
 						<Grid item xs={5}>

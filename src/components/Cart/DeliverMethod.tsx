@@ -18,9 +18,14 @@ import FullScreenDialog from '../common/Dialog/FullScreenDialog';
 interface Props {
 	isCheckout?: boolean;
 	updateDeliveryMethod: (shippingMethod: IShippingMethod | undefined) => void;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
-const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
+const DeliverMethod = ({
+	isCheckout,
+	updateDeliveryMethod,
+	mediaQuery,
+}: Props) => {
 	const [selectedDeliveryMethod, setSelectedDeliveryMethod] =
 		useState<IShippingMethod>();
 	const [deliveryMethods, setDeliveryMethods] = useState<IShippingMethod[]>();
@@ -115,6 +120,7 @@ const DeliverMethod = ({ isCheckout, updateDeliveryMethod }: Props) => {
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader='Select Collection Method'>
 					{deliveryMethods?.map((option) => {
 						return (

@@ -15,6 +15,7 @@ interface Props {
 	isCheckout?: boolean;
 	shippingAddress: IAddress | null;
 	updateShippingAddress: (address: IAddress) => void;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 	actionLabel?: string;
 	showAddNewAddress?: boolean;
 	nextRouter?: any;
@@ -27,6 +28,7 @@ const AddressSelection = ({
 	updateShippingAddress,
 	actionLabel = 'Change Address',
 	showAddNewAddress = true,
+	mediaQuery,
 	nextRouter,
 }: Props) => {
 	const [selectedAddress, setSelectedAddress] = useState<IAddress | undefined>(
@@ -116,6 +118,7 @@ const AddressSelection = ({
 				<FullScreenDialog
 					show={showAddressDialog}
 					setShowDialog={setShowAddressDialog}
+					mediaQuery={mediaQuery}
 					dialogHeader='Addresses'>
 					{addresses?.map((address) => {
 						return (
