@@ -80,7 +80,10 @@ const FullScreenDialog = ({
 				<Toolbar
 					sx={{
 						display: 'flex',
-						justifyContent: 'flex-end',
+						justifyContent:
+							mediaQuery === 'mobile' || mediaQuery === 'tablet'
+								? 'flex-start'
+								: 'flex-end',
 						color: grey[700],
 					}}>
 					<IconButton
