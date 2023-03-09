@@ -1,3 +1,8 @@
+// Import FontAwesome Icons
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
+library.add(fas);
+
 /********************** COMPONENTS ***********************/
 import AddAddressButton from './components/Account/Address/AddAddressButton';
 import AddressList from './components/Account/Address/AddressList/AddressList';

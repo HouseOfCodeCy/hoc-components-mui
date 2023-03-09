@@ -1,26 +1,26 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { IconName } from '@fortawesome/fontawesome-svg-core';
+import {
+	faBoxesPacking,
+	faContactCard,
+	faHouse,
+	faPeopleGroup,
+	faShoppingBasket,
+	faUser,
+	faVoicemail,
+} from '@fortawesome/free-solid-svg-icons';
 import {
 	IAddress,
 	ICartResponse,
 	ICategoryLevel1,
-	isUserLoggedIn,
 	IUserFlat,
+	isUserLoggedIn,
 	logoutUser,
 } from '@houseofcodecy/hoc-utils';
-import {
-	AccountBox,
-	ContactMail,
-	EmojiPeople,
-	Home,
-	Inventory,
-	Logout,
-	Newspaper,
-	PetsOutlined,
-	ShoppingCart,
-} from '@mui/icons-material';
-import Menu from '@mui/icons-material/Menu';
+import { Logout } from '@mui/icons-material';
 import { Grid, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
-import { blue, grey, orange } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -28,6 +28,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import { blue, grey, orange } from '@mui/material/colors';
 import React, { Fragment, useState } from 'react';
 import { useSnackBar } from '../../providers/SnackBarProvider';
 
@@ -60,16 +61,20 @@ export default function HNavigation({
 	const { showSnackBar } = useSnackBar();
 
 	const primaryMenuItems = [
-		{ name: 'Home', icon: <Home />, url: '/' },
+		{
+			name: 'Home',
+			icon: faHouse,
+			url: '/',
+		},
 		{
 			name: 'Your Cart',
-			icon: <ShoppingCart />,
+			icon: faShoppingBasket,
 			url: `/cart/${cart?.id}`,
 			disabled: !isUserLoggedIn() || !cart,
 		},
 		{
 			name: 'Account',
-			icon: <AccountBox />,
+			icon: faUser,
 			url: '/account',
 			disabled: !isUserLoggedIn(),
 		},
@@ -80,27 +85,33 @@ export default function HNavigation({
 				categoryLevel1.attributes.icon &&
 				categoryLevel1.attributes.icon !== ''
 			) {
+				return {
+					name: categoryLevel1.attributes.name,
+					icon: categoryLevel1.attributes.icon as IconName,
+					url: `/categories/${categoryLevel1.id}`,
+				};
+			} else {
+				return {
+					name: categoryLevel1.attributes.name,
+					icon: 'dollar' as IconName,
+					url: `/categories/${categoryLevel1.id}`,
+				};
 			}
-			return {
-				name: categoryLevel1.attributes.name,
-				icon: <PetsOutlined />,
-				url: `/categories/${categoryLevel1.id}`,
-			};
 		}),
 	];
 	const tertiaryMenuItems = [
 		{
 			name: 'Who we are',
-			icon: <EmojiPeople />,
+			icon: faPeopleGroup,
 			url: '/#whoweare-section',
 		},
-		{ name: 'Bundles', icon: <Inventory />, url: '/#bundles' },
+		{ name: 'Bundles', icon: faBoxesPacking, url: '/#bundles' },
 		{
 			name: 'Subscribe',
-			icon: <Newspaper />,
+			icon: faVoicemail,
 			url: '/#subscribe-section',
 		},
-		{ name: 'Contact', icon: <ContactMail />, url: '#' },
+		{ name: 'Contact', icon: faContactCard, url: '#' },
 	];
 
 	const logoutUserFromSession = () => {
@@ -147,7 +158,7 @@ export default function HNavigation({
 						disabled={menuItem.disabled}>
 						<ListItemButton>
 							<ListItemIcon sx={{ color: blue[700] }}>
-								{menuItem.icon}
+								<FontAwesomeIcon icon={menuItem.icon} size='xl' />
 							</ListItemIcon>
 							<ListItemText primary={menuItem.name} />
 						</ListItemButton>
@@ -163,7 +174,7 @@ export default function HNavigation({
 						onClick={() => nextRouter.push(menuItem.url)}>
 						<ListItemButton>
 							<ListItemIcon sx={{ color: blue[700] }}>
-								{menuItem.icon}
+								<FontAwesomeIcon icon={['fas', menuItem.icon]} size='xl' />
 							</ListItemIcon>
 							<ListItemText primary={menuItem.name} />
 						</ListItemButton>
@@ -179,7 +190,7 @@ export default function HNavigation({
 						onClick={() => nextRouter.push(menuItem.url)}>
 						<ListItemButton>
 							<ListItemIcon sx={{ color: blue[700] }}>
-								{menuItem.icon}
+								<FontAwesomeIcon icon={menuItem.icon} size='xl' />
 							</ListItemIcon>
 							<ListItemText primary={menuItem.name} />
 						</ListItemButton>
@@ -258,8 +269,8 @@ export default function HNavigation({
 	return (
 		<Grid container display={'flex'} alignItems={'center'}>
 			<Fragment key={'sidemenu-key'}>
-				<IconButton onClick={toggleDrawer(true)}>
-					<Menu fontSize={'large'} sx={{ color: orange[300] }} />
+				<IconButton onClick={toggleDrawer(true)} sx={{ color: orange[300] }}>
+					<FontAwesomeIcon icon={'lines-leaning'} size='xl' />
 				</IconButton>
 				<Drawer
 					anchor={'left'}

@@ -1,5 +1,8 @@
+import { IconName } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ICategoryLevel1 } from '@houseofcodecy/hoc-utils';
-import { Button } from '@mui/material';
+import { Grid, IconButton } from '@mui/material';
+import { orange } from '@mui/material/colors';
 import React from 'react';
 
 interface Props {
@@ -17,16 +20,37 @@ const HNavigationDesktop = ({
 		<>
 			{categoriesLevel1?.map((category) => (
 				<>
-					<Button
-						id='demo-positioned-button'
+					<IconButton
+						aria-label={category.attributes.description}
 						title={category.attributes.description}
 						onClick={() => nextRouter.push(`/categories/${category.id}`)}
 						sx={{
 							fontSize: !isScrolled ? '20px' : '15px',
 							fontWeight: 'bold',
+							p: 2,
+							color: orange[50],
 						}}>
-						{category.attributes.name}
-					</Button>
+						<Grid
+							container
+							display={'flex'}
+							flexDirection={'column'}
+							rowGap={1}>
+							<Grid
+								item
+								sx={{
+									border: '2px solid #a39d9d78',
+									borderRadius: '20px',
+									padding: '3px',
+								}}>
+								<FontAwesomeIcon
+									icon={['fas', category.attributes.icon as IconName]}
+									size='xl'
+									color='#feb64d'
+								/>
+							</Grid>
+							{!isScrolled && <Grid item>{category.attributes.name}</Grid>}
+						</Grid>
+					</IconButton>
 				</>
 			))}
 		</>
