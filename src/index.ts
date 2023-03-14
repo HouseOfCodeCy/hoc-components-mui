@@ -18,6 +18,7 @@ import QuantityComponent from './components/Cart/QuantityComponent';
 import ShoppingCartFooter from './components/Cart/ShoppingCartFooter';
 import ShoppingCartItem from './components/Cart/ShoppingCartItem';
 import ShoppingCartItems from './components/Cart/ShoppingCartItems';
+import DraggableCategories from './components/Categories/DraggableCategories';
 import OrderShippingMethod from './components/Order/OrderShippingMethod';
 import OrderStepper from './components/Order/OrderStepper';
 import PayButtonCash from './components/Payment/PayButtonCash';
@@ -49,6 +50,7 @@ import TextFieldSelect from './components/common/TextFieldSelect';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
+export { DraggableCategories };
 export { AccordionComponent };
 export { ResponseMeta };
 export { HNavigationDesktop };

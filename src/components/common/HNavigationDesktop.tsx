@@ -34,6 +34,8 @@ const HNavigationDesktop = ({
 							container
 							display={'flex'}
 							flexDirection={'column'}
+							justifyContent={'center'}
+							alignItems={'center'}
 							rowGap={1}>
 							<Grid
 								item
@@ -41,6 +43,10 @@ const HNavigationDesktop = ({
 									border: '2px solid #a39d9d78',
 									borderRadius: '20px',
 									padding: '3px',
+									width: '40px',
+									display: 'flex',
+									justifyContent: 'center',
+									alignItems: 'center',
 								}}>
 								<FontAwesomeIcon
 									icon={['fas', category.attributes.icon as IconName]}

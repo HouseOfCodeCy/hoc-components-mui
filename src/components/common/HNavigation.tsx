@@ -173,7 +173,7 @@ export default function HNavigation({
 						disablePadding
 						onClick={() => nextRouter.push(menuItem.url)}>
 						<ListItemButton>
-							<ListItemIcon sx={{ color: blue[700] }}>
+							<ListItemIcon sx={{ color: orange[700] }}>
 								<FontAwesomeIcon icon={['fas', menuItem.icon]} size='xl' />
 							</ListItemIcon>
 							<ListItemText primary={menuItem.name} />

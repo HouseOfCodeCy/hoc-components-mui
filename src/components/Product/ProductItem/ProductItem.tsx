@@ -64,7 +64,7 @@ const ProductItem = ({
 		}
 		if (dataFetchedRef.current) return;
 		dataFetchedRef.current = true;
-		fetchData();
+		showStockOnCategories && fetchData();
 	}, []);
 
 	/**

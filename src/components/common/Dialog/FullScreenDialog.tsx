@@ -55,7 +55,7 @@ const FullScreenDialog = ({
 							? 'fixed'
 							: 'inherit',
 					width: mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 1 : 700,
-					height: '100%',
+					height: '80%',
 					bottom:
 						mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : '10%',
 					left: mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : '40%',
@@ -84,7 +84,12 @@ const FullScreenDialog = ({
 							mediaQuery === 'mobile' || mediaQuery === 'tablet'
 								? 'flex-start'
 								: 'flex-end',
+						alignContent: 'center',
 						color: grey[700],
+						height:
+							mediaQuery === 'mobile' || mediaQuery === 'tablet'
+								? '60px'
+								: '40px',
 					}}>
 					<IconButton
 						edge={
