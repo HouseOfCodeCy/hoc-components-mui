@@ -100,6 +100,7 @@ const ProductItem = ({
 
 	return (
 		<Card
+			title='asdas'
 			sx={{
 				w: 1,
 				display: 'flex',
@@ -166,7 +167,6 @@ const ProductItem = ({
 						cursor: 'pointer',
 					}}
 					image={product?.attributes.mediaUrls[0]}
-					title={product?.attributes.name}
 					onClick={() => {
 						nextRouter.push(`/product/${product.id}`);
 					}}
@@ -174,10 +174,38 @@ const ProductItem = ({
 			)}
 			<Box aria-label={product?.attributes.name} sx={{ w: 1 }}>
 				<CardContent
+					title={product?.attributes?.name}
 					sx={{
 						cursor: 'pointer',
 					}}>
-					<Grid container display={'flex'} alignContent={'space-between'}>
+					<Grid
+						container
+						display={'flex'}
+						alignContent={'space-between'}
+						sx={{
+							minHeight:
+								mediaQuery === 'desktop'
+									? 100
+									: mediaQuery === 'laptop'
+									? 140
+									: mediaQuery === 'mobile'
+									? 130
+									: mediaQuery === 'tablet'
+									? 130
+									: 220,
+							maxHeight:
+								mediaQuery === 'desktop'
+									? 100
+									: mediaQuery === 'laptop'
+									? 120
+									: mediaQuery === 'mobile'
+									? 130
+									: mediaQuery === 'tablet'
+									? 130
+									: 220,
+							textOverflow: 'ellipsis',
+							overflow: 'hidden',
+						}}>
 						<Grid
 							item
 							xs={12}
@@ -191,32 +219,28 @@ const ProductItem = ({
 										: mediaQuery === 'laptop'
 										? '18px'
 										: '20px',
-								fontWeight: 'bold',
+								fontWeight: 'bolder',
 								textAlign: 'left',
-								minHeight:
-									mediaQuery === 'desktop'
-										? 100
-										: mediaQuery === 'laptop'
-										? 80
-										: mediaQuery === 'mobile'
-										? 130
-										: mediaQuery === 'tablet'
-										? 130
-										: 220,
 								maxHeight:
 									mediaQuery === 'desktop'
-										? 100
+										? 60
 										: mediaQuery === 'laptop'
-										? 80
+										? 85
 										: mediaQuery === 'mobile'
-										? 130
+										? 70
 										: mediaQuery === 'tablet'
-										? 130
-										: 220,
+										? 80
+										: 190,
 								textOverflow: 'ellipsis',
 								overflow: 'hidden',
+								display: '-webkit-box',
+								WebkitLineClamp: 3,
+								WebkitBoxOrient: 'vertical',
 							}}>
 							{product?.attributes?.name}
+						</Grid>
+						<Grid item xs={12} sx={{ color: '#877639' }}>
+							{product.attributes.product_brand?.data.attributes.name}
 						</Grid>
 						<Grid item xs={12}>
 							<Grid
