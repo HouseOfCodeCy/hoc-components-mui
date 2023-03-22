@@ -7,9 +7,16 @@ interface Props {
 	description?: string;
 	icon?: JSX.Element;
 	iconDescription?: JSX.Element;
+	mediaQuery?: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
-const SelectButton = ({ value, description, icon, iconDescription }: Props) => {
+const SelectButton = ({
+	value,
+	description,
+	icon,
+	iconDescription,
+	mediaQuery = 'mobile',
+}: Props) => {
 	return (
 		<>
 			<IconButton sx={{ color: grey[900] }}>
@@ -40,6 +47,10 @@ const SelectButton = ({ value, description, icon, iconDescription }: Props) => {
 										whiteSpace: 'nowrap',
 										overflow: 'hidden',
 										textOverflow: 'ellipsis',
+										fontSize:
+											mediaQuery === 'desktop' || mediaQuery === 'bigScreen'
+												? '18px'
+												: '14px',
 									}}>
 									{description}
 								</Grid>

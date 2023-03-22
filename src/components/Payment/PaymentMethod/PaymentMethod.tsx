@@ -67,6 +67,7 @@ const PaymentMethod = ({ setPaymentMethod, mediaQuery }: Props) => {
 				value={paymentMethod?.attributes.displayValue}
 				description={paymentMethod?.attributes.description}
 				icon={renderIcon(paymentMethod)}
+				mediaQuery={mediaQuery}
 			/>
 		);
 	};

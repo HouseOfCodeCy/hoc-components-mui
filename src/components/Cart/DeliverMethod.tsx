@@ -71,6 +71,7 @@ const DeliverMethod = ({
 			<SelectButton
 				value={shippingMethod?.attributes.displayValue}
 				icon={renderIcon(shippingMethod)}
+				mediaQuery={mediaQuery}
 			/>
 		);
 	};

@@ -100,7 +100,6 @@ const ProductItem = ({
 
 	return (
 		<Card
-			title='asdas'
 			sx={{
 				w: 1,
 				display: 'flex',

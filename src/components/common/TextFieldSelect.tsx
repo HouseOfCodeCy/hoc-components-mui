@@ -11,6 +11,7 @@ interface Props {
 	inventory?: any;
 	required?: boolean;
 	otherSelectedOption?: any;
+	mediaQuery: 'desktop' | 'mobile' | 'bigScreen' | 'tablet' | 'laptop' | null;
 }
 
 const TextFieldSelect = ({
@@ -23,6 +24,7 @@ const TextFieldSelect = ({
 	inventory,
 	required = true,
 	otherSelectedOption,
+	mediaQuery = 'mobile',
 }: Props) => {
 	const calculatePrice = (option: any) => (
 		<strong>

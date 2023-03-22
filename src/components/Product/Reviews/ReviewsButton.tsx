@@ -4,7 +4,7 @@ import {
 	IUserFlat,
 	ReviewUtils,
 } from '@houseofcodecy/hoc-utils';
-import { Add, ArrowForwardIos, Star } from '@mui/icons-material';
+import { Add, ArrowForwardIos, Login, Star } from '@mui/icons-material';
 import { Button, Grid } from '@mui/material';
 import { yellow } from '@mui/material/colors';
 import React, { SetStateAction, useState } from 'react';
@@ -37,18 +37,25 @@ const ReviewsButton = ({
 
 	const RenderAddReviewButton = () => {
 		if (
+			reviews === undefined ||
 			reviews?.filter((review) => review.attributes.user?.data.id === user?.id)
 				?.length === 0
 		) {
 			return (
 				<Button
 					variant='contained'
-					endIcon={<Add />}
-					onClick={() => setShowAddReviewDialog(true)}
+					endIcon={user ? <Add /> : <Login />}
+					onClick={() => {
+						if (user) {
+							setShowAddReviewDialog(true);
+						} else {
+							nextRouter.push('/login');
+						}
+					}}
 					sx={{
 						width: 1,
 					}}>
-					Add your review
+					{user ? 'Add your review' : 'Login to review'}
 				</Button>
 			);
 		} else {
