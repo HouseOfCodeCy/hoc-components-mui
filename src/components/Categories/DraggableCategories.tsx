@@ -35,6 +35,7 @@ const DraggableCategories = ({
 			{categoriesLevel3?.map((categoryLevel3) => {
 				return (
 					<Grid
+						key={categoryLevel3.id}
 						item
 						xs={6}
 						sx={{
