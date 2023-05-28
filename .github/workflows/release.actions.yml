@@ -31,7 +31,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Automated Version Bump...
-        uses: cmario92/gh-action-bump-version@master
+        uses: phips28/gh-action-bump-version@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
