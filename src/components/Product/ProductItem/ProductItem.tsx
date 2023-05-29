@@ -107,7 +107,7 @@ const ProductItem = ({
 				alignItems: 'center',
 				minHeight:
 					mediaQuery === 'desktop'
-						? 220
+						? 320
 						: mediaQuery === 'laptop'
 						? 180
 						: mediaQuery === 'mobile'
@@ -125,7 +125,7 @@ const ProductItem = ({
 						textAlign: 'center',
 						minHeight:
 							mediaQuery === 'desktop'
-								? 180
+								? 280
 								: mediaQuery === 'laptop'
 								? 140
 								: mediaQuery === 'mobile'
@@ -135,7 +135,7 @@ const ProductItem = ({
 								: 300,
 						maxHeight:
 							mediaQuery === 'desktop'
-								? 180
+								? 280
 								: mediaQuery === 'laptop'
 								? 140
 								: mediaQuery === 'mobile'
@@ -145,7 +145,7 @@ const ProductItem = ({
 								: 300,
 						maxWidth:
 							mediaQuery === 'desktop'
-								? 180
+								? 280
 								: mediaQuery === 'laptop'
 								? 100
 								: mediaQuery === 'mobile'
@@ -155,7 +155,7 @@ const ProductItem = ({
 								: 300,
 						minWidth:
 							mediaQuery === 'desktop'
-								? 180
+								? 280
 								: mediaQuery === 'laptop'
 								? 100
 								: mediaQuery === 'mobile'
@@ -184,7 +184,7 @@ const ProductItem = ({
 						sx={{
 							minHeight:
 								mediaQuery === 'desktop'
-									? 100
+									? 200
 									: mediaQuery === 'laptop'
 									? 140
 									: mediaQuery === 'mobile'
@@ -194,7 +194,7 @@ const ProductItem = ({
 									: 220,
 							maxHeight:
 								mediaQuery === 'desktop'
-									? 100
+									? 200
 									: mediaQuery === 'laptop'
 									? 120
 									: mediaQuery === 'mobile'
@@ -222,7 +222,7 @@ const ProductItem = ({
 								textAlign: 'left',
 								maxHeight:
 									mediaQuery === 'desktop'
-										? 60
+										? 160
 										: mediaQuery === 'laptop'
 										? 85
 										: mediaQuery === 'mobile'

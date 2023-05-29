@@ -153,7 +153,7 @@ const ReviewsButton = ({
 				</FullScreenDialog>
 			</Grid>
 
-			<Grid item xs={12}>
+			<Grid item sx={{ bottom: 0 }} xs={12}>
 				<AddReview
 					showEditReviewDialog={showAddReviewDialog}
 					setShowDialog={setShowAddReviewDialog}
