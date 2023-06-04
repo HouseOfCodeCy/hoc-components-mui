@@ -72,7 +72,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.3.0",
     "@fortawesome/free-solid-svg-icons": "^6.3.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@houseofcodecy/hoc-utils": "^2.86.0",
+    "@houseofcodecy/hoc-utils": "^2.87.0",
     "@mui/lab": "^5.0.0-alpha.119",
     "react-hook-form": "^7.43.1",
     "react-loader-spinner": "^5.3.4",
