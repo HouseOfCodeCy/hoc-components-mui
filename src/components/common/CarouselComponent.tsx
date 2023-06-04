@@ -1,20 +1,25 @@
-import { Grid, Paper } from '@mui/material';
+import { Button, Grid, Paper } from '@mui/material';
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
 
 interface Props {
-	media: string[];
+	media?: [{ image: string; url: string; alt: string }];
+	mediaUrl?: string[];
 	width?: string;
 	flexColumnSize?: number;
 	autoPlay?: boolean;
+	nextRouter?: any;
 }
 
 const CarouselComponent = ({
 	media,
+	mediaUrl,
 	width,
 	flexColumnSize = 11,
 	autoPlay = false,
+	nextRouter,
 }: Props) => {
+	console.log(mediaUrl?.length);
 	return (
 		<Grid container display={'flex'} justifyContent={'center'}>
 			<Grid item xs={12} lg={flexColumnSize}>
@@ -43,20 +48,43 @@ const CarouselComponent = ({
 					}}
 					sx={{
 						textAlign: 'center',
-						minHeight: 400,
-						maxHeight: 400,
+						minHeight: 500,
+						maxHeight: 500,
 					}}>
-					{media.map((image, i) => (
-						<Paper key={i}>
-							<img
-								src={`${image}`}
-								alt={image}
-								height={360}
-								style={{ objectFit: 'cover' }}
-								width={width ? width : undefined}
-							/>
-						</Paper>
-					))}
+					{media?.length &&
+						media?.map(
+							(image: { image: string; url: string; alt: string }, i) => (
+								<Paper key={i}>
+									<img
+										src={`${image?.image ? image.image : ''}`}
+										alt={image?.alt ? image.alt : ''}
+										height={460}
+										style={{ objectFit: 'cover' }}
+										width={width ? width : undefined}
+									/>
+
+									{image?.url && (
+										<Button
+											className='CheckButton'
+											onClick={() => nextRouter.push(image.url)}>
+											Check it out!
+										</Button>
+									)}
+								</Paper>
+							)
+						)}
+					{mediaUrl?.length &&
+						mediaUrl?.map((image: string, i) => (
+							<Paper key={i}>
+								<img
+									src={`${image}`}
+									alt={image}
+									height={460}
+									style={{ objectFit: 'cover' }}
+									width={width ? width : undefined}
+								/>
+							</Paper>
+						))}
 				</Carousel>
 			</Grid>
 		</Grid>

@@ -28,12 +28,14 @@ const ShoppingCartItem = ({
 				<CardMedia
 					component='img'
 					sx={{
-						width: mediaQuery === 'mobile' ? 120 : 60,
+						width:
+							mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 120 : 90,
 						objectFit: 'cover',
 						cursor: 'pointer',
+						padding: mediaQuery === 'mobile' || mediaQuery === 'tablet' ? 0 : 1,
 					}}
 					image={CartItemUtils.getCartItemMedia(cartItem)[0]}
-					alt='Live from space album cover'
+					alt={CartItemUtils.getCartItemProduct(cartItem)?.attributes.name}
 					onClick={() =>
 						nextRouter.push(`/product/${cartItem.attributes.product?.data?.id}`)
 					}

@@ -50,48 +50,50 @@ import TextFieldSelect from './components/common/TextFieldSelect';
 /********************** PROVIDERS ***********************/
 import { SnackBarProvider, useSnackBar } from './providers/SnackBarProvider';
 
-export { DraggableCategories };
-export { AccordionComponent };
-export { ResponseMeta };
-export { HNavigationDesktop };
-export { AddReview };
-export { EditReview };
-export { ReviewsButton };
-export { ReviewsHeader };
-export { EditAddressDialog };
-export { OrderStepper };
-export { PayButtonCash };
-export { AddAddressButton };
-export { HeadMeta };
-export { Loading };
-export { FavoriteProductItem };
-export { HButton };
-export { ReviewsItem };
-export { ProductItem };
-export { AddressSelection };
-export { AddressList };
-export { PaymentMethod };
-export { FullScreenDialog };
-export { OrderItem };
-export { CardRow };
-export { ReviewComponent };
-export { ReviewRating };
-export { CartDetails };
-export { CartTotal };
-export { QuantityComponent };
-export { ReviewsAccordion };
-export { ShoppingCartItems };
-export { ShoppingCartItem };
-export { HChip };
-export { HNavigation };
-export { ShoppingCartFooter };
-export { SelectButton };
-export { TextFieldSelect };
-export { SimpleDialog };
-export { CarouselComponent };
-export { AddToCartButton };
-export { DeliverMethod };
-export { DeliverMethodOptions };
-export { OrderShippingMethod };
-export { SnackBarProvider };
-export { useSnackBar };
+export {
+	AccordionComponent,
+	AddAddressButton,
+	AddReview,
+	AddToCartButton,
+	AddressList,
+	AddressSelection,
+	CardRow,
+	CarouselComponent,
+	CartDetails,
+	CartTotal,
+	DeliverMethod,
+	DeliverMethodOptions,
+	DraggableCategories,
+	EditAddressDialog,
+	EditReview,
+	FavoriteProductItem,
+	FullScreenDialog,
+	HButton,
+	HChip,
+	HNavigation,
+	HNavigationDesktop,
+	HeadMeta,
+	Loading,
+	OrderItem,
+	OrderShippingMethod,
+	OrderStepper,
+	PayButtonCash,
+	PaymentMethod,
+	ProductItem,
+	QuantityComponent,
+	ResponseMeta,
+	ReviewComponent,
+	ReviewRating,
+	ReviewsAccordion,
+	ReviewsButton,
+	ReviewsHeader,
+	ReviewsItem,
+	SelectButton,
+	ShoppingCartFooter,
+	ShoppingCartItem,
+	ShoppingCartItems,
+	SimpleDialog,
+	SnackBarProvider,
+	TextFieldSelect,
+	useSnackBar,
+};
