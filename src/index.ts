@@ -19,6 +19,9 @@ import ShoppingCartFooter from './components/Cart/ShoppingCartFooter';
 import ShoppingCartItem from './components/Cart/ShoppingCartItem';
 import ShoppingCartItems from './components/Cart/ShoppingCartItems';
 import DraggableCategories from './components/Categories/DraggableCategories';
+import FooterComponent from './components/Layout/FooterComponent';
+import HeaderComponent from './components/Layout/Header';
+import HeaderComponentNew from './components/Layout/HeaderComponent';
 import OrderShippingMethod from './components/Order/OrderShippingMethod';
 import OrderStepper from './components/Order/OrderStepper';
 import PayButtonCash from './components/Payment/PayButtonCash';
@@ -37,14 +40,15 @@ import ReviewsItem from './components/Product/Reviews/ReviewsItem';
 import AddToCartButton from './components/Product/common/AddToCartButton';
 import AccordionComponent from './components/common/AccordionComponent';
 import CardRow from './components/common/CardRow';
-import CarouselComponent from './components/common/CarouselComponent';
 import FullScreenDialog from './components/common/Dialog/FullScreenDialog';
 import SimpleDialog from './components/common/Dialog/SimpleDialog';
 import HChip from './components/common/HChip';
 import HNavigation from './components/common/HNavigation';
 import HNavigationDesktop from './components/common/HNavigationDesktop';
 import HeadMeta from './components/common/HeadMeta';
+import HomeCarouselComponent from './components/common/HomeCarousel';
 import Loading from './components/common/Loading';
+import ProductCarouselComponent from './components/common/ProductCarouselComponent';
 import ResponseMeta from './components/common/ResponseMeta';
 import TextFieldSelect from './components/common/TextFieldSelect';
 /********************** PROVIDERS ***********************/
@@ -58,7 +62,6 @@ export {
 	AddressList,
 	AddressSelection,
 	CardRow,
-	CarouselComponent,
 	CartDetails,
 	CartTotal,
 	DeliverMethod,
@@ -67,18 +70,23 @@ export {
 	EditAddressDialog,
 	EditReview,
 	FavoriteProductItem,
+	FooterComponent,
 	FullScreenDialog,
 	HButton,
 	HChip,
 	HNavigation,
 	HNavigationDesktop,
 	HeadMeta,
+	HeaderComponent,
+	HeaderComponentNew,
+	HomeCarouselComponent,
 	Loading,
 	OrderItem,
 	OrderShippingMethod,
 	OrderStepper,
 	PayButtonCash,
 	PaymentMethod,
+	ProductCarouselComponent,
 	ProductItem,
 	QuantityComponent,
 	ResponseMeta,

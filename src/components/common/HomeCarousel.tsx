@@ -4,22 +4,19 @@ import Carousel from 'react-material-ui-carousel';
 
 interface Props {
 	media?: [{ image: string; url: string; alt: string }];
-	mediaUrl?: string[];
 	width?: string;
 	flexColumnSize?: number;
 	autoPlay?: boolean;
 	nextRouter?: any;
 }
 
-const CarouselComponent = ({
+const HomeCarouselComponent = ({
 	media,
-	mediaUrl,
 	width,
 	flexColumnSize = 11,
 	autoPlay = false,
 	nextRouter,
 }: Props) => {
-	console.log(mediaUrl?.length);
 	return (
 		<Grid container display={'flex'} justifyContent={'center'}>
 			<Grid item xs={12} lg={flexColumnSize}>
@@ -73,22 +70,10 @@ const CarouselComponent = ({
 								</Paper>
 							)
 						)}
-					{mediaUrl?.length &&
-						mediaUrl?.map((image: string, i) => (
-							<Paper key={i}>
-								<img
-									src={`${image}`}
-									alt={image}
-									height={460}
-									style={{ objectFit: 'cover' }}
-									width={width ? width : undefined}
-								/>
-							</Paper>
-						))}
 				</Carousel>
 			</Grid>
 		</Grid>
 	);
 };
 
-export default CarouselComponent;
+export default HomeCarouselComponent;
