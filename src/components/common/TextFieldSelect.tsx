@@ -42,17 +42,25 @@ const TextFieldSelect = ({
 			if (inventoryStock) {
 				// if I have something selected already
 				if (title === 'Product Colors' && otherSelectedOption) {
-					const otherOptionStock = inventoryStock.sizeInventory.find(
+					const otherOptionStock = inventoryStock.sizeInventory.filter(
 						(inventory: any) => inventory.id === otherSelectedOption?.id
-					).quantity;
-					return ` - Stock: ${otherOptionStock}`;
+					);
+					let quantity = 0;
+					otherOptionStock?.map((inventory: any) => {
+						quantity += inventory.quantity;
+					});
+					return ` - Stock: ${quantity}`;
 				}
 				// if I have something selected already
 				else if (title === 'Product Sizes' && otherSelectedOption) {
-					const otherOptionStock = inventoryStock.colorInventory.find(
+					const otherOptionStock = inventoryStock.colorInventory.filter(
 						(inventory: any) => inventory.id === otherSelectedOption?.id
-					).quantity;
-					return ` - Stock: ${otherOptionStock}`;
+					);
+					let quantity = 0;
+					otherOptionStock?.map((inventory: any) => {
+						quantity += inventory.quantity;
+					});
+					return ` - Stock: ${quantity}`;
 				}
 				return ` - Stock: ${inventoryStock.total}`;
 			} else {
