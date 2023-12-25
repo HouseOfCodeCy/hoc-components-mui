@@ -11,15 +11,15 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
-    "build": "yarn build:esm && yarn build:cjs",
-    "build-watch": "yarn build:esm --watch && yarn build:cjs --watch",
+    "build": "npm run build:esm && npm run build:cjs",
+    "build-watch": "npm run build:esm --watch && npm run build:cjs --watch",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-    "link-dev": "yarn build && yarn link && cp package.json ./dist && yarn run build-watch",
-    "lint": "yarn lint:eslint && yarn lint:prettier",
+    "link-dev": "npm run build && npm run link && cp package.json ./dist && npm run run build-watch",
+    "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint \"{**/*,*}.{js,ts,jsx,tsx}\"",
     "lint:prettier": "prettier --write \"{src,tests,example/src}/**/*.{js,ts,jsx,tsx}\"",
-    "dev:link-utils": "cd ../hoc-utils/ && yarn run link-dev && yarn link @houseofcodecy/hoc-utils",
+    "dev:link-utils": "cd ../hoc-utils/ && npm run run link-dev && npm run link @houseofcodecy/hoc-utils",
     "prepare": "npm run build",
     "prepublishOnly": "npm run lint"
   },
@@ -77,8 +77,6 @@
     "@mui/lab": "^5.0.0-alpha.119",
     "react-hook-form": "^7.43.1",
     "react-loader-spinner": "^5.3.4",
-    "react-material-ui-carousel": "^3.4.2",
-    "react-swipeable-views": "^0.14.0",
-    "react-swipeable-views-utils": "^0.14.0"
+    "react-material-ui-carousel": "^3.4.2"
   }
 }
