@@ -26,13 +26,13 @@ jobs:
         with:
           node-version: 16.16.0
       - name: Installing dependencies...
-        run: yarn
+        run: npm run
       - name: Run Linting...
-        run: yarn prepublishOnly
+        run: npm run prepublishOnly
       # - name: Running tests...
       #   run: npm test
       - name: Build
-        run: yarn build
+        run: npm run build
       - name: Automated Version Bump...
         uses: phips28/gh-action-bump-version@master
         env:
