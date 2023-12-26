@@ -12,7 +12,7 @@
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public",
     "build": "npm run build:esm && npm run build:cjs",
-    "build-watch": "npm run build:esm --watch && npm run build:cjs --watch",
+    "watch": "onchange 'src/**/*.ts*' -- npm run build",
     "build:esm": "tsc",
     "build:cjs": "tsc --module commonjs --outDir dist/cjs",
     "link-dev": "npm run build && npm run link && cp package.json ./dist && npm run run build-watch",
@@ -54,6 +54,7 @@
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
     "lodash": "^4.17.21",
+    "onchange": "^7.1.0",
     "prettier": "^2.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

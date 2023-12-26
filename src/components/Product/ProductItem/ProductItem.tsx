@@ -188,9 +188,9 @@ const ProductItem = ({
 									: mediaQuery === 'laptop'
 									? 140
 									: mediaQuery === 'mobile'
-									? 130
+									? 150
 									: mediaQuery === 'tablet'
-									? 130
+									? 150
 									: 220,
 							maxHeight:
 								mediaQuery === 'desktop'
@@ -198,9 +198,9 @@ const ProductItem = ({
 									: mediaQuery === 'laptop'
 									? 120
 									: mediaQuery === 'mobile'
-									? 130
+									? 150
 									: mediaQuery === 'tablet'
-									? 130
+									? 150
 									: 220,
 							textOverflow: 'ellipsis',
 							overflow: 'hidden',
@@ -245,6 +245,7 @@ const ProductItem = ({
 							<Grid
 								container
 								display={'flex'}
+								wrap='nowrap'
 								justifyContent={'space-between'}
 								alignItems={'center'}>
 								<Grid
@@ -284,6 +285,7 @@ const ProductItem = ({
 										<FavoriteBorderIcon sx={{ color: grey[700] }} />
 									)}
 								</IconButton>
+
 								{productStock && showStockOnCategories && (
 									<ProductAvailabilityChip
 										label={ProductInventoryUtils.renderAvailabilityLabel(
